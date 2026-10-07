@@ -1,0 +1,1286 @@
+
+going to read data from instrument FOCUS, cycle 0     
+
+going to read vanadium run(s):
+           5  run(s) to be read:
+ 1145 1146 1147 1148 1149
+ read numor         1145  - Monitor =    10000.000000000000     
+ read numor         1146  - Monitor =    10000.000000000000     
+ read numor         1147  - Monitor =    10000.000000000000     
+ read numor         1148  - Monitor =    100000.00000000000     
+ read numor         1149  - Monitor =    100000.00000000000     
+2 spectra summed:   13  15 18.4    
+2 spectra summed:   16  18 19.2    
+2 spectra summed:   19  21 20.0    
+2 spectra summed:   22  24 20.8    
+2 spectra summed:   25  27 21.6    
+2 spectra summed:   29  31 23.4    
+2 spectra summed:   32  34 24.2    
+2 spectra summed:   35  37 25.0    
+2 spectra summed:   38  40 25.8    
+2 spectra summed:   41  43 26.6    
+2 spectra summed:   45  47 28.4    
+2 spectra summed:   48  50 29.2    
+2 spectra summed:   51  53 30.0    
+2 spectra summed:   54  56 30.8    
+3 spectra summed:   57  60 31.6    
+2 spectra summed:   62  64 33.3    
+2 spectra summed:   65  67 34.2    
+2 spectra summed:   68  70 35.0    
+2 spectra summed:   71  73 35.8    
+2 spectra summed:   74  76 36.7    
+2 spectra summed:   78  80 38.3    
+2 spectra summed:   81  83 39.2    
+2 spectra summed:   84  86 40.0    
+2 spectra summed:   87  89 40.8    
+2 spectra summed:   90  92 41.7    
+2 spectra summed:   94  96 42.8    
+2 spectra summed:   97  99 43.7    
+2 spectra summed:  100 102 44.5    
+2 spectra summed:  103 105 45.3    
+2 spectra summed:  106 108 46.2    
+3 spectra summed:  109 112 47.3    
+3 spectra summed:  112 115 48.2    
+2 spectra summed:  116 118 49.0    
+2 spectra summed:  119 121 49.8    
+2 spectra summed:  122 124 50.7    
+2 spectra summed:  125 127 51.8    
+2 spectra summed:  128 130 52.7    
+2 spectra summed:  131 133 53.5    
+2 spectra summed:  134 136 54.3    
+2 spectra summed:  137 139 55.2    
+2 spectra summed:  141 143 56.3    
+2 spectra summed:  144 146 57.2    
+2 spectra summed:  147 149 58.0    
+2 spectra summed:  150 152 58.8    
+2 spectra summed:  153 155 59.7    
+2 spectra summed:  157 159 60.8    
+2 spectra summed:  160 162 61.7    
+2 spectra summed:  163 165 62.5    
+2 spectra summed:  166 168 63.3    
+2 spectra summed:  169 171 64.2    
+2 spectra summed:  176 178 67.0    
+2 spectra summed:  178 180 67.8    
+2 spectra summed:  182 184 71.2    
+2 spectra summed:  184 186 72.0    
+2 spectra summed:  186 188 72.8    
+2 spectra summed:  188 190 73.6    
+2 spectra summed:  202 204 79.3    
+2 spectra summed:  205 207 80.2    
+2 spectra summed:  208 210 81.0    
+2 spectra summed:  211 213 81.8    
+2 spectra summed:  214 216 82.7    
+3 spectra summed:  217 220 83.8    
+3 spectra summed:  220 223 84.6    
+2 spectra summed:  224 226 85.5    
+2 spectra summed:  227 229 86.3    
+2 spectra summed:  230 232 87.2    
+2 spectra summed:  233 235 88.3    
+2 spectra summed:  236 238 89.2    
+2 spectra summed:  239 241 90.0    
+3 spectra summed:  242 245 90.8    
+3 spectra summed:  245 248 91.7    
+2 spectra summed:  249 251 92.8    
+2 spectra summed:  252 254 93.7    
+2 spectra summed:  255 257 94.5    
+2 spectra summed:  258 260 95.3    
+2 spectra summed:  261 263 96.2    
+2 spectra summed:  265 267 97.3    
+2 spectra summed:  268 270 98.2    
+2 spectra summed:  271 273 99.0    
+2 spectra summed:  274 276 99.8    
+2 spectra summed:  277 279 101.    
+3 spectra summed:  280 283 102.    
+3 spectra summed:  283 286 103.    
+3 spectra summed:  286 289 103.    
+3 spectra summed:  289 292 104.    
+2 spectra summed:  293 295 105.    
+2 spectra summed:  296 298 106.    
+2 spectra summed:  299 301 107.    
+2 spectra summed:  302 304 108.    
+2 spectra summed:  305 307 109.    
+3 spectra summed:  308 311 110.    
+2 spectra summed:  312 314 111.    
+2 spectra summed:  315 317 112.    
+2 spectra summed:  318 320 112.    
+2 spectra summed:  321 323 113.    
+2 spectra summed:  324 326 114.    
+3 spectra summed:  327 330 115.    
+2 spectra summed:  331 333 116.    
+2 spectra summed:  334 336 117.    
+2 spectra summed:  337 339 118.    
+2 spectra summed:  340 342 119.    
+2 spectra summed:  343 345 120.    
+3 spectra summed:  346 349 121.    
+3 spectra summed:  349 352 122.    
+3 spectra summed:  352 355 122.    
+3 spectra summed:  355 358 123.    
+2 spectra summed:  359 361 124.    
+2 spectra summed:  362 364 125.    
+2 spectra summed:  365 367 126.    
+2 spectra summed:  368 370 127.    
+2 spectra summed:  371 373 128.    
+  first pass
+  second pass
+
+analyse vanadium data :
+Van : <u_x^2> =  6.836*10-3 A^2
+ going to read sample run(s):
+          15  run(s) to be read:
+ 1151 1152 1153 1154 1155 1156 1157 1158 1159 1160 1161 1162 1163 1164 1165
+ read numor         1151  - Monitor =    10000.000000000000     
+ read numor         1152  - Monitor =    10000.000000000000     
+ read numor         1153  - Monitor =    10000.000000000000     
+ read numor         1154  - Monitor =    10000.000000000000     
+ read numor         1155  - Monitor =    10000.000000000000     
+ read numor         1156  - Monitor =    10000.000000000000     
+ read numor         1157  - Monitor =    100000.00000000000     
+ read numor         1158  - Monitor =    100000.00000000000     
+ read numor         1159  - Monitor =    100000.00000000000     
+ read numor         1160  - Monitor =    100000.00000000000     
+ read numor         1161  - Monitor =    100000.00000000000     
+ read numor         1162  - Monitor =    100000.00000000000     
+ read numor         1163  - Monitor =    100000.00000000000     
+ read numor         1164  - Monitor =    100000.00000000000     
+ read numor         1165  - Monitor =    100000.00000000000     
+2 spectra summed:   13  15 18.4    
+2 spectra summed:   16  18 19.2    
+2 spectra summed:   19  21 20.0    
+2 spectra summed:   22  24 20.8    
+2 spectra summed:   25  27 21.6    
+2 spectra summed:   29  31 23.4    
+2 spectra summed:   32  34 24.2    
+2 spectra summed:   35  37 25.0    
+2 spectra summed:   38  40 25.8    
+2 spectra summed:   41  43 26.6    
+2 spectra summed:   45  47 28.4    
+2 spectra summed:   48  50 29.2    
+2 spectra summed:   51  53 30.0    
+2 spectra summed:   54  56 30.8    
+3 spectra summed:   57  60 31.6    
+2 spectra summed:   62  64 33.3    
+2 spectra summed:   65  67 34.2    
+2 spectra summed:   68  70 35.0    
+2 spectra summed:   71  73 35.8    
+2 spectra summed:   74  76 36.7    
+2 spectra summed:   78  80 38.3    
+2 spectra summed:   81  83 39.2    
+2 spectra summed:   84  86 40.0    
+2 spectra summed:   87  89 40.8    
+2 spectra summed:   90  92 41.7    
+2 spectra summed:   94  96 42.8    
+2 spectra summed:   97  99 43.7    
+2 spectra summed:  100 102 44.5    
+2 spectra summed:  103 105 45.3    
+2 spectra summed:  106 108 46.2    
+3 spectra summed:  109 112 47.3    
+3 spectra summed:  112 115 48.2    
+2 spectra summed:  116 118 49.0    
+2 spectra summed:  119 121 49.8    
+2 spectra summed:  122 124 50.7    
+2 spectra summed:  125 127 51.8    
+2 spectra summed:  128 130 52.7    
+2 spectra summed:  131 133 53.5    
+2 spectra summed:  134 136 54.3    
+2 spectra summed:  137 139 55.2    
+2 spectra summed:  141 143 56.3    
+2 spectra summed:  144 146 57.2    
+2 spectra summed:  147 149 58.0    
+2 spectra summed:  150 152 58.8    
+2 spectra summed:  153 155 59.7    
+2 spectra summed:  157 159 60.8    
+2 spectra summed:  160 162 61.7    
+2 spectra summed:  163 165 62.5    
+2 spectra summed:  166 168 63.3    
+2 spectra summed:  169 171 64.2    
+2 spectra summed:  176 178 67.0    
+2 spectra summed:  178 180 67.8    
+2 spectra summed:  182 184 71.2    
+2 spectra summed:  184 186 72.0    
+2 spectra summed:  186 188 72.8    
+2 spectra summed:  188 190 73.6    
+2 spectra summed:  202 204 79.3    
+2 spectra summed:  205 207 80.2    
+2 spectra summed:  208 210 81.0    
+2 spectra summed:  211 213 81.8    
+2 spectra summed:  214 216 82.7    
+3 spectra summed:  217 220 83.8    
+3 spectra summed:  220 223 84.6    
+2 spectra summed:  224 226 85.5    
+2 spectra summed:  227 229 86.3    
+2 spectra summed:  230 232 87.2    
+2 spectra summed:  233 235 88.3    
+2 spectra summed:  236 238 89.2    
+2 spectra summed:  239 241 90.0    
+3 spectra summed:  242 245 90.8    
+3 spectra summed:  245 248 91.7    
+2 spectra summed:  249 251 92.8    
+2 spectra summed:  252 254 93.7    
+2 spectra summed:  255 257 94.5    
+2 spectra summed:  258 260 95.3    
+2 spectra summed:  261 263 96.2    
+2 spectra summed:  265 267 97.3    
+2 spectra summed:  268 270 98.2    
+2 spectra summed:  271 273 99.0    
+2 spectra summed:  274 276 99.8    
+2 spectra summed:  277 279 101.    
+3 spectra summed:  280 283 102.    
+3 spectra summed:  283 286 103.    
+3 spectra summed:  286 289 103.    
+3 spectra summed:  289 292 104.    
+2 spectra summed:  293 295 105.    
+2 spectra summed:  296 298 106.    
+2 spectra summed:  299 301 107.    
+2 spectra summed:  302 304 108.    
+2 spectra summed:  305 307 109.    
+3 spectra summed:  308 311 110.    
+2 spectra summed:  312 314 111.    
+2 spectra summed:  315 317 112.    
+2 spectra summed:  318 320 112.    
+2 spectra summed:  321 323 113.    
+2 spectra summed:  324 326 114.    
+3 spectra summed:  327 330 115.    
+2 spectra summed:  331 333 116.    
+2 spectra summed:  334 336 117.    
+2 spectra summed:  337 339 118.    
+2 spectra summed:  340 342 119.    
+2 spectra summed:  343 345 120.    
+3 spectra summed:  346 349 121.    
+3 spectra summed:  349 352 122.    
+3 spectra summed:  352 355 122.    
+3 spectra summed:  355 358 123.    
+2 spectra summed:  359 361 124.    
+2 spectra summed:  362 364 125.    
+2 spectra summed:  365 367 126.    
+2 spectra summed:  368 370 127.    
+2 spectra summed:  371 373 128.    
+
+TOF parameters (sample) :
+             wavelength (A)   4.4000    
+               energy (meV)   4.2254    
+       channel width (usec)   5.0000    
+               period (chs)   6000.0    
+
+analyse sample data :
+  first pass
+  second pass
+  > peak too small in spectrum   1: .469E-04vs mean .113E-02                    
+  > peak too small in spectrum   2: .531E-04vs mean .113E-02                    
+  > peak too small in spectrum   3: .781E-04vs mean .113E-02                    
+  > peak too small in spectrum   4: .958E-04vs mean .113E-02                    
+  > excentric peak in spectrum   5: 108.    vs mean 471.                        
+  > excentric peak in spectrum   6: 121.    vs mean 471.                        
+  > excentric peak in spectrum   7: 104.    vs mean 471.                        
+  > excentric peak in spectrum   8: 117.    vs mean 471.                        
+  > excentric peak in spectrum   9: 114.    vs mean 471.                        
+  > excentric peak in spectrum  10: 111.    vs mean 471.                        
+  > excentric peak in spectrum  11: 117.    vs mean 471.                        
+  > excentric peak in spectrum  12: 117.    vs mean 471.                        
+  > peak too small in spectrum  13: .974E-04vs mean .113E-02                    
+  > excentric peak in spectrum  15: 117.    vs mean 471.                        
+  > excentric peak in spectrum  16: 532.    vs mean 471.                        
+  > excentric peak in spectrum  18: 532.    vs mean 471.                        
+  > excentric peak in spectrum  19: 532.    vs mean 471.                        
+  > excentric peak in spectrum  21: 531.    vs mean 471.                        
+  > excentric peak in spectrum  22: 531.    vs mean 471.                        
+  > excentric peak in spectrum  24: 532.    vs mean 471.                        
+  > excentric peak in spectrum  25: 531.    vs mean 471.                        
+  > excentric peak in spectrum  27: 531.    vs mean 471.                        
+  > excentric peak in spectrum  28: 532.    vs mean 471.                        
+  > excentric peak in spectrum  29: 531.    vs mean 471.                        
+  > excentric peak in spectrum  31: 532.    vs mean 471.                        
+  > excentric peak in spectrum  32: 530.    vs mean 471.                        
+  > excentric peak in spectrum  34: 130.    vs mean 471.                        
+  > excentric peak in spectrum  35: 529.    vs mean 471.                        
+  > excentric peak in spectrum  37: 114.    vs mean 471.                        
+  > excentric peak in spectrum  38: 116.    vs mean 471.                        
+  > excentric peak in spectrum  40: 110.    vs mean 471.                        
+  > excentric peak in spectrum  41: 112.    vs mean 471.                        
+  > excentric peak in spectrum  43: 112.    vs mean 471.                        
+  > excentric peak in spectrum  44: 119.    vs mean 471.                        
+  > peak too small in spectrum  45: .111E-03vs mean .113E-02                    
+  > excentric peak in spectrum  47: 119.    vs mean 471.                        
+  > excentric peak in spectrum  48: 114.    vs mean 471.                        
+  > excentric peak in spectrum  50: 126.    vs mean 471.                        
+  > excentric peak in spectrum  51: 112.    vs mean 471.                        
+  > excentric peak in spectrum  54: 112.    vs mean 471.                        
+  > excentric peak in spectrum  56: 109.    vs mean 471.                        
+  > excentric peak in spectrum  57: 118.    vs mean 471.                        
+  > excentric peak in spectrum  60: 119.    vs mean 471.                        
+  > excentric peak in spectrum  61: 119.    vs mean 471.                        
+  > peak too small in spectrum  62: .693E-04vs mean .113E-02                    
+  > excentric peak in spectrum  64: 123.    vs mean 471.                        
+  > excentric peak in spectrum  65: 108.    vs mean 471.                        
+  > excentric peak in spectrum  67: 114.    vs mean 471.                        
+  > excentric peak in spectrum  68: 111.    vs mean 471.                        
+  > excentric peak in spectrum  70: 122.    vs mean 471.                        
+  > excentric peak in spectrum  71: 109.    vs mean 471.                        
+  > excentric peak in spectrum  73: 113.    vs mean 471.                        
+  > excentric peak in spectrum  74: 113.    vs mean 471.                        
+  > excentric peak in spectrum  76: 118.    vs mean 471.                        
+  > excentric peak in spectrum  77: 116.    vs mean 471.                        
+  > excentric peak in spectrum  78: 110.    vs mean 471.                        
+  > excentric peak in spectrum  80: 118.    vs mean 471.                        
+  > excentric peak in spectrum  81: 121.    vs mean 471.                        
+  > excentric peak in spectrum  83: 117.    vs mean 471.                        
+  > excentric peak in spectrum  84: 116.    vs mean 471.                        
+  > excentric peak in spectrum  86: 113.    vs mean 471.                        
+  > excentric peak in spectrum  87: 100.    vs mean 471.                        
+  > excentric peak in spectrum  89: 112.    vs mean 471.                        
+  > excentric peak in spectrum  90: 118.    vs mean 471.                        
+  > excentric peak in spectrum  92: 121.    vs mean 471.                        
+  > excentric peak in spectrum  93: 116.    vs mean 471.                        
+  > excentric peak in spectrum  94: 114.    vs mean 471.                        
+  > excentric peak in spectrum  96: 115.    vs mean 471.                        
+  > excentric peak in spectrum  97: 109.    vs mean 471.                        
+  > excentric peak in spectrum  99: 108.    vs mean 471.                        
+  > excentric peak in spectrum 100: 112.    vs mean 471.                        
+  > excentric peak in spectrum 102: 531.    vs mean 471.                        
+  > excentric peak in spectrum 103: 531.    vs mean 471.                        
+  > excentric peak in spectrum 105: 530.    vs mean 471.                        
+  > excentric peak in spectrum 106: 531.    vs mean 471.                        
+  > excentric peak in spectrum 108: 532.    vs mean 471.                        
+  > excentric peak in spectrum 109: 531.    vs mean 471.                        
+  > excentric peak in spectrum 112: 113.    vs mean 471.                        
+  > excentric peak in spectrum 115: 114.    vs mean 471.                        
+  > excentric peak in spectrum 116: 123.    vs mean 471.                        
+  > excentric peak in spectrum 118: 110.    vs mean 471.                        
+  > excentric peak in spectrum 119: 107.    vs mean 471.                        
+  > excentric peak in spectrum 121: 117.    vs mean 471.                        
+  > excentric peak in spectrum 122: 102.    vs mean 471.                        
+  > excentric peak in spectrum 124: 96.0    vs mean 471.                        
+  > excentric peak in spectrum 125: 106.    vs mean 471.                        
+  > excentric peak in spectrum 127: 115.    vs mean 471.                        
+  > excentric peak in spectrum 128: 118.    vs mean 471.                        
+  > excentric peak in spectrum 130: 124.    vs mean 471.                        
+  > excentric peak in spectrum 131: 103.    vs mean 471.                        
+  > excentric peak in spectrum 133: 103.    vs mean 471.                        
+  > excentric peak in spectrum 134: 100.    vs mean 471.                        
+  > excentric peak in spectrum 136: 123.    vs mean 471.                        
+  > excentric peak in spectrum 137: 118.    vs mean 471.                        
+  > excentric peak in spectrum 139: 95.0    vs mean 471.                        
+  > excentric peak in spectrum 140: 109.    vs mean 471.                        
+  > excentric peak in spectrum 141: 123.    vs mean 471.                        
+  > excentric peak in spectrum 143: 120.    vs mean 471.                        
+  > excentric peak in spectrum 144: 109.    vs mean 471.                        
+  > excentric peak in spectrum 146: 128.    vs mean 471.                        
+  > excentric peak in spectrum 147: 122.    vs mean 471.                        
+  > excentric peak in spectrum 149: 108.    vs mean 471.                        
+  > excentric peak in spectrum 150: 123.    vs mean 471.                        
+  > excentric peak in spectrum 152: 123.    vs mean 471.                        
+  > excentric peak in spectrum 153: 110.    vs mean 471.                        
+  > excentric peak in spectrum 155: 126.    vs mean 471.                        
+  > excentric peak in spectrum 156: 104.    vs mean 471.                        
+  > excentric peak in spectrum 157: 126.    vs mean 471.                        
+  > excentric peak in spectrum 159: 124.    vs mean 471.                        
+  > excentric peak in spectrum 160: 124.    vs mean 471.                        
+  > excentric peak in spectrum 162: 130.    vs mean 471.                        
+  > excentric peak in spectrum 163: 118.    vs mean 471.                        
+  > excentric peak in spectrum 165: 124.    vs mean 471.                        
+  > excentric peak in spectrum 166: 126.    vs mean 471.                        
+  > excentric peak in spectrum 168: 127.    vs mean 471.                        
+  > excentric peak in spectrum 169: 127.    vs mean 471.                        
+  > excentric peak in spectrum 171: 124.    vs mean 471.                        
+  > excentric peak in spectrum 172: 124.    vs mean 471.                        
+  > excentric peak in spectrum 173: 124.    vs mean 471.                        
+  > excentric peak in spectrum 174: 122.    vs mean 471.                        
+  > excentric peak in spectrum 175: 125.    vs mean 471.                        
+  > excentric peak in spectrum 176: 123.    vs mean 471.                        
+  > excentric peak in spectrum 178: 125.    vs mean 471.                        
+  > excentric peak in spectrum 180: 129.    vs mean 471.                        
+  > excentric peak in spectrum 181: 124.    vs mean 471.                        
+  > excentric peak in spectrum 182: 123.    vs mean 471.                        
+  > excentric peak in spectrum 184: 128.    vs mean 471.                        
+  > excentric peak in spectrum 186: 127.    vs mean 471.                        
+  > excentric peak in spectrum 188: 122.    vs mean 471.                        
+  > excentric peak in spectrum 190: 124.    vs mean 471.                        
+  > excentric peak in spectrum 191: 125.    vs mean 471.                        
+  > excentric peak in spectrum 192: 127.    vs mean 471.                        
+  > excentric peak in spectrum 193: 127.    vs mean 471.                        
+  > excentric peak in spectrum 194: 124.    vs mean 471.                        
+  > excentric peak in spectrum 195: 531.    vs mean 471.                        
+  > excentric peak in spectrum 196: 529.    vs mean 471.                        
+  > excentric peak in spectrum 197: 530.    vs mean 471.                        
+  > elefantic peak in spectrum 198: .183E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 199: .174E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 200: .250E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 201: .121E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 202: .157E-01vs mean .113E-02                    
+  > excentric peak in spectrum 204: 531.    vs mean 471.                        
+  > excentric peak in spectrum 205: 531.    vs mean 471.                        
+  > excentric peak in spectrum 207: 126.    vs mean 471.                        
+  > excentric peak in spectrum 208: 124.    vs mean 471.                        
+  > excentric peak in spectrum 210: 128.    vs mean 471.                        
+  > excentric peak in spectrum 211: 128.    vs mean 471.                        
+  > excentric peak in spectrum 213: 126.    vs mean 471.                        
+  > excentric peak in spectrum 214: 127.    vs mean 471.                        
+  > excentric peak in spectrum 216: 126.    vs mean 471.                        
+  > excentric peak in spectrum 217: 128.    vs mean 471.                        
+  > excentric peak in spectrum 220: 128.    vs mean 471.                        
+  > excentric peak in spectrum 223: 124.    vs mean 471.                        
+  > excentric peak in spectrum 224: 129.    vs mean 471.                        
+  > excentric peak in spectrum 226: 127.    vs mean 471.                        
+  > excentric peak in spectrum 227: 127.    vs mean 471.                        
+  > excentric peak in spectrum 229: 125.    vs mean 471.                        
+  > excentric peak in spectrum 230: 125.    vs mean 471.                        
+  > excentric peak in spectrum 232: 129.    vs mean 471.                        
+  > excentric peak in spectrum 233: 126.    vs mean 471.                        
+  > excentric peak in spectrum 235: 127.    vs mean 471.                        
+  > excentric peak in spectrum 236: 127.    vs mean 471.                        
+  > excentric peak in spectrum 238: 129.    vs mean 471.                        
+  > excentric peak in spectrum 239: 129.    vs mean 471.                        
+  > excentric peak in spectrum 241: 126.    vs mean 471.                        
+  > excentric peak in spectrum 242: 124.    vs mean 471.                        
+  > excentric peak in spectrum 245: 128.    vs mean 471.                        
+  > excentric peak in spectrum 248: 129.    vs mean 471.                        
+  > excentric peak in spectrum 249: 126.    vs mean 471.                        
+  > excentric peak in spectrum 251: 126.    vs mean 471.                        
+  > excentric peak in spectrum 252: 128.    vs mean 471.                        
+  > excentric peak in spectrum 254: 127.    vs mean 471.                        
+  > excentric peak in spectrum 255: 130.    vs mean 471.                        
+  > excentric peak in spectrum 257: 130.    vs mean 471.                        
+  > excentric peak in spectrum 258: 127.    vs mean 471.                        
+  > excentric peak in spectrum 260: 127.    vs mean 471.                        
+  > excentric peak in spectrum 261: 127.    vs mean 471.                        
+  > excentric peak in spectrum 263: 125.    vs mean 471.                        
+  > excentric peak in spectrum 264: 121.    vs mean 471.                        
+  > excentric peak in spectrum 265: 129.    vs mean 471.                        
+  > excentric peak in spectrum 267: 126.    vs mean 471.                        
+  > excentric peak in spectrum 268: 127.    vs mean 471.                        
+  > excentric peak in spectrum 270: 123.    vs mean 471.                        
+  > excentric peak in spectrum 271: 128.    vs mean 471.                        
+  > excentric peak in spectrum 273: 127.    vs mean 471.                        
+  > excentric peak in spectrum 274: 124.    vs mean 471.                        
+  > excentric peak in spectrum 276: 128.    vs mean 471.                        
+  > excentric peak in spectrum 277: 128.    vs mean 471.                        
+  > excentric peak in spectrum 279: 126.    vs mean 471.                        
+  > excentric peak in spectrum 280: 122.    vs mean 471.                        
+  > excentric peak in spectrum 283: 128.    vs mean 471.                        
+  > excentric peak in spectrum 286: 128.    vs mean 471.                        
+  > excentric peak in spectrum 289: 129.    vs mean 471.                        
+  > excentric peak in spectrum 292: 122.    vs mean 471.                        
+  > excentric peak in spectrum 293: 126.    vs mean 471.                        
+  > excentric peak in spectrum 295: 126.    vs mean 471.                        
+  > excentric peak in spectrum 296: 128.    vs mean 471.                        
+  > excentric peak in spectrum 298: 127.    vs mean 471.                        
+  > excentric peak in spectrum 299: 127.    vs mean 471.                        
+  > excentric peak in spectrum 301: 126.    vs mean 471.                        
+  > excentric peak in spectrum 302: 127.    vs mean 471.                        
+  > excentric peak in spectrum 304: 122.    vs mean 471.                        
+  > excentric peak in spectrum 305: 127.    vs mean 471.                        
+  > excentric peak in spectrum 307: 129.    vs mean 471.                        
+  > excentric peak in spectrum 308: 128.    vs mean 471.                        
+  > excentric peak in spectrum 311: 126.    vs mean 471.                        
+  > excentric peak in spectrum 312: 127.    vs mean 471.                        
+  > excentric peak in spectrum 314: 531.    vs mean 471.                        
+  > excentric peak in spectrum 315: 127.    vs mean 471.                        
+  > excentric peak in spectrum 317: 128.    vs mean 471.                        
+  > excentric peak in spectrum 318: 127.    vs mean 471.                        
+  > excentric peak in spectrum 320: 128.    vs mean 471.                        
+  > excentric peak in spectrum 321: 130.    vs mean 471.                        
+  > excentric peak in spectrum 323: 127.    vs mean 471.                        
+  > excentric peak in spectrum 324: 125.    vs mean 471.                        
+  > excentric peak in spectrum 326: 127.    vs mean 471.                        
+  > excentric peak in spectrum 327: 129.    vs mean 471.                        
+  > excentric peak in spectrum 330: 127.    vs mean 471.                        
+  > excentric peak in spectrum 331: 128.    vs mean 471.                        
+  > excentric peak in spectrum 333: 125.    vs mean 471.                        
+  > excentric peak in spectrum 334: 125.    vs mean 471.                        
+  > excentric peak in spectrum 336: 526.    vs mean 471.                        
+  > excentric peak in spectrum 337: 527.    vs mean 471.                        
+  > elefantic peak in spectrum 339: .176E-01vs mean .113E-02                    
+  > excentric peak in spectrum 340: 528.    vs mean 471.                        
+  > elefantic peak in spectrum 342: .298E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 343: .263E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 345: .269E-01vs mean .113E-02                    
+  > elefantic peak in spectrum 346: .127E-01vs mean .113E-02                    
+  > excentric peak in spectrum 349: 532.    vs mean 471.                        
+  > excentric peak in spectrum 352: 533.    vs mean 471.                        
+  > excentric peak in spectrum 355: 530.    vs mean 471.                        
+  > excentric peak in spectrum 358: 125.    vs mean 471.                        
+  > excentric peak in spectrum 359: 128.    vs mean 471.                        
+  > excentric peak in spectrum 361: 109.    vs mean 471.                        
+  > excentric peak in spectrum 362: 127.    vs mean 471.                        
+  > excentric peak in spectrum 364: 125.    vs mean 471.                        
+  > excentric peak in spectrum 365: 126.    vs mean 471.                        
+  > excentric peak in spectrum 367: 123.    vs mean 471.                        
+  > excentric peak in spectrum 368: 125.    vs mean 471.                        
+  > excentric peak in spectrum 370: 107.    vs mean 471.                        
+  > excentric peak in spectrum 371: 108.    vs mean 471.                        
+  > excentric peak in spectrum 373: 111.    vs mean 471.                        
+  > excentric peak in spectrum 374: 125.    vs mean 471.                        
+  > excentric peak in spectrum 375: 108.    vs mean 471.                        
+  > no spectrum in good shape/ mean peak position undefined
+
+  elastic peak from vanadium
+
+ Parameters used for normalization :
+           |     EP Intensity    |    EP Position | Trouble |
+  Spec|Ang.| Sample   |   Vana   | Sample | Vana  | S  |  V |
+    1   9.6 0.4688E-04 0.4471E-02 108.00   531.0       v     
+    2  10.4 0.5312E-04 0.9187E-02 112.00   531.2       v     
+    3  11.2 0.7813E-04 0.1443E-01 112.00   531.1       v     
+    4  12.0 0.9583E-04 0.1827E-01 108.00   531.1       v     
+    5  12.8 0.1146E-03 0.2145E-01 108.00   531.1       e     
+    6  13.6 0.1177E-03 0.2314E-01 121.00   531.1       e     
+    7  14.4 0.1208E-03 0.2357E-01 104.00   531.2       e     
+    8  15.1 0.1271E-03 0.2423E-01 117.00   531.3       e     
+    9  15.9 0.1198E-03 0.2357E-01 114.00   531.3       e     
+   10  16.7 0.1229E-03 0.2432E-01 111.00   531.3       e     
+   11  17.5 0.1229E-03 0.2371E-01 117.00   531.1       e     
+   12  18.3 0.1271E-03 0.2517E-01 117.00   531.4       e     
+   13  18.4 0.9740E-04 0.1865E-01 116.00   531.4       v     
+   14   0.0  0.000      0.000       0.00   0.000       a    a
+   15  19.1 0.1406E-03 0.2459E-01 117.00   531.4       e     
+   16  19.2 0.1333E-03 0.2171E-01 532.00   531.3       e     
+   17   0.0  0.000      0.000       0.00   0.000       a    a
+   18  19.9 0.1594E-03 0.2514E-01 532.00   531.3       e     
+   19  20.0 0.1719E-03 0.2291E-01 532.00   531.3       e     
+   20   0.0  0.000      0.000       0.00   0.000       a    a
+   21  20.6 0.3708E-03 0.2474E-01 531.00   531.4       e     
+   22  20.8 0.2323E-03 0.2363E-01 531.00   531.5       e     
+   23   0.0  0.000      0.000       0.00   0.000       a    a
+   24  21.4 0.6438E-03 0.2514E-01 532.00   531.3       e     
+   25  21.6 0.2615E-03 0.2285E-01 531.00   531.7       e     
+   26   0.0  0.000      0.000       0.00   0.000       a    a
+   27  22.2 0.7688E-03 0.2415E-01 531.00   531.4       e     
+   28  23.0 0.6583E-03 0.2509E-01 532.00   531.3       e     
+   29  23.4 0.4224E-03 0.2419E-01 531.00   531.3       e     
+   30   0.0  0.000      0.000       0.00   0.000       a    a
+   31  23.8 0.3698E-03 0.2453E-01 532.00   531.4       e     
+   32  24.2 0.2833E-03 0.2397E-01 530.00   531.1       e     
+   33   0.0  0.000      0.000       0.00   0.000       a    a
+   34  24.6 0.1260E-03 0.2389E-01 130.00   531.5       e     
+   35  25.0 0.1427E-03 0.2354E-01 529.00   531.0       e     
+   36   0.0 0.5018-309 0.5018-309   0.00   0.000       a    a
+   37  25.4 0.1365E-03 0.2447E-01 114.00   531.4       e     
+   38  25.8 0.1198E-03 0.2461E-01 116.00   531.2       e     
+   39   0.0  0.000      0.000       0.00   0.000       a    a
+   40  26.2 0.1198E-03 0.2430E-01 110.00   531.4       e     
+   41  26.6 0.1177E-03 0.2466E-01 112.00   531.3       e     
+   42   0.0 0.1013-319 0.1013-319   0.00   0.000       a    a
+   43  26.9 0.1302E-03 0.2470E-01 112.00   531.3       e     
+   44  27.7 0.1240E-03 0.2471E-01 119.00   531.5       e     
+   45  28.4 0.1115E-03 0.2447E-01 109.00   531.2       v     
+   46   0.0  0.000      0.000       0.00   0.000       a    a
+   47  28.5 0.1354E-03 0.2387E-01 119.00   531.6       e     
+   48  29.2 0.1198E-03 0.2369E-01 114.00   531.1       e     
+   49   0.0 0.5018-309 0.5018-309   0.00   0.000       a    a
+   50  29.3 0.1271E-03 0.2389E-01 126.00   531.4       e     
+   51  30.0 0.1182E-03 0.2399E-01 112.00   531.1       e     
+   52   0.0  0.000      0.000       0.00   0.000       a    a
+   53  30.1  0.000      0.000       0.00   0.000       x    x
+   54  30.8 0.1161E-03 0.2386E-01 112.00   531.1       e     
+   55   0.0  0.000      0.000       0.00   0.000       a    a
+   56  30.9 0.1333E-03 0.2447E-01 109.00   531.5       e     
+   57  31.6 0.1208E-03 0.2445E-01 118.00   531.3       e     
+   58   0.0  0.000      0.000       0.00   0.000       a    a
+   59   0.0  0.000      0.000       0.00   0.000       a    a
+   60  32.4 0.1396E-03 0.2406E-01 119.00   531.4       e     
+   61  33.2 0.1354E-03 0.2497E-01 119.00   531.4       e     
+   62  33.3 0.6927E-04 0.1206E-01 116.00   531.2       v     
+   63   0.0  0.000      0.000       0.00   0.000       a    a
+   64  34.0 0.1312E-03 0.2414E-01 123.00   531.4       e     
+   65  34.2 0.1250E-03 0.2401E-01 108.00   531.0       e     
+   66   0.0  0.000      0.000       0.00   0.000       a    a
+   67  34.8 0.1531E-03 0.2499E-01 114.00   531.3       e     
+   68  35.0 0.1203E-03 0.2403E-01 111.00   530.9       e     
+   69   0.0  0.000      0.000       0.00   0.000       a    a
+   70  35.6 0.1365E-03 0.2455E-01 122.00   531.3       e     
+   71  35.8 0.1276E-03 0.2449E-01 109.00   531.1       e     
+   72   0.0  0.000      0.000       0.00   0.000       a    a
+   73  36.4 0.1479E-03 0.2475E-01 113.00   531.2       e     
+   74  36.7 0.1141E-03 0.2312E-01 113.00   531.2       e     
+   75   0.0  0.000      0.000       0.00   0.000       a    a
+   76  37.2 0.1510E-03 0.2454E-01 118.00   531.5       e     
+   77  37.9 0.1437E-03 0.2505E-01 116.00   531.3       e     
+   78  38.3 0.1339E-03 0.2367E-01 110.00   531.3       e     
+   79   0.0  0.000      0.000       0.00   0.000       a    a
+   80  38.7 0.1427E-03 0.2467E-01 118.00   531.2       e     
+   81  39.2 0.1245E-03 0.2443E-01 121.00   531.0       e     
+   82   0.0  0.000      0.000       0.00   0.000       a    a
+   83  39.5 0.1385E-03 0.2465E-01 117.00   531.4       e     
+   84  40.0 0.1286E-03 0.2434E-01 116.00   531.0       e     
+   85   0.0  0.000      0.000       0.00   0.000       a    a
+   86  40.3 0.1448E-03 0.2478E-01 113.00   531.3       e     
+   87  40.8 0.1297E-03 0.2452E-01 100.00   531.1       e     
+   88   0.0  0.000      0.000       0.00   0.000       a    a
+   89  41.1 0.1521E-03 0.2430E-01 112.00   531.2       e     
+   90  41.7 0.1365E-03 0.2442E-01 118.00   531.3       e     
+   91   0.0  0.000      0.000       0.00   0.000       a    a
+   92  41.9 0.1542E-03 0.2351E-01 121.00   531.1       e     
+   93  42.7 0.1542E-03 0.2438E-01 116.00   531.4       e     
+   94  42.8 0.1318E-03 0.2354E-01 114.00   531.3       e     
+   95   0.0  0.000      0.000       0.00   0.000       a    a
+   96  43.4 0.1594E-03 0.2439E-01 115.00   531.2       e     
+   97  43.7 0.1375E-03 0.2401E-01 109.00   531.2       e     
+   98   0.0  0.000      0.000       0.00   0.000       a    a
+   99  44.2 0.1583E-03 0.2387E-01 108.00   531.4       e     
+  100  44.5 0.1474E-03 0.2472E-01 112.00   531.0       e     
+  101   0.0  0.000      0.000       0.00   0.000       a    a
+  102  45.0 0.2583E-03 0.2534E-01 531.00   531.3       e     
+  103  45.3 0.2161E-03 0.2370E-01 531.00   531.0       e     
+  104   0.0  0.000      0.000       0.00   0.000       a    a
+  105  45.8 0.3667E-03 0.2399E-01 530.00   531.3       e     
+  106  46.2 0.2740E-03 0.2382E-01 531.00   531.1       e     
+  107   0.0  0.000      0.000       0.00   0.000       a    a
+  108  46.6 0.3417E-03 0.2509E-01 532.00   531.2       e     
+  109  47.3 0.2108E-03 0.2340E-01 531.00   531.3       e     
+  110   0.0  0.000      0.000       0.00   0.000       a    a
+  111   0.0  0.000      0.000       0.00   0.000       a    a
+  112  48.2 0.1545E-03 0.2414E-01 113.00   531.2       e     
+  113   0.0  0.000      0.000       0.00   0.000       a    a
+  114   0.0  0.000      0.000       0.00   0.000       a    a
+  115  48.9 0.1729E-03 0.2385E-01 114.00   531.2       e     
+  116  49.0 0.1563E-03 0.2407E-01 123.00   531.2       e     
+  117   0.0  0.000      0.000       0.00   0.000       a    a
+  118  49.7 0.1781E-03 0.2447E-01 110.00   531.3       e     
+  119  49.8 0.1380E-03 0.2252E-01 107.00   531.2       e     
+  120   0.0  0.000      0.000       0.00   0.000       a    a
+  121  50.5 0.1760E-03 0.2312E-01 117.00   531.2       e     
+  122  50.7 0.1547E-03 0.2357E-01 102.00   531.6       e     
+  123   0.0  0.000      0.000       0.00   0.000       a    a
+  124  51.3 0.1615E-03 0.2486E-01  96.00   531.2       e     
+  125  51.8 0.1573E-03 0.2347E-01 106.00   531.4       e     
+  126   0.0  0.000      0.000       0.00   0.000       a    a
+  127  52.1 0.1740E-03 0.2396E-01 115.00   531.3       e     
+  128  52.7 0.1672E-03 0.2363E-01 118.00   531.2       e     
+  129   0.0  0.000      0.000       0.00   0.000       a    a
+  130  52.9 0.1698E-03 0.2342E-01 124.00   531.3       e     
+  131  53.5 0.1677E-03 0.2321E-01 103.00   531.1       e     
+  132   0.0  0.000      0.000       0.00   0.000       a    a
+  133  53.7 0.1781E-03 0.2356E-01 103.00   531.4       e     
+  134  54.3 0.1672E-03 0.2330E-01 100.00   531.0       e     
+  135   0.0  0.000      0.000       0.00   0.000       a    a
+  136  54.5 0.1802E-03 0.2376E-01 123.00   531.3       e     
+  137  55.2 0.1583E-03 0.2323E-01 118.00   531.2       e     
+  138   0.0  0.000      0.000       0.00   0.000       a    a
+  139  55.2 0.1854E-03 0.2370E-01  95.00   531.4       e     
+  140  56.0 0.1844E-03 0.2328E-01 109.00   531.3       e     
+  141  56.3 0.1734E-03 0.2356E-01 123.00   531.1       e     
+  142   0.0  0.000      0.000       0.00   0.000       a    a
+  143  56.8 0.1990E-03 0.2443E-01 120.00   531.2       e     
+  144  57.2 0.1625E-03 0.2352E-01 109.00   530.9       e     
+  145   0.0  0.000      0.000       0.00   0.000       a    a
+  146  57.6 0.1823E-03 0.2376E-01 128.00   531.2       e     
+  147  58.0 0.1714E-03 0.2333E-01 122.00   530.8       e     
+  148   0.0  0.000      0.000       0.00   0.000       a    a
+  149  58.4 0.1896E-03 0.2487E-01 108.00   531.1       e     
+  150  58.8 0.1750E-03 0.2352E-01 123.00   530.9       e     
+  151   0.0 0.6014-153 0.6014-153   0.00   0.000       a    a
+  152  59.2 0.1958E-03 0.2465E-01 123.00   531.4       e     
+  153  59.7 0.1797E-03 0.2331E-01 110.00   531.1       e     
+  154   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  155  60.0 0.1906E-03 0.2493E-01 126.00   531.3       e     
+  156  60.7 0.2010E-03 0.2330E-01 104.00   531.2       e     
+  157  60.8 0.1854E-03 0.2436E-01 126.00   531.2       e     
+  158   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  159  61.5 0.2156E-03 0.2415E-01 124.00   531.2       e     
+  160  61.7 0.1922E-03 0.2352E-01 124.00   531.0       e     
+  161   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  162  62.3 0.1979E-03 0.2341E-01 130.00   531.3       e     
+  163  62.5 0.1917E-03 0.2279E-01 118.00   530.8       e     
+  164   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  165  63.1 0.2115E-03 0.2476E-01 124.00   531.3       e     
+  166  63.3 0.1797E-03 0.2348E-01 126.00   531.2       e     
+  167   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  168  63.9 0.2146E-03 0.2429E-01 127.00   531.4       e     
+  169  64.2 0.1938E-03 0.2291E-01 127.00   531.4       e     
+  170   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  171  64.7 0.2333E-03 0.2431E-01 124.00   531.2       e     
+  172  65.3 0.2104E-03 0.2392E-01 124.00   531.4       e     
+  173  65.5 0.2583E-03 0.2429E-01 124.00   531.1       e     
+  174  66.2 0.2146E-03 0.2304E-01 122.00   531.2       e     
+  175  66.2 0.2708E-03 0.2530E-01 125.00   531.0       e     
+  176  67.0 0.2214E-03 0.2406E-01 123.00   531.2       e     
+  177   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  178  67.8 0.2167E-03 0.2485E-01 125.00   531.1       e     
+  179   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  180  68.7 0.2073E-03 0.2234E-01 129.00   531.4       e     
+  181  70.3 0.2031E-03 0.2205E-01 124.00   531.0       e     
+  182  71.2 0.2161E-03 0.2285E-01 123.00   531.0       e     
+  183   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  184  72.0 0.2198E-03 0.2285E-01 128.00   530.9       e     
+  185   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  186  72.8 0.2391E-03 0.2344E-01 127.00   531.0       e     
+  187   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  188  73.6 0.2172E-03 0.2382E-01 122.00   531.1       e     
+  189   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  190  74.4 0.2302E-03 0.2350E-01 124.00   531.1       e     
+  191  74.8 0.2281E-03 0.2390E-01 125.00   531.2       e     
+  192  75.2 0.2552E-03 0.2395E-01 127.00   531.1       e     
+  193  75.7 0.2458E-03 0.2373E-01 127.00   531.0       e     
+  194  75.9 0.2260E-03 0.2430E-01 124.00   531.0       e     
+  195  76.5 0.6281E-03 0.2293E-01 531.00   531.0       e     
+  196  76.7 0.2261E-02 0.2445E-01 529.00   531.2       e     
+  197  77.3 0.7024E-02 0.2284E-01 530.00   531.1       e     
+  198  77.5 0.1831E-01 0.2405E-01 530.00   531.3       g     
+  199  78.2 0.1736E-01 0.2404E-01 530.00   531.4       g     
+  200  78.3 0.2498E-01 0.2418E-01 530.00   531.1       g     
+  201  79.1 0.1214E-01 0.2338E-01 532.00   531.1       g     
+  202  79.3 0.1574E-01 0.2284E-01 530.00   531.2       g     
+  203   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  204  79.9 0.1050E-02 0.2405E-01 531.00   531.1       e     
+  205  80.2 0.3846E-02 0.2378E-01 531.00   530.9       e     
+  206   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  207  80.7 0.2510E-03 0.2468E-01 126.00   531.2       e     
+  208  81.0 0.2469E-03 0.2313E-01 124.00   531.0       e     
+  209   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  210  81.5 0.2458E-03 0.2349E-01 128.00   531.2       e     
+  211  81.8 0.2406E-03 0.2358E-01 128.00   531.0       e     
+  212   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  213  82.2 0.2656E-03 0.2398E-01 126.00   531.2       e     
+  214  82.7 0.2328E-03 0.2337E-01 127.00   531.2       e     
+  215   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  216  83.0 0.2729E-03 0.2318E-01 126.00   531.2       e     
+  217  83.8 0.2285E-03 0.2354E-01 128.00   531.3       e     
+  218   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  219   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  220  84.6 0.2368E-03 0.2342E-01 128.00   531.2       e     
+  221   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  222   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  223  85.4 0.2583E-03 0.2321E-01 124.00   531.3       e     
+  224  85.5 0.2094E-03 0.2157E-01 129.00   530.9       e     
+  225   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  226  86.2 0.2688E-03 0.2346E-01 127.00   531.4       e     
+  227  86.3 0.2385E-03 0.2345E-01 127.00   531.1       e     
+  228   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  229  87.0 0.2740E-03 0.2422E-01 125.00   531.2       e     
+  230  87.2 0.2240E-03 0.2302E-01 125.00   531.2       e     
+  231   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  232  87.7 0.2719E-03 0.2274E-01 129.00   531.4       e     
+  233  88.3 0.2344E-03 0.2324E-01 126.00   531.3       e     
+  234   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  235  88.5 0.2688E-03 0.2422E-01 127.00   531.2       e     
+  236  89.2 0.2380E-03 0.2292E-01 127.00   531.0       e     
+  237   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  238  89.3 0.2542E-03 0.2330E-01 129.00   531.3       e     
+  239  90.0 0.2234E-03 0.2291E-01 129.00   531.0       e     
+  240   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  241  90.1 0.2896E-03 0.2408E-01 126.00   531.4       e     
+  242  90.8 0.2319E-03 0.2322E-01 124.00   531.2       e     
+  243   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  244   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  245  91.7 0.2521E-03 0.2435E-01 128.00   531.3       e     
+  246   0.0 0.2964-322 0.2964-322   0.00   0.000       a    a
+  247   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  248  92.5 0.2427E-03 0.2353E-01 129.00   531.2       e     
+  249  92.8 0.2292E-03 0.2320E-01 126.00   531.3       e     
+  250   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  251  93.2 0.2552E-03 0.2391E-01 126.00   531.2       e     
+  252  93.7 0.2437E-03 0.2321E-01 128.00   531.0       e     
+  253   0.0 -.2864+252 -.2864+252   0.00   0.000       a    a
+  254  94.0 0.2437E-03 0.2483E-01 127.00   531.3       e     
+  255  94.5 0.2297E-03 0.2435E-01 130.00   530.8       e     
+  256   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  257  94.8 0.2583E-03 0.2421E-01 130.00   531.2       e     
+  258  95.3 0.2339E-03 0.2368E-01 127.00   531.0       e     
+  259   0.0 -.9256E+62 -.9256E+62   0.00   0.000       a    a
+  260  95.6 0.2729E-03 0.2372E-01 127.00   531.4       e     
+  261  96.2 0.2307E-03 0.2376E-01 127.00   531.2       e     
+  262   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  263  96.4 0.2563E-03 0.2377E-01 125.00   531.3       e     
+  264  97.2 0.2427E-03 0.2380E-01 121.00   531.3       e     
+  265  97.3 0.2266E-03 0.2371E-01 129.00   531.1       e     
+  266   0.0  0.000      0.000       0.00   0.000       a    a
+  267  98.0 0.2573E-03 0.2389E-01 126.00   531.1       e     
+  268  98.2 0.2156E-03 0.2280E-01 127.00   530.8       e     
+  269   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  270  98.8 0.2479E-03 0.2298E-01 123.00   531.2       e     
+  271  99.0 0.2245E-03 0.2324E-01 128.00   530.9       e     
+  272   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  273  99.5 0.2417E-03 0.2266E-01 127.00   531.1       e     
+  274  99.8 0.2182E-03 0.2202E-01 124.00   530.9       e     
+  275   0.0 0.5039-321 0.5039-321   0.00   0.000       a    a
+  276 100.3 0.2625E-03 0.2461E-01 128.00   531.3       e     
+  277 100.7 0.2359E-03 0.2373E-01 128.00   531.3       e     
+  278   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  279 101.1 0.2563E-03 0.2232E-01 126.00   531.2       e     
+  280 101.8 0.2257E-03 0.2342E-01 122.00   531.2       e     
+  281   0.0 0.9867-312 0.9867-312   0.00   0.000       a    a
+  282   0.0 0.1976-322 0.1976-322   0.00   0.000       a    a
+  283 102.7 0.2288E-03 0.2289E-01 128.00   531.1       e     
+  284   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  285   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  286 103.5 0.2354E-03 0.2388E-01 128.00   531.0       e     
+  287   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  288   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  289 104.2 0.2431E-03 0.2284E-01 129.00   531.0       e     
+  290   0.0 0.2663-314 0.2663-314   0.00   0.000       a    a
+  291   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  292 105.0 0.2563E-03 0.2311E-01 122.00   531.2       e     
+  293 105.2 0.2370E-03 0.2306E-01 126.00   531.1       e     
+  294   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  295 105.8 0.2458E-03 0.2326E-01 126.00   531.2       e     
+  296 106.3 0.2271E-03 0.2331E-01 128.00   531.2       e     
+  297   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  298 106.6 0.2833E-03 0.2415E-01 127.00   531.2       e     
+  299 107.2 0.2313E-03 0.2306E-01 127.00   531.0       e     
+  300   0.0  0.000      0.000       0.00   0.000       a    a
+  301 107.4 0.2635E-03 0.2340E-01 126.00   531.3       e     
+  302 108.0 0.2432E-03 0.2241E-01 127.00   530.9       e     
+  303   0.0 0.2225-307 0.2225-307   0.00   0.000       a    a
+  304 108.2 0.2604E-03 0.2383E-01 122.00   531.3       e     
+  305 108.8 0.2260E-03 0.2275E-01 127.00   531.0       e     
+  306   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  307 109.0 0.2604E-03 0.2346E-01 129.00   531.4       e     
+  308 109.7 0.2385E-03 0.2309E-01 128.00   531.1       e     
+  309   0.0 0.6013-153 0.6013-153   0.00   0.000       a    a
+  310   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  311 110.5 0.2531E-03 0.2349E-01 126.00   531.6       e     
+  312 110.8 0.2573E-03 0.2389E-01 127.00   531.1       e     
+  313   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  314 111.3 0.2750E-03 0.2362E-01 531.00   531.4       e     
+  315 111.7 0.2375E-03 0.2287E-01 127.00   530.9       e     
+  316   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  317 112.1 0.2625E-03 0.2355E-01 128.00   531.2       e     
+  318 112.5 0.2495E-03 0.2458E-01 127.00   530.7       e     
+  319   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  320 112.9 0.2542E-03 0.2356E-01 128.00   531.3       e     
+  321 113.3 0.2359E-03 0.2332E-01 130.00   530.8       e     
+  322   0.0        NaN        NaN   0.00   0.000       a    a
+  323 113.7 0.2531E-03 0.2425E-01 127.00   531.2       e     
+  324 114.2 0.2568E-03 0.2328E-01 125.00   531.0       e     
+  325   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  326 114.5 0.2865E-03 0.2261E-01 127.00   531.2       e     
+  327 115.3 0.2417E-03 0.2378E-01 129.00   531.2       e     
+  328   0.0 0.6014-153 0.6014-153   0.00   0.000       a    a
+  329   0.0  0.000      0.000       0.00   0.000       a    a
+  330 116.0 0.2448E-03 0.2297E-01 127.00   531.3       e     
+  331 116.2 0.2432E-03 0.2292E-01 128.00   530.8       e     
+  332   0.0 0.1040-316 0.1040-316   0.00   0.000       a    a
+  333 116.8 0.2583E-03 0.2314E-01 125.00   531.4       e     
+  334 117.0 0.2281E-03 0.2316E-01 125.00   530.8       e     
+  335   0.0 0.4941-323 0.4941-323   0.00   0.000       a    a
+  336 117.6 0.2958E-03 0.2356E-01 526.00   531.4       e     
+  337 117.8 0.5229E-03 0.2380E-01 527.00   530.8       e     
+  338   0.0 0.4510-313 0.4510-313   0.00   0.000       a    a
+  339 118.4 0.1761E-01 0.2436E-01 527.00   531.2       g     
+  340 118.7 0.9984E-02 0.2385E-01 528.00   531.0       e     
+  341   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  342 119.2 0.2979E-01 0.2152E-01 530.00   530.9       g     
+  343 119.8 0.2630E-01 0.2335E-01 530.00   530.9       g     
+  344   0.0  0.000      0.000       0.00   0.000       a    a
+  345 120.0 0.2690E-01 0.2349E-01 532.00   531.2       g     
+  346 120.7 0.1274E-01 0.2431E-01 531.00   530.9       g     
+  347   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  348   0.0 0.6953-309 0.6953-309   0.00   0.000       a    a
+  349 121.5 0.3493E-02 0.2378E-01 532.00   530.8       e     
+  350   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  351   0.0 0.7169-320 0.7169-320   0.00   0.000       a    a
+  352 122.3 0.5031E-03 0.2296E-01 533.00   530.9       e     
+  353   0.0 0.6178-309 0.6178-309   0.00   0.000       a    a
+  354   0.0 0.4244-313 0.4244-313   0.00   0.000       a    a
+  355 123.1 0.2333E-03 0.2267E-01 530.00   530.8       e     
+  356   0.0  0.000      0.000       0.00   0.000       a    a
+  357   0.0  0.000      0.000       0.00   0.000       a    a
+  358 123.9 0.2313E-03 0.2288E-01 125.00   531.1       e     
+  359 124.3 0.2328E-03 0.2282E-01 128.00   531.5       e     
+  360   0.0 0.1345-313 0.1345-313   0.00   0.000       a    a
+  361 124.7 0.2448E-03 0.2364E-01 109.00   531.0       e     
+  362 125.2 0.2172E-03 0.2272E-01 127.00   531.1       e     
+  363   0.0 0.2122-313 0.2122-313   0.00   0.000       a    a
+  364 125.5 0.2396E-03 0.2390E-01 125.00   530.9       e     
+  365 126.0 0.2297E-03 0.2437E-01 126.00   531.1       e     
+  366   0.0 0.1292-313 0.1292-313   0.00   0.000       a    a
+  367 126.3 0.2344E-03 0.2271E-01 123.00   531.1       e     
+  368 126.8 0.2286E-03 0.2348E-01 125.00   531.2       e     
+  369   0.0  1.000      1.000       0.00   0.000       a    a
+  370 127.1 0.2365E-03 0.2428E-01 107.00   531.0       e     
+  371 127.7 0.2240E-03 0.2433E-01 108.00   531.5       e     
+  372   0.0 0.2207-311 0.2207-311   0.00   0.000       a    a
+  373 127.8 0.2500E-03 0.2474E-01 111.00   531.0       e     
+  374 128.6 0.2385E-03 0.2481E-01 125.00   530.9       e     
+  375 129.4 0.1583E-03 0.1462E-01 108.00   530.9       e     
+
+    trouble x : spectrum excluded a priori
+    trouble a : invalid angle (monitor or special block)
+    trouble v : nearly vanishing peak
+    trouble g : giant peak
+    trouble e : excentric peak
+
+ conversion to energy :
+ E>0 means neutron energy gain
+ detector efficiency correction for FOCUS
+  K     C1(K)     C2(K)        E0      X(1)      X(n)      eff0
+  1  ********  ********  4.23      48.7      ********  .933    
+  2  ********  ********  4.23      48.9      ********  .933    
+  3  ********  ********  4.23      48.8      ********  .933    
+  4  ********  ********  4.23      48.8      ********  .933    
+  5  ********  ********  4.23      48.8      ********  .933    
+  6  ********  ********  4.23      48.8      ********  .933    
+  7  ********  ********  4.23      48.9      ********  .933    
+  8  ********  ********  4.23      48.9      ********  .933    
+  9  ********  ********  4.23      48.9      ********  .933    
+ 10  ********  ********  4.23      48.9      ********  .933    
+ 11  ********  ********  4.23      48.8      ********  .933    
+ 12  ********  ********  4.23      49.0      ********  .933    
+ 13  ********  ********  4.23      49.0      ********  .933    
+ 14  ********  ********  4.23      ********  ********  .933    
+ 15  ********  ********  4.23      49.0      ********  .933    
+ 16  ********  ********  4.23      48.9      ********  .933    
+ 17  ********  ********  4.23      ********  ********  .933    
+ 18  ********  ********  4.23      48.9      ********  .933    
+ 19  ********  ********  4.23      48.9      ********  .933    
+ 20  ********  ********  4.23      ********  ********  .933    
+ 21  ********  ********  4.23      49.0      ********  .933    
+ 22  ********  ********  4.23      49.0      ********  .933    
+ 23  ********  ********  4.23      ********  ********  .933    
+ 24  ********  ********  4.23      48.9      ********  .933    
+ 25  ********  ********  4.23      49.2      ********  .933    
+ 26  ********  ********  4.23      ********  ********  .933    
+ 27  ********  ********  4.23      49.0      ********  .933    
+ 28  ********  ********  4.23      48.9      ********  .933    
+ 29  ********  ********  4.23      48.9      ********  .933    
+ 30  ********  ********  4.23      ********  ********  .933    
+ 31  ********  ********  4.23      49.0      ********  .933    
+ 32  ********  ********  4.23      48.7      ********  .933    
+ 33  ********  ********  4.23      ********  ********  .933    
+ 34  ********  ********  4.23      49.0      ********  .933    
+ 35  ********  ********  4.23      48.7      ********  .933    
+ 36  ********  ********  4.23      ********  ********  .933    
+ 37  ********  ********  4.23      49.0      ********  .933    
+ 38  ********  ********  4.23      48.8      ********  .933    
+ 39  ********  ********  4.23      ********  ********  .933    
+ 40  ********  ********  4.23      49.0      ********  .933    
+ 41  ********  ********  4.23      48.9      ********  .933    
+ 42  ********  ********  4.23      ********  ********  .933    
+ 43  ********  ********  4.23      48.9      ********  .933    
+ 44  ********  ********  4.23      49.1      ********  .933    
+ 45  ********  ********  4.23      48.8      ********  .933    
+ 46  ********  ********  4.23      ********  ********  .933    
+ 47  ********  ********  4.23      49.1      ********  .933    
+ 48  ********  ********  4.23      48.8      ********  .933    
+ 49  ********  ********  4.23      ********  ********  .933    
+ 50  ********  ********  4.23      49.0      ********  .933    
+ 51  ********  ********  4.23      48.7      ********  .933    
+ 52  ********  ********  4.23      ********  ********  .933    
+ 53  ********  ********  4.23      ********  ********  .933    
+ 54  ********  ********  4.23      48.8      ********  .933    
+ 55  ********  ********  4.23      ********  ********  .933    
+ 56  ********  ********  4.23      49.1      ********  .933    
+ 57  ********  ********  4.23      48.9      ********  .933    
+ 58  ********  ********  4.23      ********  ********  .933    
+ 59  ********  ********  4.23      ********  ********  .933    
+ 60  ********  ********  4.23      49.0      ********  .933    
+ 61  ********  ********  4.23      49.0      ********  .933    
+ 62  ********  ********  4.23      48.8      ********  .933    
+ 63  ********  ********  4.23      ********  ********  .933    
+ 64  ********  ********  4.23      48.9      ********  .933    
+ 65  ********  ********  4.23      48.7      ********  .933    
+ 66  ********  ********  4.23      ********  ********  .933    
+ 67  ********  ********  4.23      48.9      ********  .933    
+ 68  ********  ********  4.23      48.6      ********  .933    
+ 69  ********  ********  4.23      ********  ********  .933    
+ 70  ********  ********  4.23      48.9      ********  .933    
+ 71  ********  ********  4.23      48.7      ********  .933    
+ 72  ********  ********  4.23      ********  ********  .933    
+ 73  ********  ********  4.23      48.9      ********  .933    
+ 74  ********  ********  4.23      48.8      ********  .933    
+ 75  ********  ********  4.23      ********  ********  .933    
+ 76  ********  ********  4.23      49.1      ********  .933    
+ 77  ********  ********  4.23      48.9      ********  .933    
+ 78  ********  ********  4.23      48.9      ********  .933    
+ 79  ********  ********  4.23      ********  ********  .933    
+ 80  ********  ********  4.23      48.8      ********  .933    
+ 81  ********  ********  4.23      48.7      ********  .933    
+ 82  ********  ********  4.23      ********  ********  .933    
+ 83  ********  ********  4.23      49.0      ********  .933    
+ 84  ********  ********  4.23      48.7      ********  .933    
+ 85  ********  ********  4.23      ********  ********  .933    
+ 86  ********  ********  4.23      48.9      ********  .933    
+ 87  ********  ********  4.23      48.8      ********  .933    
+ 88  ********  ********  4.23      ********  ********  .933    
+ 89  ********  ********  4.23      48.9      ********  .933    
+ 90  ********  ********  4.23      48.9      ********  .933    
+ 91  ********  ********  4.23      ********  ********  .933    
+ 92  ********  ********  4.23      48.8      ********  .933    
+ 93  ********  ********  4.23      49.0      ********  .933    
+ 94  ********  ********  4.23      48.9      ********  .933    
+ 95  ********  ********  4.23      ********  ********  .933    
+ 96  ********  ********  4.23      48.8      ********  .933    
+ 97  ********  ********  4.23      48.8      ********  .933    
+ 98  ********  ********  4.23      ********  ********  .933    
+ 99  ********  ********  4.23      49.0      ********  .933    
+100  ********  ********  4.23      48.7      ********  .933    
+101  ********  ********  4.23      ********  ********  .933    
+102  ********  ********  4.23      48.9      ********  .933    
+103  ********  ********  4.23      48.7      ********  .933    
+104  ********  ********  4.23      ********  ********  .933    
+105  ********  ********  4.23      48.9      ********  .933    
+106  ********  ********  4.23      48.8      ********  .933    
+107  ********  ********  4.23      ********  ********  .933    
+108  ********  ********  4.23      48.8      ********  .933    
+109  ********  ********  4.23      48.9      ********  .933    
+110  ********  ********  4.23      ********  ********  .933    
+111  ********  ********  4.23      ********  ********  .933    
+112  ********  ********  4.23      48.8      ********  .933    
+113  ********  ********  4.23      ********  ********  .933    
+114  ********  ********  4.23      ********  ********  .933    
+115  ********  ********  4.23      48.9      ********  .933    
+116  ********  ********  4.23      48.9      ********  .933    
+117  ********  ********  4.23      ********  ********  .933    
+118  ********  ********  4.23      48.9      ********  .933    
+119  ********  ********  4.23      48.8      ********  .933    
+120  ********  ********  4.23      ********  ********  .933    
+121  ********  ********  4.23      48.9      ********  .933    
+122  ********  ********  4.23      49.1      ********  .933    
+123  ********  ********  4.23      ********  ********  .933    
+124  ********  ********  4.23      48.8      ********  .933    
+125  ********  ********  4.23      49.0      ********  .933    
+126  ********  ********  4.23      ********  ********  .933    
+127  ********  ********  4.23      48.9      ********  .933    
+128  ********  ********  4.23      48.8      ********  .933    
+129  ********  ********  4.23      ********  ********  .933    
+130  ********  ********  4.23      48.9      ********  .933    
+131  ********  ********  4.23      48.8      ********  .933    
+132  ********  ********  4.23      ********  ********  .933    
+133  ********  ********  4.23      49.0      ********  .933    
+134  ********  ********  4.23      48.7      ********  .933    
+135  ********  ********  4.23      ********  ********  .933    
+136  ********  ********  4.23      48.9      ********  .933    
+137  ********  ********  4.23      48.8      ********  .933    
+138  ********  ********  4.23      ********  ********  .933    
+139  ********  ********  4.23      49.0      ********  .933    
+140  ********  ********  4.23      48.9      ********  .933    
+141  ********  ********  4.23      48.8      ********  .933    
+142  ********  ********  4.23      ********  ********  .933    
+143  ********  ********  4.23      48.8      ********  .933    
+144  ********  ********  4.23      48.7      ********  .933    
+145  ********  ********  4.23      ********  ********  .933    
+146  ********  ********  4.23      48.9      ********  .933    
+147  ********  ********  4.23      49.3      ********  .933    
+148  ********  ********  4.23      ********  ********  .933    
+149  ********  ********  4.23      48.8      ********  .933    
+150  ********  ********  4.23      48.7      ********  .933    
+151  ********  ********  4.23      ********  ********  .933    
+152  ********  ********  4.23      49.0      ********  .933    
+153  ********  ********  4.23      48.8      ********  .933    
+154  ********  ********  4.23      ********  ********  .933    
+155  ********  ********  4.23      48.9      ********  .933    
+156  ********  ********  4.23      48.8      ********  .933    
+157  ********  ********  4.23      48.8      ********  .933    
+158  ********  ********  4.23      ********  ********  .933    
+159  ********  ********  4.23      48.9      ********  .933    
+160  ********  ********  4.23      48.7      ********  .933    
+161  ********  ********  4.23      ********  ********  .933    
+162  ********  ********  4.23      48.9      ********  .933    
+163  ********  ********  4.23      49.3      ********  .933    
+164  ********  ********  4.23      ********  ********  .933    
+165  ********  ********  4.23      48.9      ********  .933    
+166  ********  ********  4.23      48.8      ********  .933    
+167  ********  ********  4.23      ********  ********  .933    
+168  ********  ********  4.23      49.0      ********  .933    
+169  ********  ********  4.23      49.0      ********  .933    
+170  ********  ********  4.23      ********  ********  .933    
+171  ********  ********  4.23      48.8      ********  .933    
+172  ********  ********  4.23      49.0      ********  .933    
+173  ********  ********  4.23      48.8      ********  .933    
+174  ********  ********  4.23      48.9      ********  .933    
+175  ********  ********  4.23      48.7      ********  .933    
+176  ********  ********  4.23      48.9      ********  .933    
+177  ********  ********  4.23      ********  ********  .933    
+178  ********  ********  4.23      48.8      ********  .933    
+179  ********  ********  4.23      ********  ********  .933    
+180  ********  ********  4.23      49.0      ********  .933    
+181  ********  ********  4.23      48.7      ********  .933    
+182  ********  ********  4.23      48.7      ********  .933    
+183  ********  ********  4.23      ********  ********  .933    
+184  ********  ********  4.23      48.6      ********  .933    
+185  ********  ********  4.23      ********  ********  .933    
+186  ********  ********  4.23      48.7      ********  .933    
+187  ********  ********  4.23      ********  ********  .933    
+188  ********  ********  4.23      48.8      ********  .933    
+189  ********  ********  4.23      ********  ********  .933    
+190  ********  ********  4.23      48.8      ********  .933    
+191  ********  ********  4.23      48.9      ********  .933    
+192  ********  ********  4.23      48.7      ********  .933    
+193  ********  ********  4.23      48.7      ********  .933    
+194  ********  ********  4.23      48.7      ********  .933    
+195  ********  ********  4.23      48.7      ********  .933    
+196  ********  ********  4.23      48.8      ********  .933    
+197  ********  ********  4.23      48.8      ********  .933    
+198  ********  ********  4.23      48.9      ********  .933    
+199  ********  ********  4.23      49.0      ********  .933    
+200  ********  ********  4.23      48.8      ********  .933    
+201  ********  ********  4.23      48.8      ********  .933    
+202  ********  ********  4.23      48.9      ********  .933    
+203  ********  ********  4.23      ********  ********  .933    
+204  ********  ********  4.23      48.8      ********  .933    
+205  ********  ********  4.23      49.3      ********  .933    
+206  ********  ********  4.23      ********  ********  .933    
+207  ********  ********  4.23      48.8      ********  .933    
+208  ********  ********  4.23      48.7      ********  .933    
+209  ********  ********  4.23      ********  ********  .933    
+210  ********  ********  4.23      48.8      ********  .933    
+211  ********  ********  4.23      48.7      ********  .933    
+212  ********  ********  4.23      ********  ********  .933    
+213  ********  ********  4.23      48.9      ********  .933    
+214  ********  ********  4.23      48.8      ********  .933    
+215  ********  ********  4.23      ********  ********  .933    
+216  ********  ********  4.23      48.8      ********  .933    
+217  ********  ********  4.23      48.9      ********  .933    
+218  ********  ********  4.23      ********  ********  .933    
+219  ********  ********  4.23      ********  ********  .933    
+220  ********  ********  4.23      48.8      ********  .933    
+221  ********  ********  4.23      ********  ********  .933    
+222  ********  ********  4.23      ********  ********  .933    
+223  ********  ********  4.23      48.9      ********  .933    
+224  ********  ********  4.23      48.6      ********  .933    
+225  ********  ********  4.23      ********  ********  .933    
+226  ********  ********  4.23      48.9      ********  .933    
+227  ********  ********  4.23      48.8      ********  .933    
+228  ********  ********  4.23      ********  ********  .933    
+229  ********  ********  4.23      48.9      ********  .933    
+230  ********  ********  4.23      48.9      ********  .933    
+231  ********  ********  4.23      ********  ********  .933    
+232  ********  ********  4.23      49.0      ********  .933    
+233  ********  ********  4.23      48.9      ********  .933    
+234  ********  ********  4.23      ********  ********  .933    
+235  ********  ********  4.23      48.9      ********  .933    
+236  ********  ********  4.23      48.7      ********  .933    
+237  ********  ********  4.23      ********  ********  .933    
+238  ********  ********  4.23      48.9      ********  .933    
+239  ********  ********  4.23      48.7      ********  .933    
+240  ********  ********  4.23      ********  ********  .933    
+241  ********  ********  4.23      48.9      ********  .933    
+242  ********  ********  4.23      48.8      ********  .933    
+243  ********  ********  4.23      ********  ********  .933    
+244  ********  ********  4.23      ********  ********  .933    
+245  ********  ********  4.23      48.9      ********  .933    
+246  ********  ********  4.23      ********  ********  .933    
+247  ********  ********  4.23      ********  ********  .933    
+248  ********  ********  4.23      48.8      ********  .933    
+249  ********  ********  4.23      48.9      ********  .933    
+250  ********  ********  4.23      ********  ********  .933    
+251  ********  ********  4.23      48.8      ********  .933    
+252  ********  ********  4.23      48.7      ********  .933    
+253  ********  ********  4.23      ********  ********  .933    
+254  ********  ********  4.23      48.9      ********  .933    
+255  ********  ********  4.23      49.3      ********  .933    
+256  ********  ********  4.23      ********  ********  .933    
+257  ********  ********  4.23      48.8      ********  .933    
+258  ********  ********  4.23      48.7      ********  .933    
+259  ********  ********  4.23      ********  ********  .933    
+260  ********  ********  4.23      49.0      ********  .933    
+261  ********  ********  4.23      48.8      ********  .933    
+262  ********  ********  4.23      ********  ********  .933    
+263  ********  ********  4.23      48.9      ********  .933    
+264  ********  ********  4.23      48.9      ********  .933    
+265  ********  ********  4.23      48.8      ********  .933    
+266  ********  ********  4.23      ********  ********  .933    
+267  ********  ********  4.23      48.8      ********  .933    
+268  ********  ********  4.23      49.3      ********  .933    
+269  ********  ********  4.23      ********  ********  .933    
+270  ********  ********  4.23      48.9      ********  .933    
+271  ********  ********  4.23      49.3      ********  .933    
+272  ********  ********  4.23      ********  ********  .933    
+273  ********  ********  4.23      48.8      ********  .933    
+274  ********  ********  4.23      48.6      ********  .933    
+275  ********  ********  4.23      ********  ********  .933    
+276  ********  ********  4.23      48.9      ********  .933    
+277  ********  ********  4.23      48.9      ********  .933    
+278  ********  ********  4.23      ********  ********  .933    
+279  ********  ********  4.23      48.8      ********  .933    
+280  ********  ********  4.23      48.8      ********  .933    
+281  ********  ********  4.23      ********  ********  .933    
+282  ********  ********  4.23      ********  ********  .933    
+283  ********  ********  4.23      48.8      ********  .933    
+284  ********  ********  4.23      ********  ********  .933    
+285  ********  ********  4.23      ********  ********  .933    
+286  ********  ********  4.23      48.7      ********  .933    
+287  ********  ********  4.23      ********  ********  .933    
+288  ********  ********  4.23      ********  ********  .933    
+289  ********  ********  4.23      48.7      ********  .933    
+290  ********  ********  4.23      ********  ********  .933    
+291  ********  ********  4.23      ********  ********  .933    
+292  ********  ********  4.23      48.9      ********  .933    
+293  ********  ********  4.23      48.8      ********  .933    
+294  ********  ********  4.23      ********  ********  .933    
+295  ********  ********  4.23      48.8      ********  .933    
+296  ********  ********  4.23      48.9      ********  .933    
+297  ********  ********  4.23      ********  ********  .933    
+298  ********  ********  4.23      48.8      ********  .933    
+299  ********  ********  4.23      48.7      ********  .933    
+300  ********  ********  4.23      ********  ********  .933    
+301  ********  ********  4.23      48.9      ********  .933    
+302  ********  ********  4.23      49.3      ********  .933    
+303  ********  ********  4.23      ********  ********  .933    
+304  ********  ********  4.23      48.9      ********  .933    
+305  ********  ********  4.23      48.7      ********  .933    
+306  ********  ********  4.23      ********  ********  .933    
+307  ********  ********  4.23      49.0      ********  .933    
+308  ********  ********  4.23      48.8      ********  .933    
+309  ********  ********  4.23      ********  ********  .933    
+310  ********  ********  4.23      ********  ********  .933    
+311  ********  ********  4.23      49.1      ********  .933    
+312  ********  ********  4.23      48.8      ********  .933    
+313  ********  ********  4.23      ********  ********  .933    
+314  ********  ********  4.23      49.0      ********  .933    
+315  ********  ********  4.23      48.6      ********  .933    
+316  ********  ********  4.23      ********  ********  .933    
+317  ********  ********  4.23      48.8      ********  .933    
+318  ********  ********  4.23      49.2      ********  .933    
+319  ********  ********  4.23      ********  ********  .933    
+320  ********  ********  4.23      48.9      ********  .933    
+321  ********  ********  4.23      49.2      ********  .933    
+322  ********  ********  4.23      ********  ********  .933    
+323  ********  ********  4.23      48.9      ********  .933    
+324  ********  ********  4.23      48.7      ********  .933    
+325  ********  ********  4.23      ********  ********  .933    
+326  ********  ********  4.23      48.9      ********  .933    
+327  ********  ********  4.23      48.8      ********  .933    
+328  ********  ********  4.23      ********  ********  .933    
+329  ********  ********  4.23      ********  ********  .933    
+330  ********  ********  4.23      48.9      ********  .933    
+331  ********  ********  4.23      49.2      ********  .933    
+332  ********  ********  4.23      ********  ********  .933    
+333  ********  ********  4.23      49.0      ********  .933    
+334  ********  ********  4.23      49.2      ********  .933    
+335  ********  ********  4.23      ********  ********  .933    
+336  ********  ********  4.23      49.0      ********  .933    
+337  ********  ********  4.23      49.2      ********  .933    
+338  ********  ********  4.23      ********  ********  .933    
+339  ********  ********  4.23      48.9      ********  .933    
+340  ********  ********  4.23      48.7      ********  .933    
+341  ********  ********  4.23      ********  ********  .933    
+342  ********  ********  4.23      49.3      ********  .933    
+343  ********  ********  4.23      49.3      ********  .933    
+344  ********  ********  4.23      ********  ********  .933    
+345  ********  ********  4.23      48.8      ********  .933    
+346  ********  ********  4.23      49.3      ********  .933    
+347  ********  ********  4.23      ********  ********  .933    
+348  ********  ********  4.23      ********  ********  .933    
+349  ********  ********  4.23      49.3      ********  .933    
+350  ********  ********  4.23      ********  ********  .933    
+351  ********  ********  4.23      ********  ********  .933    
+352  ********  ********  4.23      49.3      ********  .933    
+353  ********  ********  4.23      ********  ********  .933    
+354  ********  ********  4.23      ********  ********  .933    
+355  ********  ********  4.23      49.3      ********  .933    
+356  ********  ********  4.23      ********  ********  .933    
+357  ********  ********  4.23      ********  ********  .933    
+358  ********  ********  4.23      48.7      ********  .933    
+359  ********  ********  4.23      49.0      ********  .933    
+360  ********  ********  4.23      ********  ********  .933    
+361  ********  ********  4.23      48.7      ********  .933    
+362  ********  ********  4.23      48.8      ********  .933    
+363  ********  ********  4.23      ********  ********  .933    
+364  ********  ********  4.23      48.7      ********  .933    
+365  ********  ********  4.23      48.8      ********  .933    
+366  ********  ********  4.23      ********  ********  .933    
+367  ********  ********  4.23      48.8      ********  .933    
+368  ********  ********  4.23      48.8      ********  .933    
+369  ********  ********  4.23      ********  ********  .933    
+370  ********  ********  4.23      48.7      ********  .933    
+371  ********  ********  4.23      49.0      ********  .933    
+372  ********  ********  4.23      ********  ********  .933    
+373  ********  ********  4.23      48.7      ********  .933    
+374  ********  ********  4.23      49.3      ********  .933    
+375  ********  ********  4.23      49.3      ********  .933    
+
+Output: r11511165                               
+Title:  EmptyTube_823K                          
+
+ RRT_Sort/ begin
+ RRT_Sort/ end

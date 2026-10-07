@@ -1,0 +1,21 @@
+ ===== readme for slatec =====
+
+SLATEC Common Mathematical Library, Version 4.1, July 1993
+a comprehensive software library containing over
+1400 general purpose mathematical and statistical routines
+written in Fortran 77.
+
+
+Source:
+https://www.netlib.org/slatec/
+
+The SLATEC Guide states:
+
+    "The Library is in the public domain"
+
+and further states that the SLATEC Library is intended to have no
+restriction on its distribution and that routines incorporated into
+the library must be in the public domain.
+
+The original source files and their attribution/prologue comments
+have been retained.

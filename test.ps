@@ -1,0 +1,2659 @@
+%!PS-Adobe-3.0
+%%Title: i74.f
+%%For: Florian Kargl
+%%Creator: a2ps version 4.13
+%%CreationDate: Thu Nov 15 14:45:30 2007
+%%BoundingBox: 24 24 571 818
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 6
+%%PageOrder: Ascend
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Define these in case they're not in the FontInfo (also, here
+    % they're easier to get to.
+    /UnderlinePosition 1 def
+    /UnderlineThickness 1 def
+    
+    % Get the underline position and thickness if they're defined.
+    currentdict /FontInfo known {
+      FontInfo
+      
+      dup /UnderlinePosition known {
+	dup /UnderlinePosition get
+	0 exch FontMatrix transform exch pop
+	/UnderlinePosition exch def
+      } if
+      
+      dup /UnderlineThickness known {
+	/UnderlineThickness get
+	0 exch FontMatrix transform exch pop
+	/UnderlineThickness exch def
+      } if
+      
+    } if
+    currentdict 
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed strings
+% Version 1.2 1/31/1990
+% Original Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 595 def
+/sw 842 def
+/llx 24 def
+/urx 818 def
+/ury 571 def
+/lly 24 def
+/#copies 1 def
+/th 15.000000 def
+/fnfs 11 def
+/bfs 8.005733 def
+/cw 4.803440 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 81.400000 mul
+def
+/ph
+   501.959430 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 0 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1-2) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(C  ====================================================================) c n
+(C) N
+(C      Library  IDA   :  Inelastic data treatment) N
+(C      Modul    i74   :     calculate self absorption coefficients) N
+(C) N
+(C  ====================================================================) N
+() p n
+(C      Contents :) c n
+(C         AbsCoeffs, AskGeometry, CoCaSlab, CoCaCyl, AbsCyl, TraCyl) N
+() p n
+(C      History :) c n
+(C         9nov96   2th-w-grid just as given) N
+(C         2sep96   recovered from sqw1) N
+(C         22jun94   geometry parameters in output comment lines) N
+(C         7apr93   more comments, SQW1 corrected) N
+(C         12. 8.91, comments, units, renamed COCA.) N
+(C         16. 5.91, as test program ACT) N
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(AbsCoeffs) L
+( \(nJList, JList, Fehler\)) p n
+(C  --------------------------------------------------------------------) c n
+() p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(REAL) K
+(*8   \(a-h,o-p,r-z\)) p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(LOGICAL) K
+(  \(q\)) p n
+() N
+(      ) S
+(INCLUDE) K
+( ') p
+(l_def.f) str
+(') p n
+(      ) S
+(INCLUDE) K
+( ') p
+(i_dim.f) str
+('      ) p n
+(      ) S
+(INCLUDE) K
+( ') p
+(i_wrk.f) str
+(') p n
+(      ) S
+(INTEGER) K
+(       nJList, JList\(*\)) p n
+(      ) S
+(CHARACTER) K
+(*40  File, FileOut) p n
+(      ) S
+(CHARACTER) K
+(*\(*\) Fehler) p n
+(      ) S
+(CHARACTER) K
+(*80  ein, aus) p n
+(      ) S
+(CHARACTER) K
+(*40  doc\(2\)) p n
+(      ) S
+(LOGICAL) K
+(       qCont) p n
+() N
+(      ) S
+(DATA) K
+(          nT / 40 /, nR / 20 / ) p
+(! had been ill-adjusted in A1,38ff) c n
+(                                         ) p
+(! does no longer depend on size) c n
+(      ) p
+(IF) K
+( \(nJlist) p
+(.eq.) K
+(0\) ) p
+(THEN) K n
+(         Fehler = ') p
+( ) str
+(') p n
+(         ) S
+(RETURN) K n
+(         ) p
+(ENDIF) K n
+() p n
+(      ) S
+(DO) K
+( lj = 1, nJList) p n
+(         j = JList\(lj\)) N
+() N
+(         ) S
+(! Description of sample cell :) c n
+(         ) p
+(CALL) K
+( ) p
+(AskGeometry) l
+( \(wB, cB, jGeo, back, SamD, alpha, SamR,) p n
+(     *                     ConT1, ConD1, ConT2, ConD2, qCont,) N
+(     *                     abs_s, abs_a, doc, Fehler\)) N
+(         ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K
+( ) p n
+() N
+(         ) S
+(IF) K
+( \(jGeo) p
+(.eq.) K
+(2 ) p
+(.or.) K
+( jGeo) p
+(.eq.) K
+(3\) ) p
+(THEN) K n
+(            nT = iAskD \(') p
+(# angular meshes) str
+(', nT\)) p n
+(            nR = iAskD \(') S
+(# radial meshes) str
+(', nR\)) p n
+(            ) S
+(ENDIF) K n
+() p n
+(         ) S
+(IF) K
+( \(abs_a) p
+(.ne.) K
+(0\) ) p
+(THEN) K n
+(            Ei = rOlfGG \(j, ') p
+(E0) str
+(', ') p
+(meV) str
+(', Fehler\) ) p n
+(            ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+(            absi = abs_s + ) p
+(dsqrt) K
+( \(25.305/Ei\) * abs_a ) p
+(! 25.3meV = 2200m/sec) c n
+(         ) p
+(ELSE) K n
+(            absi = abs_s) p n
+(i74.f) (Page 1/11) (Mar 30, 06 15:45) title
+border
+/v 1 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(            ) p
+(ENDIF) K
+( ) p n
+(           ) N
+(         ) S
+(! Output files :) c n
+(         ) p
+(CALL) K
+( ) p
+(OlfHeadDup) l
+( \(j, .false., j1, nK, K1, Fehler\)) p n
+(         ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+(         ) p
+(CALL) K
+( ) p
+(OlfCnuP) l
+( \(j1, ') p
+(y) str
+(', ') p
+(Assc) str
+(', ') p
+( ) str
+(', Fehler\)) p n
+(         ) S
+(CALL) K
+( ) p
+(tOlfG) l
+( \(j, ') p
+(fil) str
+(', File, Fehler\)) p n
+(         ) S
+(CALL) K
+( ) p
+(Compose2) l
+( \(FileOut, File, ') p
+(_A1) str
+('\)) p n
+(         ) S
+(CALL) K
+( ) p
+(tOlfP) l
+( \(j1, ') p
+(fil) str
+(', FileOut, Fehler\)) p n
+(         ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+() p n
+(         ) S
+(IF) K
+( \(qCont\) ) p
+(THEN) K
+( ) p n
+(            ) S
+(CALL) K
+( ) p
+(OlfHeadDup) l
+( \(j, .false., j2, nK, K2, Fehler\)) p n
+(            ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+(         ) p n
+(            ) S
+(CALL) K
+( ) p
+(OlfCnuP) l
+( \(j2, ') p
+(y) str
+(', ') p
+(Arel) str
+(', ') p
+( ) str
+(', Fehler\)) p n
+(            ) S
+(CALL) K
+( ) p
+(Compose2) l
+( \(FileOut, File, ') p
+(_A2) str
+('\)) p n
+(            ) S
+(CALL) K
+( ) p
+(tOlfP) l
+( \(j2, ') p
+(fil) str
+(', FileOut, Fehler\)) p n
+(            ) S
+(ENDIF) K
+( ) p n
+() N
+(         ) S
+(! the calculation :) c n
+(         ) p
+(DO) K
+( K = 1, nK) p n
+(            ) S
+(CALL) K
+( ) p
+(OlfGetXYD) l
+( \(j, K, n, X, Y, D, Fehler\)) p n
+() N
+(            ) S
+(DO) K
+( i = 1, n) p n
+(               tt = rzxOlfGG \(j, K, i, ') S
+(2th) str
+(', ') p
+( ) str
+(', Fehler\) ) p n
+() N
+(               ) S
+(IF) K
+( \(abs_a) p
+(.ne.) K
+(0\) ) p
+(THEN) K n
+(                  Ef = Ei + rzxOlfGG \(j, K, i, ') p
+(w) str
+(', ') p
+(meV) str
+(', Fehler\) ) p n
+(                  ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+(                  absf = abs_s + ) p
+(dsqrt) K
+( \(25.305/Ef\) * abs_a) p n
+(               ) S
+(ELSE) K n
+(                  absf = abs_s) p n
+(                  ) S
+(ENDIF) K n
+() p n
+(               ) S
+(IF) K
+(     \(jGeo) p
+(.eq.) K
+(1\) ) p
+(THEN) K
+( ) p n
+(                  ) S
+(CALL) K
+( ) p
+(CoCaSlab) l
+( \(tt, back, SamD, alpha, ConT1, ConT2,) p n
+(     *                           absi, absf, Assc, Arel, Fehler\)) N
+(               ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(2 ) p
+(.or.) K
+( jGeo) p
+(.eq.) K
+(3\) ) p
+(THEN) K n
+(                  ) p
+(CALL) K
+( ) p
+(CoCaCyl) l
+( \(tt, wB, cB, jGeo, back, SamD, SamR,) p n
+(     *                          ConT1, ConD1, ConT2, ConD2,) N
+(     *                          absi, absf, Assc, Arel, trans,) N
+(     *                          nT, nR, area, Fehler\)) N
+(               ) S
+(ELSE) K
+( ) p n
+(                  Fehler = ') S
+(PROG ERR/ bad j) str
+(') p n
+(                  ) S
+(RETURN) K
+( ) p n
+(                  ) S
+(ENDIF) K
+( ) p n
+(               ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K
+( ) p n
+() N
+(               Y1\(i\) = Assc) N
+(               Y2\(i\) = Arel) N
+(               D\(i\)  = 0 ) N
+(      ) N
+(               ) S
+(ENDDO) K n
+(c            CALL Counter \(K, 1, nK, '... working hard'\)) c n
+(   ) p n
+(            ) S
+(CALL) K
+( ) p
+(OlfCopZ) l
+( \(j, j1, K, K, Fehler\)) p n
+(            ) S
+(CALL) K
+( ) p
+(OlfPutXY0) l
+( \(j1, K, n, X, Y1, Fehler\)) p n
+(            ) S
+(IF) K
+( \(qCont\) ) p
+(THEN) K
+( ) p n
+(               ) S
+(CALL) K
+( ) p
+(OlfCopZ) l
+( \(j, j2, K, K, Fehler\)) p n
+(               ) S
+(CALL) K
+( ) p
+(OlfPutXY0) l
+( \(j2, K, n, X, Y2, Fehler\)) p n
+(               ) S
+(ENDIF) K
+( ) p n
+(i74.f) (Page 2/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (1/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (3-4) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(            ) p
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+(            ) p
+(ENDDO) K
+( ) p
+(! K) c n
+() p n
+(         ) S
+(CALL) K
+( ) p
+(OlfClos) l
+( \(j1, nK, Fehler\)) p n
+(         ) S
+(IF) K
+( \(qCont\) ) p
+(CALL) K
+( ) p
+(OlfClos) l
+( \(j2, nK, Fehler\)) p n
+(         ) S
+(IF) K
+( \(Fehler) p
+(.ne.) K
+(') p
+(&ff) str
+('\) ) p
+(RETURN) K n
+() p n
+(         ) S
+(Print) K
+( *, ') p
+( target section area ) str
+(', area) p n
+(         ) S
+(Print) K
+( *, ') p
+( transmission        ) str
+(', trans, ') p
+( IS WRONG if wB>0) str
+(') p n
+() N
+(         ) S
+(ENDDO) K
+( ) p
+(! lj) c n
+() p n
+(      ) S
+(END) K
+( ) p
+(! AbsCoeffs) c n
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(AskGeometry) L
+( \(wB, cB, jGeo, back, d, alpha, R,) p n
+(     *                        t1, d1, t2, d2, qCont,) N
+(     *                        abs_s, abs_a, doc, Fehler\)) N
+(C  --------------------------------------------------------------------) c n
+(                                                     ) p
+(! JWuttke, May 1991) c n
+() p n
+(         ) S
+(! Questionary for geometry and scattering intensity.) c n
+(         ) p
+(! For absorption corrections, one needs the product abso) c n
+(         ) p
+(! and complete information on the experimental geometry.) c n
+() p n
+(         ) S
+(! Output :) c n
+(         ) p
+(!  wB    = beam width) c n
+(         ) p
+(!  cB    = beam centre) c n
+(         ) p
+(!  jGeo  = code for geometry) c n
+(         ) p
+(!  back  = ratio of back-scattered beam passing through the sample) c n
+(         ) p
+(!  d     = thickness of slab or hollow cylinder) c n
+(         ) p
+(!  alpha = angle \(2 theta\) of slab) c n
+(         ) p
+(!  R     = outer radius of cylinder) c n
+(         ) p
+(!  t1    = transmission of frontside/inner container \(C1\)) c n
+(         ) p
+(!  d1    = thickness of C1) c n
+(         ) p
+(!  t2    = transmission of backside/outer container \(C2\)) c n
+(         ) p
+(!  d2    = thickness of C2) c n
+(         ) p
+(!  qCont = is there a container ?) c n
+(         ) p
+(!  abs_s = \(number density\) * \(scattering\(i+c\) cross section\)) c n
+(         ) p
+(!  abs_a = \(number density\) * \(absorption cross section at 2200m/sec\)) c n
+() p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(REAL) K
+(*8 \(a-h,o-p,r-z\)) p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(LOGICAL) K
+( \(q\)) p n
+(      ) S
+(CHARACTER) K
+(        aus*80, Fehler*\(*\)) p n
+(      ) S
+(CHARACTER) K
+(*\(*\)    doc\(2\)) p n
+() N
+( 1    ) S
+(CONTINUE) K n
+() p n
+(      wB = rAskD \(') S
+(Width of beam \(0:fully illuminated\)) str
+(', wB\)) p n
+(      ) S
+(IF) K
+( \(wB) p
+(.gt.) K
+(0\) cB = rAskD \(') p
+(And its center) str
+(', cB\)) p n
+() N
+(C  Which kind of geometry ?) c n
+(      ) p
+(Print) K
+( *, ') p
+(Geometry : ) str
+(' ) p
+(! \(0\) unspecified') c n
+(      ) p
+(Print) K
+( *, ') p
+(           \(1\) flat slab,) str
+(') p n
+(      ) S
+(Print) K
+( *, ') p
+(           \(2\) solid cylinder,) str
+(') p n
+(      ) S
+(Print) K
+( *, ') p
+(           \(3\) hollow cylinder,) str
+(') p n
+(      jGeo = iAskDMu \(') S
+(Case) str
+(', jGeo, 0, 3\)) p n
+() N
+(C  Absorption correction ?) c n
+(      ) p
+(IF) K
+(     \(jGeo) p
+(.eq.) K
+(0\) ) p
+(THEN) K n
+(         Fehler = ') p
+( ) str
+(') p n
+(         ) S
+(RETURN) K
+( ) p
+(! 'no absorption correction for unspecified geometry.') c n
+(i74.f) (Page 3/11) (Mar 30, 06 15:45) title
+border
+/v 1 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         ) p
+(ENDIF) K n
+() p n
+(C  Information on geometry :) c n
+(      qCont = .true.) p n
+(      ) S
+(IF) K
+( \(jGeo) p
+(.eq.) K
+(1\) ) p
+(THEN) K n
+(C  Enter slab parameters :) c n
+(         d    = rAskDMu \(') p
+(Thickness of the slab \(cm\)) str
+(', d, 1.d-4, 1.d1\)) p n
+( 111     ) S
+(CONTINUE) K n
+(         alpha= rAskDMu) p n
+(     *      \(') S
+(Angle between plane of the slab and transmitted beam) str
+(',) p n
+(     *        alpha, 0.d0, 180.d0\)) N
+(         ) S
+(IF) K
+( \(alpha) p
+(.lt.) K
+(3. ) p
+(.or.) K
+( alpha) p
+(.gt.) K
+(177.\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(Gong) l
+( \(3\)) p n
+(            ) S
+(Print) K
+( *, ') p
+(  Angles should be given in degrees.) str
+(') p n
+(            ) S
+(Print) K
+( *,) p n
+(     *     ') S
+(  Angles outside 3...177 are rejected for physical reasons.) str
+(') p n
+(            ) S
+(GOTO) K
+( 111) p n
+(            ) S
+(ENDIF) K n
+(         ) p n
+(         t    = rAskDMu \(') S
+(Container transmission \(for perpendicular beam\)) str
+(',) p n
+(     *                   t, 1.d-3, 1.d0\)) N
+(            ) S
+(! frontside and backside not different) c n
+(         t1   = ) p
+(dsqrt) K
+( \(t\)) p n
+(         t2   = t1) N
+(      ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(2\) ) p
+(THEN) K n
+(C  Enter solid cylinder parameters :) c n
+(         R    = rAskMu \(') p
+(Radius of the sample \(cm\) ?) str
+(', 1.d-4, 1.d0\)) p n
+(         t2   = rAskMu \(') S
+(Container transmission ?) str
+(', 1.d-3, 1.d0\)) p n
+(         ) S
+(IF) K
+( \(t2) p
+(.lt.) K
+(1.\) ) p
+(THEN) K n
+(            d2 = rAskMu \(') p
+(Thickness of container ?) str
+(', 1.d-6, 1.d1\)) p n
+(         ) S
+(ELSE) K n
+(            ) p
+(CALL) K
+( ) p
+(Gong) l
+( \(1\)) p n
+(            ) S
+(Print) K
+( *, ') p
+(  WARNING :) str
+(') p n
+(            ) S
+(Print) K
+( *, ') p
+(  The relative correction factor) str
+(') p n
+(     *           //') S
+( \(container/sample\) will be set to A2/A1 = 1) str
+(') p n
+(            d2 = 0.) N
+(            ) S
+(ENDIF) K n
+(C  In the following, the solid cylinder will be treated as) c n
+(C  a special hollow cylinder :) N
+(         d  = R) p n
+(         t1 = 1.) N
+(         d1 = 0.) N
+(      ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(3\) ) p
+(THEN) K n
+(         R  = rAskDMu \(') p
+(Outer radius of the sample \(cm\) ?) str
+(', R, 1.d-3, 1.d3\)) p n
+(         d  = rAskDMu \(') S
+(Thickness of the sample layer \(cm\) ?) str
+(', d, 1.d-4, R\)) p n
+(         t1 = rAskDMu  \(') S
+(Transmission of the inner container?) str
+(', t1, 1.d-3, 1.d0\)) p n
+(         ) S
+(IF) K
+( \(t1) p
+(.lt.) K
+(1.\) ) p
+(THEN) K n
+(            d1 = rAskMu \(') p
+(Thickness of the inner container \(cm\) ?) str
+(',) p n
+(     *             1.d-6, 1.d1\)) N
+(         ) S
+(ELSE) K n
+(            d1 = 0) p n
+(            ) S
+(ENDIF) K n
+(         t2 = rAskDMu \(') p
+(Transmission of the outer container?) str
+(', t2, 1.d-3, 1.d0\)) p n
+(         ) S
+(IF) K
+( \(t2) p
+(.lt.) K
+(1.\) ) p
+(THEN) K n
+(            d2 = rAskMu \(') p
+(Thickness of the outer container \(cm\) ?) str
+(',) p n
+(     *             1.d-6, 1.d1\)) N
+(         ) S
+(ELSE) K n
+(            d2 = 0) p n
+(            ) S
+(ENDIF) K n
+(         ) p
+(IF) K
+( \(t1) p
+(.eq.) K
+(1 ) p
+(.and.) K
+( t2) p
+(.eq.) K
+(1\) qCont = .false.) p n
+(         ) S
+(ENDIF) K n
+() p n
+(i74.f) (Page 4/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (2/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (5-6) 3
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      back = rAskDMu \(') p
+(Fraction of back-scattered beam transversing the sample) str
+(',) p n
+(     *                back, 0.d0, 1.d0\)) N
+() N
+(C  Information on the sample :) c n
+(      dens21 = rAskDMu \(') p
+(Number density of scatterers \(10^21 cm-3\)) str
+(',) p n
+(     *                  dens21, 1.d-4, 1.d8\)) N
+(      dens = 1.d-3 * dens21  ) S
+(! density in 10^24 cm-3) c n
+(      sigscat = rAskDMu \(') p
+(Scattering cross section \(coh+incoh\) \(barn\)) str
+(',) p n
+(     *                   sigscat, 0.d0, 1.d5\)) N
+(      sigabs = rAskDMu \(') S
+(Absorption cross section at 2200 m/sec \(barn\)) str
+(',) p n
+(     *                  sigabs, 0.d0, 1.d5\)) N
+() N
+(      ) S
+(IF) K
+( \(sigabs+sigscat) p
+(.le.) K
+(0\) ) p
+(THEN) K n
+(         Fehler = ') p
+(no scattering, no absorption -> no coefficients) str
+(') p n
+(         ) S
+(RETURN) K n
+(         ) p
+(ENDIF) K
+( ) p n
+() N
+(      abs_s = dens * sigscat) N
+(      abs_a = dens * sigabs) N
+(      ) N
+(C  Documentation :) c n
+(      ) p
+(IF) K
+(     \(jGeo) p
+(.eq.) K
+(0\) ) p
+(THEN) K n
+(         aus = ') p
+(   geometry unspecified) str
+(') p n
+(      ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(1\) ) p
+(THEN) K n
+(            ) p
+(write) K
+( \(aus, ') p
+(\(a,f5.2,a,f5.1,a,f5.2,a,f5.2\)) str
+('\)) p n
+(     *       ') S
+(  slab : d=) str
+(', d, ') p
+(cm alpha=) str
+(', alpha, ') p
+( t_C=) str
+(', t, ') p
+( fB=) str
+(', back) p n
+(      ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(2\) ) p
+(THEN) K n
+(         aus = ') p
+(* cyl) str
+(') p n
+(      ) S
+(ELSEIF) K
+( \(jGeo) p
+(.eq.) K
+(3\) ) p
+(THEN) K n
+(            ) p
+(write) K
+( \(aus, ') p
+(\(7\(a,f5.2\)\)) str
+('\)) p n
+(     *       ') S
+(  cyl : d=) str
+(', d*10, ') p
+(mm Ra=) str
+(', R*10,) p n
+(     *       ') S
+(mm ti=) str
+(', t1, ') p
+( ta=) str
+(', t2,) p n
+(     *       ') S
+( di=) str
+(', d1*10, ') p
+(mm da=) str
+(', d2*10, ') p
+(mm fB=) str
+(', back) p n
+(         ) S
+(ENDIF) K n
+(      doc\(1\) = aus) p n
+(      ) S
+(Print) K
+( *, aus) p n
+() N
+(      ) S
+(write) K
+( \(aus, ') p
+(\(a,e9.2,a,f7.2,a,f7.2,a\)) str
+('\)) p n
+(     *    ') S
+(          n=) str
+(', dens*1.d24, ') p
+(cm-3 sig_s=) str
+(', sigscat,) p n
+(     *    ') S
+(barn sig_a=) str
+(', sigabs, ') p
+(barn) str
+(') p n
+(      doc\(2\) = aus) N
+(      ) S
+(Print) K
+( *, aus) p n
+() N
+(      ) S
+(IF) K
+( \() p
+(.not.) K
+(qAskD\(') p
+(All right) str
+(', 1\)\) ) p
+(GOTO) K
+( 1) p n
+() N
+(      ) S
+(END) K
+( ) p
+(! AskGeometry) c n
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(CoCaSlab) L
+( \(angle, back, d, alpha, t1, t2, absi, absf,) p n
+(     *                    Assc, Arel, Fehler\)) N
+(C  --------------------------------------------------------------------) c n
+() p n
+(         ) S
+(! calculates the two absorption correction coefficients A1, A2) c n
+() p n
+(         ) S
+(! angle = scattering angle \(2 theta\)) c n
+(         ) p
+(! ...  see above \(AskGeometry\)) c n
+(         ) p
+(! absi  = mu_i = \(density of scatterers\) * \(total cross section at Ei\)) c n
+(         ) p
+(! absf  = mu_f = \(density of scatterers\) * \(total cross section at Ef\)) c n
+(              ) p
+(! for back-scattering, we have always absi = absf.) c n
+(              ) p
+(! however, both quantities are kept separated for) c n
+(              ) p
+(! the sake of conceptual clarity.) c n
+() p n
+(i74.f) (Page 5/11) (Mar 30, 06 15:45) title
+border
+/v 1 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      ) p
+(IMPLICIT) K
+( ) p
+(NONE) K n
+(      ) p
+(CHARACTER) K
+(         Fehler*\(*\)) p n
+(      ) S
+(REAL) K
+(*8            angle, back, d, alpha, t1, t2, absi, absf, Assc, Arel,) p n
+(     *                  beta, angmin, Ass, xsi, xsf, tsi, tsf,) N
+(     *                  SigC, f, Bs, Bc, Bsc, tci, tcf) N
+() N
+(      angmin = 1.d-2 ) N
+() N
+(      beta = alpha - angle) N
+(      ) N
+(      ) S
+(IF) K
+( \() p
+(dabs) K
+(\(beta\)) p
+(.lt.) K
+(angmin ) p
+(.or.) K
+(  ) p
+(! scattering in slab direction) c n
+(     *    alpha) p
+(.lt.) K
+(angmin ) p
+(.or.) K
+( alpha) p
+(.gt.) K
+(180-angmin\) ) p
+(THEN) K n
+(         Assc = 0.) p n
+(         Arel = 0.) N
+(         ) S
+(RETURN) K
+( ) p n
+(         ) S
+(ENDIF) K n
+() p n
+(C  - absorption by sample :) c n
+(      xsi = absi * d / dsind\(alpha\)) p n
+(      xsf = absf * d / dsind\(beta\)) N
+(      tsi = ) S
+(dexp) K
+( \( - xsi \)      ) p
+(! transmission of incident beam through sample) c n
+(      tsf = ) p
+(dexp) K
+( \( -) p
+(dabs) K
+(\(xsf\) \) ) p
+(! transmission of scattered beam through sample) c n
+() p n
+(C  - integral : scattering by sample, absorption by sample :) c n
+(      ) p
+(IF) K
+( \() p
+(dabs) K
+(\(xsi-xsf\)) p
+(.lt.) K
+(1.d-8\) ) p
+(THEN) K
+( ) p
+(! to avoid division by 0.) c n
+(         ) p
+(IF) K
+( \(beta) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(            Ass = ) p
+(dexp) K
+(\(-xsi\) * \(1 - .5*\(xsf-xsi\) \)) p n
+(         ) S
+(ELSE) K n
+(            Ass = 1 + .5*\(xsf-xsi\) ) p
+(! of course the second summand is negative) c n
+(            ) p
+(ENDIF) K n
+(      ) p
+(ELSE) K n
+(         ) p
+(IF) K
+( \(beta) p
+(.gt.) K
+(0.\) ) p
+(THEN) K
+(   ) p
+(! transmission case :) c n
+(            Ass = \() p
+(dexp) K
+(\(-xsi\) - ) p
+(dexp) K
+(\(-xsf\)\) / \(xsf - xsi\)) p n
+(         ) S
+(ELSE) K
+(                   ) p
+(! reflection case :) c n
+(            Ass = \() p
+(dexp) K
+(\(xsf-xsi\) - 1\) / \(xsf - xsi\)) p n
+(            ) S
+(ENDIF) K n
+(         ) p
+(ENDIF) K n
+() p n
+(C  - absorption by one of the two container walls :) c n
+(      ) p
+(IF) K
+( \(t1) p
+(.ne.) K
+(t2\) ) p
+(THEN) K n
+(         Fehler = ') p
+( PROGRAM ERROR / Transmission different for C1, C2) str
+(') p n
+(         ) S
+(RETURN) K n
+(         ) p
+(ENDIF) K n
+(      SigC = - ) p
+(dlog) K
+( \(t1\)) p n
+(      tci  = ) S
+(dexp) K
+( \( - SigC / dsind\(alpha\) \)) p n
+(      tcf  = ) S
+(dexp) K
+( \( - SigC / ) p
+(dabs) K
+(\(dsind\(beta\)\) \)) p n
+() N
+(C  - absorption of the back-scattered beam :) c n
+() p n
+(      f = back * ) S
+(dabs) K
+(\(dsind\(beta\)\)) p n
+(         ) S
+(! fraction that passes a second time through the sample) c n
+(      ) p n
+(      Bsc = \(1 - f\) + f * tcf * tsf * tcf  ) S
+(! transmission through C and S) c n
+(      Bc  = \(1 - f\) + f * tcf    *    tcf  ) p
+(! .. through C alone) c n
+(      Bs  = Bsc / Bc) p n
+() N
+(C  - now calculate the absorption coefficients :) c n
+(      ) p
+(! A\(S,SC\) :) c n
+(      Assc = Ass * tci * tcf * Bsc) p n
+() N
+(      ) S
+(! Arel = A\(C,SC\) / A\(C,C\) :) c n
+(      ) p
+(IF) K
+( \(beta) p
+(.gt.) K
+(0\) ) p
+(THEN) K
+(   ) p
+(! transmission case) c n
+(i74.f) (Page 6/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (3/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (7-8) 4
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         Arel = \(tsf*tcf + tci*tsi\) / \(tcf + tci\) * Bs) p n
+(      ) S
+(ELSE) K
+(                  ) p
+(! reflection case) c n
+(         Arel = \(1 + tci*tsi*tsf*tcf\) / \(1 + tci*tcf\) * Bs) p n
+(         ) S
+(ENDIF) K n
+() p n
+(      ) S
+(END) K
+( ) p
+(! CoCaSlab) c n
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(CoCaCyl) L
+( \(angle, wB, cB, jGeo, back,) p n
+(     *                    d, R, t1, d1, t2, d2, absi, absf,) N
+(     *                    Assc, Arel, trans, nT, nR, area, Fehler\)) N
+(C  --------------------------------------------------------------------) c n
+() p n
+(         ) S
+(! calculates the two absorption correction coefficients A1, A2) c n
+() p n
+(         ) S
+(! angle = scattering angle \(2 theta\)) c n
+(         ) p
+(! ...  see above \(AskGeometry\)) c n
+(         ) p
+(! absi  = mu_i = \(density of scatterers\) * \(total cross section at Ei\)) c n
+(         ) p
+(! absf  = mu_f = \(density of scatterers\) * \(total cross section at Ef\)) c n
+(              ) p
+(! for back-scattering, we have always absi = absf.) c n
+(              ) p
+(! however, both quantities are kept separated for) c n
+(              ) p
+(! the sake of conceptual clarity.) c n
+(         ) p
+(! A1    = multiplicator for N\(S+C\)) c n
+(         ) p
+(! A2    = multiplicator for N\(C\)) c n
+(         ) p
+(! trans = transmission) c n
+(         ) p
+(! area  = mean sample thickness) c n
+() p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(REAL) K
+(*8  \(a-h,o-p,r-z\)) p n
+(      ) S
+(REAL) K
+(*8            Rad\(4\), Rabsi\(4\), Rabsf\(4\)) p n
+(      ) S
+(CHARACTER) K
+(         Fehler*\(*\)) p n
+() N
+(C  Cylinder correction :) c n
+() p n
+(C  - Set arrays :) c n
+(      Rad \(1\) = R - d - d1 ) p
+(! air) c n
+(      Rad \(2\) = R - d      ) p
+(! inner container \(C1\)) c n
+(      ) p
+(IF) K
+( \(d1) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(         Rabsi\(2\) = -) p
+(dlog) K
+(\(t1\) / \(2 * d1\)) p n
+(         Rabsf\(2\) = -) S
+(dlog) K
+(\(t1\) / \(2 * d1\)) p n
+(         n1 = 2) N
+(      ) S
+(ELSE) K n
+(            ) p
+(! nota bene : d1=0 is interpreted as t1=1) c n
+(         n1 = 3 ) p
+(! no inner container cylinder) c n
+(         ) p
+(ENDIF) K n
+(      Rad  \(3\) = R          ) p
+(! sample \(S\)) c n
+(      Rabsi\(3\) = absi) p n
+(      Rabsf\(3\) = absf) N
+(      Rad  \(4\) = R + d2     ) S
+(! outer container \(C2\)) c n
+(      ) p
+(IF) K
+( \(d2) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(         Rabsi\(4\) = -) p
+(dlog) K
+(\(t2\) / \(2 * d2\)) p n
+(         Rabsf\(4\) = -) S
+(dlog) K
+(\(t2\) / \(2 * d2\)) p n
+(         nU = 4) N
+(      ) S
+(ELSE) K n
+(         nU = 3) p n
+(         ) S
+(ENDIF) K n
+() p n
+(C  - Calculate A\(S,SC\) :) c n
+(      ) p
+(CALL) K
+( ) p
+(AbsCyl) l
+( \(angle, wB, cB, n1, nU, 3,) p n
+(     *             Rad, Rabsi, Rabsf, nT, nR, ts, area\)) N
+(      Assc = ts / area) N
+() N
+(      ) S
+(CALL) K
+( ) p
+(TraCyl) l
+( \(n1, nU, Rad, Rabsf, R, trans\)) p n
+(i74.f) (Page 7/11) (Mar 30, 06 15:45) title
+border
+/v 1 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      ) p
+(IF) K
+( \(back) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(         Assc = Assc * \( \(1-back\) + back * trans \)) p n
+(         ) S
+(ENDIF) K n
+() p n
+(C  - Calculate Arel :) c n
+(      ) p
+(IF) K
+( \(n1) p
+(.eq.) K
+(nU\) ) p
+(THEN) K n
+(         ) p
+(! both containers are transparent) c n
+(         Arel = 1.) p n
+(      ) S
+(ELSE) K n
+(C  - - To calculate A\(C,SC\), integrate over C1 and C2 :) c n
+(         Acsc = 0.) p n
+(         ) S
+(IF) K
+( \(n1) p
+(.eq.) K
+(2\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(AbsCyl) l
+( \(angle, wB, cB, n1, nU, 2,) p n
+(     *                   Rad, Rabsi, Rabsf, nT, nR, ts, area\)) N
+(            Acsc = Acsc + ts) N
+(            ) S
+(ENDIF) K n
+(         ) p
+(IF) K
+( \(nU) p
+(.eq.) K
+(4\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(AbsCyl) l
+( \(angle, wB, cB, n1, nU, 4,) p n
+(     *                   Rad, Rabsi, Rabsf, nT, nR, ts, area\)) N
+(            Acsc = Acsc + ts) N
+(            ) S
+(ENDIF) K n
+(               ) p
+(! no normalization by area because only the) c n
+(               ) p
+(! quotient Acsc/Acc is required) c n
+(         ) p
+(IF) K
+( \(back) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(            Acsc = Acsc * \( \(1-back\) + back * tb \)) p n
+(               ) S
+(! the absorption coefficient for the back-scattered) c n
+(               ) p
+(! beam is the same for Assc and Acsc.) c n
+(            ) p
+(ENDIF) K n
+(C  - - To calculate A\(C,C\), do the same with air in the sample cylinder :) c n
+(         Rabsi\(3\) = 0.) p n
+(         Rabsf\(3\) = 0.) N
+(         Acc = 0.) N
+(         ) S
+(IF) K
+( \(n1) p
+(.eq.) K
+(2\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(AbsCyl) l
+( \(angle, wB, cB, n1, nU, 2,) p n
+(     *                   Rad, Rabsi, Rabsf, nT, nR, ts, area\)) N
+(            Acc = Acc + ts) N
+(            ) S
+(ENDIF) K n
+(         ) p
+(IF) K
+( \(nU) p
+(.eq.) K
+(4\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(AbsCyl) l
+( \(angle, wB, cB, n1, nU, 4, ) p n
+(     *                   Rad, Rabsi, Rabsf, nT, nR, ts, area\)) N
+(            Acc = Acc + ts) N
+(            ) S
+(ENDIF) K n
+(         ) p
+(IF) K
+( \(back) p
+(.gt.) K
+(0.\) ) p
+(THEN) K n
+(            ) p
+(CALL) K
+( ) p
+(TraCyl) l
+( \(n1, nU, Rad, Rabsf, R, tb\)) p n
+(            Acc = Acc * \( \(1-back\) + back * tb \)) N
+(            ) S
+(ENDIF) K n
+(      ) p n
+(         Arel = Acsc / Acc) N
+(         ) S
+(ENDIF) K n
+() p n
+(      ) S
+(END) K
+( ) p
+(! CoCaCyl) c n
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(AbsCyl) L
+( \(ang, wB, cB, n1, nU, ) p
+(nInt) K
+(, Rad, Absi, Absf, nT, nR,) p n
+(     *                   ts, area\)) N
+(C  --------------------------------------------------------------------) c n
+(                                     ) p
+(! F.Rieutord jan91, J.Wuttke may91) c n
+() p n
+(         ) S
+(! Determination of the self shielding factor) c n
+(         ) p
+(! for an assembly of concentrical cylinders.) c n
+() p n
+(         ) S
+(! Input :) c n
+(i74.f) (Page 8/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (4/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (9-10) 5
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(         ) p
+(!  ang  = scattering angle \(2 theta\)) c n
+(         ) p
+(!  wB, cB = beam width and center) c n
+(         ) p
+(!  n1   = first cylinder to be taken into account) c n
+(         ) p
+(!  nU   = last cylinder ...) c n
+(                      ) p
+(! the cylinder are counted from the center) c n
+(         ) p
+(!  nInt = cylinder in which the beam is scattered) c n
+(                      ) p
+(! nInt = 1 is forbidden - for a solid cylinder) c n
+(                      ) p
+(! let Rad\(1\) = 0 and use nInt = 2) c n
+(         ) p
+(!  Rad  = outer radii of the cylinders) c n
+(         ) p
+(!  Absi = density * cross section \(at Ei\)) c n
+(         ) p
+(!  Absf = dito \(at Ef\)) c n
+(         ) p
+(!  nT   = # angular points) c n
+(         ) p
+(!  nR   = # radial points) c n
+(         ) p
+(! Output :) c n
+(         ) p
+(!  ts   = transmission for the scattered beam \(scattered by 2theta\)) c n
+(         ) p
+(!  area = illuminated arealine ) c n
+() p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(REAL) K
+(*8 \(a-h,o-p,r-z\)) p n
+(      ) S
+(! input :) c n
+(      ) p
+(DIMENSION) K
+(        Rad\(4\), Absi\(4\), Absf\(4\)) p n
+(      ) S
+(! internal :) c n
+(      ) p
+(DIMENSION) K
+(        Rad2\(4\)) p n
+() N
+(C  Auxiliary stores for acceleration of the integration :) c n
+(      ) p
+(DO) K
+( i = 1, nU) p n
+(         Rad2 \(i\) = Rad\(i\)**2) N
+(         ) S
+(ENDDO) K n
+() p n
+(C  Set integration step width :) c n
+(      d = Rad\() p
+(nInt) K
+(\) - Rad\() p
+(nInt) K
+(-1\)) p n
+(      Rstep = d / nR) N
+(      Tstep = 360.d0 / nT) N
+() N
+(C  Start integration :) c n
+(      ts    = 0.) p n
+(      area  = 0.) N
+(   ) N
+(C  Loop over angle T :) c n
+(         ) p
+(! T is defined the same way as the scattering angle \(2 theta\)) c n
+(      ) p
+(DO) K
+( iT = 1, nT) p n
+(         T = \(iT-.5\) * Tstep) N
+(         ) S
+(! calculate as much as possible outside the inner loop :) c n
+(         sTi2 = dsind\(T\)**2) p n
+(         cTi  = dcosd\(T\)) N
+(         sTf2 = dsind\(T+180-ang\)**2) N
+(         cTf  = dcosd\(T+180-ang\)) N
+(         ) S
+(IF) K
+( \(wB) p
+(.gt.) K
+(0 ) p
+(.and.) K
+( ) p n
+(     * \(\(Rad\() S
+(nInt) K
+(-1\)*dsind\(T\)) p
+(.lt.) K
+(cB-wB/2 ) p
+(.and.) K
+( Rad\() p
+(nInt) K
+(\)*dsind\(T\)) p
+(.lt.) K
+(cB-wB/2\)) p n
+(     *     ) S
+(.or.) K n
+(     *  \(Rad\() p
+(nInt) K
+(-1\)*dsind\(T\)) p
+(.gt.) K
+(cB+wB/2 ) p
+(.and.) K
+( Rad\() p
+(nInt) K
+(\)*dsind\(T\)) p
+(.gt.) K
+(cB+wB/2\)\)\)) p n
+(     *      ) S
+(GOTO) K
+( 799) p n
+() N
+(C  Loop over radius R :) c n
+(         R = Rad\() p
+(nInt) K
+(-1\) - .5 * Rstep) p n
+(         ) S
+(DO) K
+( iR = 1, nR) p n
+(            R  = R + Rstep) N
+(            ) S
+(IF) K
+( \(wB) p
+(.gt.) K
+(0 ) p
+(.and.) K
+( ) p n
+(     *           \(R*dsind\(T\)) S
+(.lt.) K
+(cB-wB/2 ) p
+(.or.) K
+( R*dsind\(T\)) p
+(.gt.) K
+(cB+wB/2\)\) ) p
+(GOTO) K
+( 79 ) p n
+(                      ) S
+(! outside beam) c n
+(            R2 = R**2) p n
+() N
+(C  Incident beam :) c n
+(i74.f) (Page 9/11) (Mar 30, 06 15:45) title
+border
+/v 1 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(            ySi2 =  R2 * sTi2) p n
+(            xSi  =  R  * cTi) N
+(               ) S
+(! scattering at point \(xSi,ySi\);) c n
+(               ) p
+(! coordinate system : x in direction of incident beam.) c n
+(            Sig = 0.) p n
+(C  - first, the way to |xSi| :) c n
+(            ) p
+(DO) K
+( i = ) p
+(nInt) K
+(+1, nU) p n
+(               xa  = dsqrt0 \(Rad2\(i\)   - ySi2\)) N
+(               xi  = dsqrt0 \(Rad2\(i-1\) - ySi2\)) N
+(               Sig = Sig + \(xa-xi\) * Absi\(i\)) N
+(               ) S
+(ENDDO) K n
+(            xa  = dsqrt0 \(Rad2\() p
+(nInt) K
+(\) - ySi2\)) p n
+(            Sig = Sig + \(xa-) S
+(dabs) K
+(\(xSi\)\) * Absi\() p
+(nInt) K
+(\)) p n
+(C  - then, if necessary, the way from -xSi to xSi :) c n
+(            ) p
+(IF) K
+( \(xSi) p
+(.gt.) K
+(0\) ) p
+(THEN) K n
+(               ) p
+(DO) K
+( i = n1, ) p
+(nInt) K
+(-1) p n
+(                  xa  = dsqrt0 \(Rad2\(i\)   - ySi2\)) N
+(                  xi  = dsqrt0 \(Rad2\(i-1\) - ySi2\)) N
+(                  Sig = Sig + 2 * \(xa-xi\) * Absi\(i\)) N
+(                  ) S
+(ENDDO) K n
+(               xi  = dsqrt0 \(Rad2\() p
+(nInt) K
+(-1\) - ySi2\)) p n
+(               Sig = Sig + 2 * \(xSi-xi\) * Absi\() S
+(nInt) K
+(\)) p n
+(               ) S
+(ENDIF) K n
+() p n
+(C  Scattered beam :) c n
+(            ySf2 =  R2 * sTf2) p n
+(            xSf  =  R  * cTf) N
+(               ) S
+(! Just the same procedure in the coordinate system) c n
+(               ) p
+(! of the scattered beam.) c n
+(            ) p
+(DO) K
+( i = ) p
+(nInt) K
+(+1, nU) p n
+(               xa  = dsqrt0 \(Rad2\(i\)   - ySf2\)) N
+(               xi  = dsqrt0 \(Rad2\(i-1\) - ySf2\)) N
+(               Sig = Sig + \(xa-xi\) * Absf\(i\)) N
+(               ) S
+(ENDDO) K n
+(            xa  = dsqrt0 \(Rad2\() p
+(nInt) K
+(\) - ySf2\)) p n
+(            Sig = Sig + \(xa-) S
+(dabs) K
+(\(xSf\)\) * Absf\() p
+(nInt) K
+(\)) p n
+(            ) S
+(IF) K
+( \(xSf) p
+(.gt.) K
+(0\) ) p
+(THEN) K n
+(               ) p
+(DO) K
+( i = n1, ) p
+(nInt) K
+(-1) p n
+(                  xa  = dsqrt0 \(Rad2\(i\)   - ySf2\)) N
+(                  xi  = dsqrt0 \(Rad2\(i-1\) - ySf2\)) N
+(                  Sig = Sig + 2 * \(xa-xi\) * Absf\(i\)) N
+(                  ) S
+(ENDDO) K n
+(               xi  = dsqrt0 \(Rad2\() p
+(nInt) K
+(-1\) - ySf2\)) p n
+(               Sig = Sig + 2 * \(xSf-xi\) * Absf\() S
+(nInt) K
+(\)) p n
+(               ) S
+(ENDIF) K n
+() p n
+(C  Now the new element is added to the integral :) c n
+(            ts   = ts   + R * ) p
+(dexp) K
+(\(-Sig\) ) p n
+(            area = area + R) N
+(               ) S
+(! factor dy = R |cosT| dT = xSi ) c n
+(               ) p
+(! is the non-constant part of the integral measure) c n
+(               ) p
+(! \(wrongly corrected 7apr93, eliminated 14jan00\)) c n
+( 79         ) p
+(CONTINUE) K n
+(            ) p
+(ENDDO) K
+( ) p
+(! R) c n
+( 799        ) p
+(CONTINUE) K
+( ) p n
+(         ) S
+(ENDDO) K
+( ) p
+(! T) c n
+() p n
+(C  Yet to come : the constant part of the integral measure :) c n
+(      ts   = ts   * Rstep * \(Tstep*3.14159/180\)) p n
+(      area = area * Rstep * \(Tstep*3.14159/180\)) N
+(      ) S
+(IF) K
+( \(area) p
+(.le.) K
+(0\) ) p
+(CALL) K
+( ) p
+(Absturz) l
+( \(') p
+(AbsCyl) str
+(', ') p
+(area .le. 0) str
+('\)) p n
+() N
+(i74.f) (Page 10/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (5/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (11) 6
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 3.362408 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+(      ) p
+(END) K
+( ) p
+(! AbsCyl) c n
+() p n
+(C  --------------------------------------------------------------------) c n
+(      ) p
+(SUBROUTINE) K
+( ) p
+(TraCyl) L
+( \(n1, nU, Rad, ) p
+(Abs) K
+(, B, tr\)) p n
+(C  --------------------------------------------------------------------) c n
+(                                                     ) p
+(! J.Wuttke 18may91) c n
+() p n
+(         ) S
+(! Determination of the transmission) c n
+(         ) p
+(! for an assembly of concentrical cylinders.) c n
+() p n
+(         ) S
+(! Input :) c n
+(         ) p
+(!  n1   = Innerster Zylinder to be taken into account) c n
+(         ) p
+(!  nU   = Aeusserster Zylinder ...) c n
+(         ) p
+(!  Rad  = outer radii of the cylinders) c n
+(         ) p
+(!  Abs  = density * cross section \(at Ei\)) c n
+(         ) p
+(!  B    : integration from y=-B to y=+B) c n
+(                     ) p
+(! by symmetry, one has to integrate only from y=0 to y=B) c n
+(         ) p
+(! Output :) c n
+(         ) p
+(!  tr   = transmission) c n
+() p n
+(      ) S
+(IMPLICIT) K
+( ) p
+(REAL) K
+(*8 \(a-h,o-p,r-z\)) p n
+(      ) S
+(DIMENSION) K
+(        Rad\(1\), ) p
+(Abs) K
+(\(1\)) p n
+() N
+(C  Arbitrary choice of integration step width :) c n
+(      ny    = 100) p n
+(      dy    = B / ny) N
+() N
+(C  Start integration :) c n
+(      tr    = 0.) p n
+() N
+(C  Loop over y = distance of beam from the center :) c n
+(      ) p
+(DO) K
+( iy = 1, ny) p n
+(         y = \(iy-.5\) * dy) N
+() N
+(         Sig = 0.) N
+(         ) S
+(DO) K
+( i = n1, nU) p n
+(            xa   = dsqrt0 \(Rad\(i\)  **2 - y**2\)) N
+(            xi   = dsqrt0 \(Rad\(i-1\)**2 - y**2\)) N
+(            Sig  = Sig + \(xa-xi\) * ) S
+(Abs) K
+(\(i\)) p n
+(            ) S
+(ENDDO) K n
+() p n
+(         tr = tr + ) S
+(dexp) K
+( \(-2*Sig\)) p n
+() N
+(         ) S
+(ENDDO) K n
+() p n
+(      tr = tr / ny) N
+() N
+(      ) S
+(END) K
+( ) p
+(! TraCyl) c n
+(i74.f) (Page 11/11) (Mar 30, 06 15:45) title
+border
+grestore
+(Printed by Florian Kargl) rhead
+(i74.f) (6/6) (Thursday November 15, 2007) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

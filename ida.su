@@ -1,0 +1,33 @@
+% ida default setup in ida.su
+\p dir-hlp        /<dir>/FRIDA/
+\p fil-gra-def.ps /<dir>/FRIDA/g3.ps
+\p fil-gra-app.ps /<dir>/FRIDA/g4.ps
+\p dir-num        /<dir>/FRIDA/for/num/
+\p dir-raw-n-dac  &error
+\p dir-raw-n-new  /<dir>/FRIDA/arhive/
+\p dir-raw-n-lst  &error
+\p dir-raw-n-old  /<dir>/FRIDA/arhive/
+\p dir-raw-fpi    /<dir>/FRIDA/data/FPI/
+\p dir-raw-ram    /<dir>/FRIDA/data/ram/
+\p su-gra-plus    0
+\p su-gra-window  1
+\p su-gra-ovrlay  0
+\p su-gra-oldAdr  0
+\p su-gra-iGraP   0
+\p su-gra-Escape  1
+\p su-gen-Droehn  1
+\p su-scroll-ist  0
+\p su-scroll-gra  20
+\p su-tekwdw-Scr  9
+\p su-tekwdw-Las  1
+\p tof-epeak-xtol-i 10
+\p tof-epeak-ytol-i 10
+\p tof-epeak-xtol-f 2
+\p tof-epeak-ytol-f 3
+\p fpi-VzaPo-offset 0
+\p fpi-VzaPo-linear 66260.
+\p fpi-VzaDA-offset 0.
+\p fpi-VzaDA-linear 390.6006
+\p fpi-dark         0.0025 % detector 1, measured 15jun99
+\p fpi-cut-lo       0.2
+\p fpi-cut-hi       0.8

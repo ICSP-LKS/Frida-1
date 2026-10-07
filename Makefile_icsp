@@ -1,0 +1,134 @@
+# ---------- Makefile (Fortran 77) ----------
+# Usage:
+#   make            # build executable
+#   make clean      # remove objects in ./oba
+#   make distclean  # remove objects + executable
+
+FC      ?= gfortran
+#FFLAGS  ?= -g -O0 -fcheck=bounds -fbacktrace #Debug
+FFLAGS  ?= -O3 -march=native -mtune=native -funroll-loops -flto #Relese
+LDFLAGS ?= -L/usr/local/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial/ -lm
+LDLIBS  ?= -lblas -lNeXus -ljpeg -lhdf5 -lmfhdf -ldf -lf2c -lpthread -lz -lsz -ldl -laec
+
+# Output executable name
+TARGET  ?= exa/frida1
+
+# Build directory for objects
+OBJDIR  := oba
+
+# Fortran sources custom compilation
+SRCS_MATH = lnag_local.f $(wildcard linpack/*.f) $(wildcard minpack/*.f) $(wildcard slatec/fnlib/*.f) $(wildcard slatec/fishfft/*.f) $(wildcard slatec/src/*.f)
+SRCS_NEXUS = $(wildcard nexus/*.f)
+SRCS_SKIPP = i80.f i81.f i82.f i83.f l0i10.f l0sgi.f l0sos.f l_dim.f g_dim.f h.f ramanfpiold.f
+SRCS_MANUAL = g2.f l3.f
+ISRCS = i_dim.f i_wrk.f l_def.f
+SRCS_LG := $(wildcard g*.f l*.f)
+SRCS_LG := $(filter-out $(SRCS_MANUAL) $(SRCS_SKIPP) $(ISRCS) $(SRCS_MATH) $(SRCS_NEXUS),$(SRCS_LG))
+
+
+# Fortran sources (edit as needed)
+SRCS := $(wildcard *.f)
+SRCS := $(filter-out $(SRCS_MANUAL) $(SRCS_SKIPP) $(SRCS_LG) $(ISRCS) $(SRCS_MATH) $(SRCS_NEXUS),$(SRCS))
+
+# Object files go into ./oba
+OBJDIR := oba
+OBJS_LG   := $(addprefix $(OBJDIR)/,$(notdir $(SRCS_LG:.f=.o)))
+OBJS_MANUAL := $(addprefix $(OBJDIR)/,$(notdir $(SRCS_MANUAL:.f=.o)))
+OBJS_MATH := $(addprefix $(OBJDIR)/,$(notdir $(SRCS_MATH:.f=.o)))
+OBJS_NEXUS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS_NEXUS:.f=.o)))
+OBJS   := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:.f=.o)))
+
+OBJDIR_TEST := test/oba
+OBJS_MATH_TEST := $(addprefix $(OBJDIR_TEST)/,$(notdir $(SRCS_MATH:.f=.o)))
+# Discover tests: test/test_foo.f -> target test-foo
+TEST_SRCS := $(wildcard test/test_*.f)
+TESTS := $(patsubst test/test_%.f,test-%,$(wildcard test/test_*.f))
+TEST_EXES := $(patsubst test/test_%.f,test/test-%,$(TEST_SRCS))
+# Executable name for "test-foo" will be "foo"
+#TEST_OBJS = $(addprefix $(OBJDIR_TEST)/,$(notdir $(TEST_SRC:.f=.o)))
+
+VPATH := $(sort $(dir $(SRCS)) $(dir $(SRCS_LG)) $(dir $(SRCS_MANUAL)) $(dir $(SRCS_MATH)) $(dir $(SRCS_NEXUS)))
+
+.PHONY: all clean distclean test-clean $(TESTS) test-all clean-all
+all: $(TARGET)
+
+# Link step
+#$(TARGET): $(OBJS)
+#	$(FC) $(LDFLAGS) -o $@ $(OBJS_LG) $(OBJS) $(LDLIBS)
+
+$(TARGET): $(OBJS_MANUAL) $(OBJS_LG) $(OBJS_MATH) $(OBJS_NEXUS) $(OBJS)
+	$(FC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+
+# Debug helper: print the value of any Make variable.
+# Usage: `make print-SRCS` or `make print-OBJS`
+# $*  = the stem matched by % (e.g., "SRCS" in print-SRCS)
+# $($*) = indirect expansion: value of the variable named by $*
+print-%:
+	@echo $* = $($*)
+
+# Compile step (puts .o into ./oba)
+$(OBJDIR)/%.o: %.f | $(OBJDIR)
+	@mkdir -p $(dir $@)
+	$(FC) $(FFLAGS) -c $< -o $@
+
+# Special flags only for SRCS objects
+$(OBJS): $(ISRCS)
+
+# Special flags only for SRCS_MANUAL  objects
+$(OBJDIR)/g2.o: g2.f g_dim.f | $(OBJDIR)
+	$(FC) $(FFLAGS) -c $< -o $@
+
+$(OBJDIR)/l3.o: l3.f l_dim.f | $(OBJDIR)
+	$(FC) $(FFLAGS) -c $< -o $@
+
+# Ensure ./oba exists
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+# Ensure ./exa exists
+$(OBJDIR):
+	mkdir -p "exa"
+
+# Remove only object files in ./oba
+clean:
+	$(RM) -f $(OBJDIR)/*.o
+
+# Remove objects + executable
+distclean: clean
+	$(RM) -f $(TARGET)
+
+# ---- tests (flattened test main object) ----
+$(TESTS): test-%: test/test-%
+	@:
+
+# Build executables: test/test-m01daf
+$(TEST_EXES): test/test-%: $(OBJDIR_TEST)/test_%.o $(OBJS_MATH_TEST)
+	$(FC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+
+# Compile test main: test/test_m01daf.f -> test/oba/test_m01daf.o
+$(OBJDIR_TEST)/test_%.o: test/test_%.f | $(OBJDIR_TEST)
+	@mkdir -p $(dir $@)
+	$(FC) $(FFLAGS) -c $< -o $@
+
+# Compile math sources into test/oba/ (flattened)
+$(OBJDIR_TEST)/%.o: %.f | $(OBJDIR_TEST)
+	@mkdir -p $(dir $@)
+	$(FC) $(FFLAGS) -c $< -o $@
+
+$(OBJDIR_TEST):
+	mkdir -p $@
+
+$(OBJDIR):
+	mkdir -p "test/data"
+
+test-all: $(TEST_EXES)
+
+test-clean:
+	@rm -f test/test-*
+	@rm -rf $(OBJDIR_TEST)
+
+clean-all:
+	@rm -f test/test-*
+	@rm -rf $(OBJDIR_TEST)
+	$(RM) -f $(OBJDIR)/*.o
+	$(RM) -f $(TARGET)

@@ -1,0 +1,57 @@
+WuGdict05a begin %% the following lines are produced by g3.ps
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                           %%
+%%                            Switchboard                                    %%
+%%                                                                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+7.8 dup gald deftot 
+/fullscale { EdgeLeftDIN   3 -10 offset 1 defsca } def
+/inclscale {             -10 -10 offset 1 defsca } def
+
+fullpage { fullscale } { inclscale } ifelse 
+
+0 -2 offset % positive offset moves it right and up.
+1 1 1 defred
+
+1 1 language
+1 1 InfSet % plot fnam, info
+1 dup 2 SymGSet % slin srad serr(2=from pset) : graph symbols, global preset
+
+% x y 24 abcset
+/EndFrame { Basta } def % comment this line out to use frame advancing
+{ 0 -18 } { 16 0 } 6 3 ModFrame
+
+0 100 pColSet % arg1: color on/off; arg2: max no. of colours
+/pStyles [
+{ {  1 1 0 1. 1. pset } { 1 1 0 1. 1. pset 10 ipCol} ifpcol } %  1
+{ {  1 0 0 1. 1. pset } { 1 1 0 1. 1. pset 20 ipCol} ifpcol } %  2
+{ {  2 1 0 1. 1. pset } { 1 1 0 1. 1. pset 30 ipCol} ifpcol } %  3
+{ {  2 0 0 1. 1. pset } { 1 1 0 1. 1. pset 40 ipCol} ifpcol } %  4
+{ {  3 1 0 1. 1. pset } { 1 1 0 1. 1. pset 50 ipCol} ifpcol } %  5
+{ {  3 0 0 1. 1. pset } { 1 1 0 1. 1. pset 60 ipCol} ifpcol } %  6
+{ {  4 1 0 1. 1. pset } { 1 1 0 1. 1. pset 70 ipCol} ifpcol } %  7
+{ {  4 0 0 1. 1. pset } { 1 1 0 1. 1. pset 80 ipCol} ifpcol } %  8
+{ {  5 1 0 1. 1. pset } { 1 1 0 1. 1. pset 90 ipCol} ifpcol } %  9
+{ {  5 0 0 1. 1. pset } { 1 1 0 1. 1. pset 90 ipCol} ifpcol } %  0
+] def
+
+0 100 cColSet % arg1: color on/off; arg2: max no. of colours
+/cStyles [
+{ { 1. [          ] lset } { 1. [] lset 10 icCol} ifccol } % 1
+{ { 1. [1 3       ] lset } { 1. [] lset 20 icCol} ifccol } % 2 
+{ { 1. [8 6       ] lset } { 1. [] lset 30 icCol} ifccol } % 3
+{ { 1. [8 3 1 3   ] lset } { 1. [] lset 40 icCol} ifccol } % 4
+{ { 1. [2 2       ] lset } { 1. [] lset 50 icCol} ifccol } % 5
+{ { 1. [1.8       ] lset } { 1. [] lset 60 icCol} ifccol } % 6
+{ { 1. [3 1.8     ] lset } { 1. [] lset 70 icCol} ifccol } % 7
+{ { 1. [2 2 3.5 2 ] lset } { 1. [] lset 80 icCol} ifccol } % 8
+{ { 1. [2 2 5.5 2 ] lset } { 1. [] lset 90 icCol} ifccol } % 9
+] def
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                           %%
+%%                   now the output produced by WuGra                        %%
+%%                                                                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

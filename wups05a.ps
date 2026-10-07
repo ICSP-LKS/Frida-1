@@ -1,0 +1,1049 @@
+%!PS-Adobe-1.0
+
+gsave
+/WuGdict05a 400 dict def 
+WuGdict05a begin % << since 11sep95 >>
+
+%     This is the setup file for WuGra PostScript output
+%     This file must be copied to the beginning of 
+%     every PostScript file to be printed or previewed.
+    
+%     If it is already included, its end can be found by
+%     searching the word "e w u " (without blanks)
+
+%     Authors:
+%        H.P.Schildberg, BASF AG, ZAA/F, M320, Tel: 0621/6056556
+%        J.Wuttke, TU M"unchen, Physikdepartment E13, Tel: 089/32092449
+%
+%     Major modifications (from 95 onwards: date indicates closure of release):
+%        Aug05  (05a) FK asymmetric error bars for log plot
+%               (97a) deftot > defsca > defred
+%        Nov97  (95e) global err, lang.
+%        Dez95  (95d) minor improvements
+%        Jun95  (95c) minor improvements
+%        Mar95  (95b) colours
+%        Feb95  (95a) minor improvements
+%        Oct94  (94e) continuous upgrading 
+%        Jul94  (94d) axes improved, frame>Resets
+%        Jun94  (94c) blank boxes, other toys
+%        Mai94  (94b) towards movable axis 
+%        Feb94  (94a) minor improvements
+%        Dec93  (93g) programmable ticks
+%        Nov93  (93f) defsiz vs. defrel, better switchb.
+%        Oct93  (93e) sublinear scaling; wups separated
+%        Jul93  (93d) tacks and ticks for single axis
+%        Jun93  (93c) sublinear fontselection restored
+%        Jun93  (93b) /build ready for HP laser iv.
+%        Apr93  WuGdict93a. Ready to include into DVI files.
+%        Mar93  xN,yN now also with superscripts (for 10^3,..)
+%        Jun92  greek letters and sub/super-scripts
+%        Jan92  rescaling possible
+%        Dec91  more compact version
+%        Jun91  integrated into library WuGra
+%        Apr91  copied from ThMoeller
+
+%% shortwords :
+
+/np {newpath}   bind def
+/mv {moveto}    bind def
+/rm {rmoveto}   bind def
+/rl {rlineto}   bind def
+/li {lineto}    bind def
+/cp {closepath} bind def
+/st {stroke}    bind def
+/x  {exch}      bind def
+
+/L  {langSel}   bind def
+
+/g  {exch grec endgr} bind def
+/sb {exch subsc endsc} bind def
+/sp {exch supsc endsc} bind def
+/sbgr {exch grec  () subsc endsc () endgr} bind def
+/spgr {exch grec  () supsc endsc () endgr} bind def
+/u  {umlaut} bind def
+/U  {Umlaut} bind def
+
+%% constants :
+
+/pt {.018567 mul} bind def % pt ?? old relsize
+/cm {28.346456 mul} bind def
+/gyld {0.447214 mul} bind def /Gyld {0.447214 div} bind def % sqrt(5)
+/guld {0.547723 mul} bind def /Guld {0.547723 div} bind def % sqrt(3)
+/gold {0.618034 mul} bind def /Gold {0.618034 div} bind def % goldener Schnitt
+/gild {0.707107 mul} bind def /Gild {0.707107 div} bind def % sqrt(2) : DIN
+/geld {0.759836 mul} bind def /Geld {0.759836 div} bind def % sqrt(sqrt(3))
+/gald {0.817765 mul} bind def /Gald {0.817765 div} bind def % sqrt sqrt sqrt 5
+
+%% set total and relativ window :
+
+/deftot { % xtot ytot deftot - ; define total size, determine label size (ftot)
+   /ytot x def
+   /xtot x def
+   xtot dup mul ytot dup mul add sqrt % diagonal length
+   9 div 2 add % const+rel*d is simplest sublinear increase
+   9.5 mul /ftot x def
+   1 defsca % default
+   } def
+/defred { % xrel yrel frel defred - ; define xlen,ylen,xm,ym,fm
+   /fmm exch ftot mul fsca mul def /fm {fmm mul} def
+   fsca mul exch fsca mul exch defxym
+   } def
+/defsca { % fsca defsca - ; define a global scaling factor fsca
+   /fsca exch def 
+   mainscale % default
+   } def
+/mainscale { 1 1 1 defred } bind def
+/defxym { % xrel yrel defxym - ; define xlen,ylen, and the metric xm,ym :
+   /ylen x cm ytot mul def /xlen x cm xtot mul def
+   /xmm xlen 10 div def /ymm ylen 10 div def
+   /xm {xmm mul} def /ym {ymm mul} def                     % metric
+   /xym {ym x xm x} def
+   } def
+
+/cmtranslate { % x y cmtranslate - 
+   cm x cm x translate } bind def
+/EdgeDIN{ 20.3 28.3 cmtranslate } bind def
+/EdgeLeftDIN{ .6 28.3 cmtranslate } bind def
+/EdgeDINill{ 20.3 27.3 cmtranslate } bind def
+/EdgeAMI{ 18 26 cmtranslate } bind def % ????
+/offset { % x0 y0 offset -
+   ym x xm x translate } def
+/currentxy { currentpoint ymm div x xmm div x } def
+
+%% prepare font commands :
+
+/setfontandsize { % font size setfontandsize - ;
+                  % scale and set font; define fontsize, fontheight
+   dup 0 le { pop 100 } if % fontsize <= 0 not allowed ! 
+   /fontnonnil true def
+   pt fm dup /fontsize x def
+   x findfont
+   x scalefont
+   setfont
+   gsave % determine fontheight - from the cookbook :
+     np 0 0 mv (1) true charpath flattenpath
+     pathbbox  % low_left_x, low_left_y, up_right_x, up_right_y
+     x pop x pop x pop
+     /fontheight x def
+   grestore
+} def
+
+/SetNum { /Helvetica         24 setfontandsize } bind def
+/setlab { /Helvetica         24 setfontandsize } bind def
+/setown { /Helvetica          x setfontandsize } bind def % size setown -
+/setobl { /Helvetica-Oblique  x setfontandsize } bind def % size setown -
+
+%% language selection (27jul97) :
+
+/language {
+   /langMax exch def
+   /langChc exch def
+} def
+
+1 1 language % default
+
+/langSel { % T_1 .. T_M langSel T_C mit M=langMax, C=langC
+   langMax dup langChc sub 1 add roll
+   langMax 1 sub { pop } repeat
+} def
+   
+%% prepare drawing commands :
+
+/setline { pt fm setlinewidth [] 0 setdash } bind def
+
+%% coordinate system :
+
+%: new plot :
+/Resets{
+   /yNumLengthL 0 def /yNumLengthH 0 def
+   /xNumHeightL 0 def /xNumHeightH 0 def
+   /xNumHeightRel 2.4 def
+   black
+   } def
+/Finito {
+   showpage
+   end % pop dictionary from stack
+   } def
+/Basta { Finito } bind def % Basta may be overwritten, Finito not
+
+/ModFrame { % off1 off2 mod1 mod2 | - %% Voreinstellung fuer Frame-Rutsch
+   /modFrame2 exch def /modFrame1 exch def
+   /offFrame2 exch def /offFrame1 exch def
+} def
+/NewFrame {
+   offFrame1 offset
+   nFrame 1 add dup /nFrame exch def dup
+   modFrame1 mod 0 eq { modFrame1 { offFrame1 neg exch neg exch offset } repeat
+                        offFrame2 offset } if
+   modFrame2 modFrame1 mul mod 0 eq { showpage fullscale } if
+} def
+
+/nFrame 0 def
+/EndFrame { NewFrame } def
+
+%: Set tick array : internal commands (1dec93) :
+/tiputs { % rel_pos_of_tick tiputs pos_of_tick : innermost routine for /taproc
+   tastep mul taloop add 
+   } def 
+/taproclin { % (#tick/tack) taproclin - : define /taproc for use in vecset
+   1 x div /tistep x def
+   /taproc { 0 tistep .999 { tiputs } for } def
+   } def
+/taproclog { % (#ticks/tacks) taproclog - : define /taproc for use in vecset
+       dup 3 gt { pop /taproc { 1 1 9 { log tiputs } for } def 
+    }{ dup 1 gt { pop /taproc { 0 tiputs 2 log tiputs 5 log tiputs } def 
+    }{ dup 0 gt { pop /taproc { 0 tiputs } def 
+    }{            neg taproclin  
+    } ifelse } ifelse } ifelse
+} def
+/SetVec { % tafro tatoo nta /vector SetVec - : set /"vector"
+   4 1 roll 
+   /nta x def /tatoo x def /tafro x def
+   /tastep tatoo tafro sub nta 1 sub div def
+   [ 0 1 nta { 
+         tastep mul tafro add /taloop x def
+         taproc exec
+         } for
+      ] def
+   } def
+%: Set tick array : user commands :
+   % arguments are: first_tack_pos, last_tack_pos, #tacks, #ticks/tack
+/SetTicVecLin { taproclin /TicVec SetVec } def 
+/SetTicVecLog { taproclog /TicVec SetVec } def 
+
+%: Layout for ticks and axes :
+/xyTicLen {0.10 fm} def 
+/xyTacLen {0.20 fm} def 
+/SetAxx {0.7 setline} def
+/SetTic {0.7 setline} def
+/SetTac {0.7 setline} def
+{0.20 fm} dup /txllen x def /tyllen x def % oldstyle
+
+%: Draw ticks and axes. Usage: fro to pos aang tang OneAxx ( Tic | ) ( Axx | )
+     % Note on angles : 0 = x-axis, 90 = y-axis, values are 0..359.
+/OneAxx { % fro to xpos ypos aang tang OneAxx - : presets for Axx, Tic, Tac, Num
+   /tAng x def /aAng x def 
+   /yPos x def /xPos x def /aTo x def /aFro x def % save input
+   /xTicLen tAng cos xyTicLen mul def /yTicLen tAng sin xyTicLen mul def
+   /xTacLen tAng cos xyTacLen mul def /yTacLen tAng sin xyTacLen mul def
+   /xAng aAng cos def /yAng aAng sin def
+   } def
+/Axx { % - Axx - : draw axis (that's just a line) as predefined by OneAxx.
+   SetAxx np 
+   xPos yPos xym mv
+   aFro dup xAng mul x yAng mul xym rm
+   aTo aFro sub dup xAng mul x yAng mul xym rl st
+   } def
+/Tic { % - Tic - : draw ticks as predefined by OneAxx.
+   SetTic
+   TicVec { dup dup aFro lt x aTo gt or {pop} {TicProc} ifelse } forall
+   } def
+/TicProc { % aPos TicProc - : plot one tick.
+   np
+   xPos yPos xym mv 
+   dup xAng mul x yAng mul xym rm % eat argument, go to start pos.
+   xTicLen yTicLen rl st
+   } def
+
+%: Tacks and numbers on axis.
+/SetTacVec { % [ pos {label} pos {label} ... ] SetTacVec - : Preset TacVec
+   /TacVec x def
+   } def
+/TacExe { % Proc TacExe - % Execute Proc for all pairs of elements of TacVec
+                          % (but only if inside aFro..aTo)
+   /TacProc x def
+   /ispair true def % toggle: take pos, take label, take pos, take label ...
+   TacVec {
+      ispair { /aPos x def /ispair false def }
+      { aPos dup aFro lt x aTo gt or {pop} {TacProc} ifelse
+        /ispair true def} ifelse
+      } forall
+   } def
+%: General routines, governed by OneAxx :
+/Tac { %
+   SetTac
+   { pop xPos yPos xym mv 
+     aPos dup xAng mul x yAng mul xym rm
+     xTacLen yTacLen rl st } TacExe
+   } def
+/Num { % General but useless. Adjust for your apllication.
+   SetNum
+   fontheight ymm div yDisRel mul tAng sin mul /yDist x def
+   { dup textW xDisRel mul tAng cos mul /xDist x def
+     xPos aPos xAng mul add xDist sub 
+     yPos aPos yAng mul add yDist sub 3 2 roll textCM } TacExe
+   } def
+/SetNumDisRel { % xDisRel yDisRel SetNumDisRel - : adjust just a little bit
+   /yDisRel x def /xDisRel x def
+   } def
+1.2 1.2 SetNumDisRel % default setting
+
+%: Tacks and Numbers: explicit routines for rectangular case :
+/xTacL { % : tack on low x axis
+   SetTac
+   { pop aPos xm np yPos ym mv 0 txllen rl st } TacExe
+   } def
+/xTacH { % : tack on high x axis
+   SetTac
+   { pop aPos xm np yPos ym mv 0 txllen neg rl st } TacExe
+   } def
+/yTacL { % : tack on low y axis
+   SetTac
+   { pop aPos ym np xPos xm x mv tyllen 0 rl st } TacExe
+   } def
+/yTacH { % : tack on high y axis
+   SetTac
+   { pop aPos ym np xPos xm x mv tyllen neg 0 rl st } TacExe
+   } def
+/xNumL { % : numbers on low x axis 
+   SetNum
+   { fontheight ymm div % conversion -> user_scale
+     dup /xNumHeightL x def
+     -.6 mul aPos x 3 2 roll textCT } TacExe
+   } def
+/xNumH { % : numbers on high x axis 
+   SetNum
+   { fontheight ymm div % conversion -> user_scale
+     dup /xNumHeightH x def
+     .6 mul 10 add aPos x 3 2 roll textCB } TacExe
+   } def
+/yNumL { % : numbers on low y axis 
+   SetNum
+   { fontsize -.3 mul xmm div aPos 3 2 roll textRM
+     xwidth dup yNumLengthL gt {/yNumLengthL x def} {pop} ifelse
+     } TacExe
+   } def
+/yNumLD { % : calculate only yNumLength (used for adjustement)
+   SetNum
+   { textW dup yNumLengthL gt {/yNumLengthL x def} {pop} ifelse
+     } TacExe
+   } def
+/yDumL { % {(..)} yDumL : compare yNumLength with one arg (used for adjustement)
+   SetNum
+   textW dup yNumLengthL gt {/yNumLengthL x def} {pop} ifelse
+   } def
+/yNumH { % : numbers on high y axis 
+   SetNum
+   { fontsize .3 mul xmm div 10 add aPos 3 2 roll textLM
+     xwidth dup yNumLengthH gt {/yNumLengthH x def} {pop} ifelse
+     } TacExe
+   } def
+/yNumHD { % : calculate only yNumLength (used for adjustement)
+   SetNum
+   {textW dup yNumLengthH gt {/yNumLengthH x def} {pop} ifelse
+     } TacExe
+   } def
+/yDumH { % {(..)} yDumH : compare yNumLength with one arg (used for adjustement)
+   SetNum
+   textW dup yNumLengthH gt {/yNumLengthH x def} {pop} ifelse
+   } def
+
+%: Label on side of axes :
+/xCL { % xlabel xCL - ; plots coordinate name below the x-axis.
+   setlab
+   5. xNumHeightL xNumHeightRel neg mul
+   3 -1 roll textCT
+   } def
+/xCH { % xlabel xCH - ; plots coordinate name above the x-axis.
+   setlab
+   5. xNumHeightH xNumHeightRel mul 10 add
+   3 -1 roll textCB
+   } def
+/yCL { % ylabel yCL - ; plots coordinate name to the left of the y-axis.
+   gsave
+      setlab
+      yNumLengthL neg fontsize -.85 mul add % yNumLengthL calculated in yN
+      5. ym translate
+      0 0 mv
+      90 rotate
+      0 x 0 x textCB
+   grestore
+   } def
+/yCH { % ylabel yCH - ; plots coordinate name to the right of the y-axis.
+   gsave
+      setlab
+      yNumLengthH fontsize .85 mul add xlen add
+      5. ym translate
+      0 0 mv
+      90 rotate
+      0 x 0 x textCT
+   grestore
+   } def
+/yCF { % ylabel yCF - ; plots coordinate name *falling* right of the y-axis.
+   gsave
+      setlab
+      yNumLengthH fontsize .85 mul add xlen add
+      5. ym translate
+      0 0 mv
+      -90 rotate
+      0 x 0 x textCB
+   grestore
+   } def
+
+/AdjustEdge {
+   0  1   0  0     0  90 OneAxx Axx  % low x axis
+   9 10   0 10     0 270 OneAxx Axx  % top x axis
+   0  1   0  0    90   0 OneAxx Axx  % left y axis
+   9 10  10  0    90 180 OneAxx Axx  % right y axis
+} def
+
+%% string treatment :
+
+/showif { % string showif - ; increment xwidth or plot string
+   prepare
+      { stringwidth pop xwidth add /xwidth x def }
+      { show }
+   ifelse
+   } def
+/script { % matrix relpos_y script
+   /yoffset x fontheight mul def
+   currentfont x makefont setfont
+   0 yoffset rm
+   } def
+/scred .71 def
+/subsc {
+   showif
+   [scred 0 0 scred 0 0] -.2 script
+   } def
+/supsc {
+   showif
+   [scred 0 0 scred 0 0] .6 script
+   } def
+/endsc {
+   showif
+   regularfont setfont
+   0 yoffset neg rm
+   } def
+/grec {
+   showif
+   /Symbol findfont fontsize scalefont setfont
+   } def
+/endgr {
+   showif
+   regularfont setfont
+   } def
+/endall {
+   showif
+   regularfont setfont
+   } def
+/build { % string xrel yrel obj build - ; plot obj above/below string
+   /obj x def /yrelbui x def /xrelbui x def
+   dup showif
+   prepare
+      { pop }
+      { stringwidth pop xrelbui neg mul fontheight yrelbui mul % rel pos for obj
+        currentpoint 4 2 roll % save position after string
+	rm obj pop       % obj must end with () that will be pop'ed
+	mv               % back to saved position
+	}
+   ifelse
+   } def
+/gbuild { % string xrel yrel obj build - ; plot obj above/below string
+   /obj x def /yrelbui x def /xrelbui x def
+   /Symbol findfont fontsize scalefont setfont
+   dup showif 
+   prepare
+      { pop regularfont setfont }
+      { stringwidth pop xrelbui neg mul fontheight yrelbui mul % rel pos for obj
+        currentpoint 4 2 roll % save position after string
+        regularfont setfont 
+	rm obj pop       % obj must end with () that will be pop'ed
+	mv               % back to saved position
+	}
+   ifelse
+   } def
+/umlaut { % ..) (<char>) umlaut (..
+   x
+   showif
+   .79 0 {(\310) show ()} build
+   } def
+/Umlaut { % ..) (<Char>) Umlaut (..
+   x
+   showif
+   .79 .2 {(\310) show ()} build
+   } def
+/hut { % ..) (<Char>) hut (..            %%% MISERABEL PROGRAMMIERT
+   x
+   showif
+   1.4 .6 {(\136) show ()} build
+   } def
+/ghut { % ..) (<grec-Char>) hut (..      %%% BREITE PASST NUR FUER Phi(t)
+   x
+   showif
+   .8 .65 {(\136) show ()} gbuild
+   } def
+/spce { % string n spce - ; insert n times ( )
+   {showif (  )} repeat
+   } def
+/pins { % string symins - ; symbol must be selected by pset
+   showif 
+   ( ) showif ( ) .5 .5 { currentxy 0 p black ()} build ( ) showif
+   } def
+/clenins { % string len clenins - ; curve must be selected by cset
+   x showif % I suppose that pins is preceeded by 8 spaces
+   dup ( ) stringwidth pop mul 2 add /xstrich x xmm div def 
+            % length of inserted curve : 
+            % -1 space : curve begins and ends in  middle of ( )
+            % +3 spaces: pins requires 3 times ( )
+   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build 
+   2 add {( ) showif} repeat
+   } def
+/cins { % string symins - ; curve must be selected by cset
+   showif 8 % I suppose that pins is preceeded by 8 spaces
+   dup ( ) stringwidth pop mul 2 add /xstrich x xmm div def 
+            % length of inserted curve : 
+            % -1 space : curve begins and ends in  middle of ( )
+            % +3 spaces: pins requires 3 times ( )
+   ( ) 0 .5 { currentxy currentxy 0 ci x xstrich add x 0 cf () } build 
+   2 add {( ) showif} repeat
+   } def
+/block { % x y ob xrel yrel block -
+   /yrel x def /xrel x def /blabla x def
+    /ypos x ym def /xpos x xm def
+   /regularfont currentfont def /yoffset 0 def % initialize for security
+   /prepare true def /xwidth 0 def 0 0 mv % to prevent empty-path-error
+    blabla endall % first pass : determine xwidth
+   boxif { /boxwidth  xwidth (M) stringwidth pop boxxr mul 2 mul add def
+           /boxheight fontheight 1 boxyr 2 mul add mul def
+           np xpos xwidth xrel mul sub boxwidth xwidth sub 2 div sub 
+           ypos fontheight .5 boxyr add mul sub mv 
+           boxwidth 0 rl 0 boxheight rl boxwidth neg 0 rl cp
+           boxproc 
+    } if
+    xpos xwidth xrel mul sub ypos fontheight yrel mul sub mv
+    /prepare false def
+    blabla endall % second pass : plot
+   /boxif false def
+   } def
+/rblock { % x y ang ob proc rblock -
+   5 3 roll
+   gsave
+      xym translate
+      3 2 roll rotate
+      0 0 4 2 roll exec
+   grestore
+   } def
+/Box { % x y {exe}
+   /boxif true def
+   /boxproc x def /boxyr x def /boxxr x def
+   } def
+/nBox { .6 .6 3 2 roll Box } def
+/boxif false def
+/textW { % obj textW y : calculate only length.
+   /blabla x def
+   /regularfont currentfont def /yoffset 0 def % initialize for security
+   /prepare true def /xwidth 0 def 0 0 mv % to prevent empty-path-error
+   blabla endall
+   xwidth % has been determined
+   } def
+/textw { % obj textW y : dito, in 0..10-units
+   textW xmm div 
+   } def
+
+%% text % x y ob textXY - 2 = left/cent/right Y = top/midl/bot
+/textLB { 0. 0. block } bind def
+/textCB { .5 0. block } bind def
+/textRB { 1. 0. block } bind def
+/textLM { 0. .5 block } bind def
+/textCM { .5 .5 block } bind def
+/textRM { 1. .5 block } bind def
+/textLT { 0. 1. block } bind def
+/textCT { .5 1. block } bind def
+/textRT { 1. 1. block } bind def
+
+%% rtext %  x y ang ob rtextXY
+/rtextLB { {textLB} rblock } bind def
+/rtextCM { {textCM} rblock } bind def
+
+%% OBSOLET :
+/rotLB { % txt ang x y rotLB % schraeger Eintrag : 2mar93
+   gsave
+      ym x xm x translate
+      rotate
+      0 x 0 x textLB
+   grestore
+   } bind def
+/rotCM { % txt ang x y rotCM - : rotated, centered
+   gsave
+      xym translate rotate % note : ang is not transformed with xm ym
+      0 0 3 2 roll textCM
+   grestore
+   } bind def
+
+%% list (info lines, may also contain symbols) :
+
+/NewList { % xins yins size advance NewList -
+   /advance x def setown /yins x def /xins x def
+   /xshift fontsize xmm div .9 mul def
+   /newline {
+      /yins yins fontheight ymm div advance mul sub def
+      } def
+   } def
+/newlist { 1.65 NewList } def 
+/TxLine { % text TxLine -
+   xins yins 3 -1 roll textLM newline
+   } bind def
+/TxCLine { % text TxLine -
+   xins yins 3 -1 roll textCM newline
+   } bind def
+/infline{ % text infline - : plot info-line, but only if switch oooinfo=1
+   oooinfo 1 eq { TxLine } { pop } ifelse
+   } bind def
+/symline { % styp sfill serr srad lwidth text symline - % OBSOLET
+   6 1 roll
+   pset xins yins 0 p
+   xins xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/PtTxLine { % pstyle text symline -
+   x pstyle xins yins yins p 
+   black xins xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/PtTxLineLog { % pstyle text symline -
+   x pstyle xins yins 0 p 
+   black xins xshift add yins 3 2 roll textLM
+   newline
+   } bind def  
+/CvTxLine { % cstyle text symline -
+   x cstyle black 
+   xins xshift -.33 mul add yins 0 ti xins xshift 0.33 mul add yins 0 tf
+   xins xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/PtPtCvTxLine { % pstyle pstyle cstyle text symline -
+   4 3 roll pstyle xins yins 0 p 
+   3 2 roll pstyle xins xshift add yins 0 p 
+   exch cstyle black 
+   xins xshift 2 mul add 
+   dup dup xshift -.33 mul add yins 0 ti xshift 0.33 mul add yins 0 tf
+   xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/PtCvTxLine { % pstyle cstyle text symline -
+   3 2 roll pstyle xins yins 0 p 
+   exch cstyle black 
+   xins xshift 1 mul add 
+   dup dup xshift -.33 mul add yins 0 ti xshift 0.33 mul add yins 0 tf
+   xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/PtPtTxLine { % pstyle pstyle text symline -
+   3 2 roll pstyle xins yins 0 p 
+   x pstyle xins xshift add yins 0 p 
+   black xins xshift 2 mul add yins 3 2 roll textLM
+   newline
+   } bind def
+/CvTxLine { % cstyle text symline -
+   x cstyle 
+   xins fontsize xmm div -.4 mul add yins 0 ti 
+   xins fontsize xmm div  .4 mul add yins 0 tf  
+   black xins xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/CvCvTxLine { % cstyle cstyle text symline -
+   x cstyle 
+   xins xshift add fontsize xmm div -.3 mul add yins 0 ti 
+   xins xshift add fontsize xmm div  .3 mul add yins 0 tf
+   x cstyle 
+   xins fontsize xmm div -.3 mul add yins 0 ti 
+   xins fontsize xmm div  .3 mul add yins 0 tf   
+   black xins xshift 2 mul add yins 3 2 roll textLM
+   newline
+   } bind def
+/TxSyTxLine { % text1 styp sfill serr srad lwidth text2 symline - % OBSOLET
+   6 1 roll 7 6 roll % stack -> text2 styp .. lwidth text1 
+   dup xins yins 3 -1 roll textLM textw xins add xshift add /xinsa x def
+   pset xinsa yins 0 p
+   xinsa xshift add yins 3 2 roll textLM
+   newline
+   } bind def
+/showfilename { % xins yins size showfilename -
+   setown
+   ooofnam 1 eq fullpage and { filename textRB } { pop pop } ifelse
+   } def
+/InfSet { % ooofnam oooinfo InfSet - : set on(1) or off(0)
+   /oooinfo x def /ooofnam x def
+   } def
+   /oooset { InfSet } def % obsolete
+0 0 InfSet % default setting
+
+%% gray areas (mainly applied with grayval=1 for blank areas) [longtime grey..]
+/graybox { % grayval x_L y_B dx dy graybox - 
+   4 2 roll
+   np ym x xm x mv % corner Left Bottom
+   ym dup 0 x rl   % line up
+   x xm 0 rl         % line right
+   neg 0 x rl      % line down
+   cp gsave setgray fill grestore 
+   } def
+
+%% plot symbols and error bars :
+
+/SymGSet { % slinglo sradglo serrglo - : global preset
+   /serrglo x def /sradglo x def /slinglo x def 
+   } def
+
+/SymGlo { 0 SymGSet } def % OBSOLET
+
+/nopoints { % : instead of pset or cset, make t* plot nothing
+   {pop pop pop} dup dup dup dup dup dup 
+   /ti x def /t x def /tf x def /ci x def /c x def /cf x def /p x def
+   } def
+
+/pset { % styp sfill serr srad sline pset - ;
+        % defines the corresponding variables for use in p.
+   dup /sline x fm 0.8 mul pt slinglo mul def setline
+   /srad x fm 0.08 mul sradglo mul def
+   2 serrglo ne { pop serrglo } if % if (serrglo=2) use serr else use serrglo
+   1 eq serrglo 3 eq or { serrglo 1 eq {/pserr % x y d- d+ error  :  vertical error bars
+            {
+	     3 copy pop pop
+	     dup 0 gt x 10 lt and {
+             np
+             4 copy
+             x pop add 10. 2 copy gt { x } if pop ym x xm x mv
+             pop   sub 0.  2 copy lt { x } if pop ym x xm x lineto
+             st
+	     } { pop pop pop pop } ifelse
+             } def}
+            {/pserr % x y d- d+ error : vertical error bars assym
+              {
+	     3 copy pop pop
+	     dup 0 gt x 10 lt and {
+             np
+             4 copy
+             x pop x pop 10. 2 copy gt { x } if pop ym x xm x mv
+             pop  pop  0.  2 copy lt { x } if pop ym x xm x lineto
+             st
+	     } { pop pop pop pop } ifelse
+             }  def} ifelse }
+         {/pserr
+            {pop pop pop pop} def} ifelse
+   /sfill x def
+   /ps {pop pop}  def  % default : don't plot
+   dup  1 eq {/ps {square}     def} if
+   dup  2 eq {/ps {diamond}    def} if
+   dup  3 eq {/ps {circle}     def} if
+   dup  4 eq {/ps {triangle}   def} if
+   dup  5 eq {/ps {cedez}      def} if
+   dup  6 eq {/ps {eieruhr}    def} if
+   dup  7 eq {/ps {valve}      def} if
+   dup  8 eq {/ps {tfwd}       def} if
+   dup  9 eq {/ps {tbwd}       def} if
+   dup 11 eq {/ps {plus}       def} if
+   dup 12 eq {/ps {cross}      def} if
+   dup 13 eq {/ps {2 copy cross plus} def} if      % gives a "*"
+   dup 14 eq {/ps {column}     def} if
+   pop
+   sfill 0 eq {/srad srad sline 2 div sub def} if
+   /ti {p} def /t {p} def /tf {p} def % newstyle -> oldstyle
+   % the following can be overwritten by nopoints :
+   /p { % x y d p  :  plots a symbol and eventually an error bar.
+      3 copy pop ps dup pserr
+      } def
+   } def
+
+/pp { % x y d- d+ pp  : dito with asymmetric error bar.
+   4 copy pop pop ps pserr
+   } def
+
+%% plot curves :
+
+/lset { % lwidth dashes lset - :  prepares everything for ti t t ... t tf.
+   0 setdash
+   dup 0 gt {
+      pt fm setlinewidth
+      /ti {ci} def /t {c} def /tf {cf} def % newstyle -> oldstyle
+      % the following can be overwritten by nopoints :
+      /ci { % x y d ci  :  first point of curve
+   	 pop np ym x xm x mv
+   	 } def
+      /c {  % x y d c   :  point of curve
+   	 pop ym x xm x lineto
+   	 } def
+      /cf { % x y d c   :  last point of curve
+   	 c st 
+         } def
+   } { nopoints } ifelse
+   } def
+/cset { % lwidth #dash cset - :   old version of lset: some predefined dashes.
+   dup 0 eq { pop pop nopoints } {
+      dup 1 eq { [          ] lset } if
+      dup 2 eq { [1 3       ] lset } if
+      dup 3 eq { [8 6       ] lset } if
+      dup 4 eq { [8 3 1 3   ] lset } if
+      dup 5 eq { [2 2       ] lset } if
+      dup 6 eq { [1.8       ] lset } if
+      dup 7 eq { [3 1.8     ] lset } if
+      dup 8 eq { [2 2 3.5 2 ] lset } if
+      dup 9 eq { [2 2 5.5 2 ] lset } if
+      pop
+      } ifelse
+   } def
+
+%% from style arrays:
+
+/pstyle { pStyles setstyle } def
+/cstyle { cStyles setstyle } def
+/setstyle { % #style array setstyle - : set p or c as predefined in array.
+   dup length % i A n
+   3 2 roll % A n i
+   dup 0 le {pop pop pop nopoints} { % #style<=0 means : don't plot
+   1 sub x % A i-1 n
+   mod get % A(i-1)
+   exec } ifelse
+   } def
+% preset, for security :
+/pStyles [ { 1 0 0 1 1.0 pset } ] def
+
+%% data symbols : x y ps
+
+/square { /D srad 0.707 mul def
+	  np ym x xm x mv
+          D D rm
+	  0 D -2 mul rl
+	  D -2 mul 0 rl
+	  0 D 2 mul  rl
+	  cp 
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/diamond {/D srad def
+          np ym x xm x mv
+          0 D rm
+	  D D -1 mul rl
+	  D -1 mul D -1 mul rl
+	  D -1 mul D rl
+	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/cross {  /D srad 0.707 mul def
+	  np ym x xm x 2 copy mv
+          D dup rm
+	  D -2 mul dup rl st
+	  np mv
+          D dup -1 mul rm
+          D -2 mul D 2 mul rl st
+        } def
+
+/plus {   /D srad def
+          np ym x xm x 2 copy mv
+          D 0 rm
+	  D -2 mul 0 rl st         % horizontal lineelement
+          np mv
+     	  0 D rm
+	  0 D -2 mul rl st         % vertical lineelement
+        } def
+
+/triangle{/D srad 1.14 mul def
+          np ym x xm x mv
+          0 D rm                       %  + (0,1)      = (0,1)
+	  D 0.886 mul D -1.5 mul rl    %  + (.88,-1.5) = (.88,-.5)
+	  D -1.772 mul 0 rl            %  + (-1.7,0)   = (-.88,-.5)
+	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/cedez {  /D srad 1.14 mul def
+          np ym x xm x mv
+          0 D -1 mul rm              %  + (0,-1)    = (0,-1)
+	  D 0.886 mul D 1.5 mul rl   %  + (.88,1.5) = (.88,.5)
+          D -1.772 mul 0 rl          %  + (-1.7,0)  = (-.88,.5)
+	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/tfwd  {/D srad 1.14 mul def % triangle looking forward
+          np ym x xm x mv
+          D 0 rm                   
+	  D -1.5 mul D 0.886 mul rl
+	  0 D -1.772 mul rl        
+	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/tbwd  {/D srad 1.14 mul def % triangle looking backward
+          np ym x xm x mv
+          D neg 0 rm              
+	  D 1.5 mul D 0.886 mul rl
+	  0 D -1.772 mul rl       
+	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/circle { /D srad 0.86 mul def
+          np ym x xm x D 0 360 arc
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/eieruhr {/D srad 0.86 mul def
+	  np ym x xm x mv
+          D D rl                 % + ( 1, 1)   = ( 1, 1)
+	  D -2 mul 0 rl          % + (-2, 0)   = (-1, 1)
+	  D 2 mul D -2 mul rl    % + ( 2,-2)   = ( 1,-1)
+	  D -2 mul 0 rl          % + (-2, 0)   = (-1, 1)
+ 	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/valve {  /D srad 0.86 mul def
+	  np ym x xm x mv
+          D D rl                 % + ( 1, 1)   = ( 1, 1)
+	  0 D -2 mul rl          % + ( 0,-2)   = ( 1,-1)
+	  D -2 mul D 2 mul rl    % + (-2, 2)   = (-1, 1)
+	  0 D -2 mul rl          % + ( 0, 2)   = (-1,-1)
+ 	  cp
+	  sfill 0 eq {st} {fill} ifelse
+        } def
+
+/column { np ym x xm x 2 copy mv
+          pop 0 li st
+        } def
+
+%% colours
+
+% for symbols :
+/pColSet { % col ncol ColSet - : global preset
+   /npcol x def % # different colours
+   /pcol  x def % colours off/on
+   } def
+0 3 pColSet % default setting
+/ifpcol { % proc1 proc2 ifcol - : shorthand for: col 0 eq proc1 proc2 ifelse
+   pcol 0 eq { pop exec } { exec pop} ifelse % 3 1 roll ifelse
+   } def
+% for curves :
+/cColSet { % col ncol ColSet - : global preset
+   /nccol x def % # different colours
+   /ccol  x def % colours off/on
+   } def
+0 3 cColSet % default setting
+/ifccol { % proc1 proc2 ifcol - : shorthand for: col 0 eq proc1 proc2 ifelse
+   ccol 0 eq { pop exec } { exec pop} ifelse % 3 1 roll ifelse
+   } def
+/black { 0 0 0 setrgbcolor } bind def
+/white { 1 1 1 setrgbcolor } bind def
+
+% one-dimensional colour choice :
+/iCol { % n_this n_tot iCol - : starting with red, round the circle
+   1 add x 1 sub x div dup truncate sub dup 1 
+    x 360 mul 255 add cos 1 add dup mul neg .053 mul 1 add sethsbcolor
+   } def
+/ipCol { npcol iCol } def
+/icCol { nccol iCol } def
+
+%% special objects
+
+/arrowx { % Horizontal arrow. Arguments : x_tete y_tete x_length tete_size lrad.
+   setline /atete x fm def /axlen x xm def 
+   /atetx atete 3 sqrt mul axlen 0 lt {neg} if def
+   /atety atete def
+   np ym x xm x 2 copy 2 copy mv 
+   atetx atety     rl st
+   np mv
+   atetx atety neg rl st
+   np mv
+   axlen 0 rl st } def  
+
+/Arrowx { % Horizontal arrow with filled tete. 
+          % Arguments : x_tete y_tete x_length tete_einbucht tete_size lrad.
+   setline /atete x fm def /reinb x def /axlen x xm def 
+   /atetx atete 3 sqrt mul axlen 0 lt {neg} if def
+   /atety atete def
+   np ym x xm x 2 copy mv 
+   atetx atety     rl
+   atetx reinb mul neg atety neg rl 
+   atetx reinb mul     atety neg rl fill
+   np mv
+   axlen 0 rl st } def  
+
+/arrowy { % Vertical arrow. Arguments : x_tete y_tete y_length tete_size lrad.
+   setline /atete x fm def /aylen x ym def 
+   /atety atete 3 sqrt mul aylen 0 lt {neg} if def
+   /atetx atete def
+   np ym x xm x 2 copy 2 copy mv 
+   atetx     atety rl st
+   np mv
+   atetx neg atety rl st
+   np mv
+   0 aylen rl st } def  
+
+/knautschy { % x0 y0 y_knau y_tot knautschy - : insert an S in dived y-axis 
+   % the total height of the generated object is y_tot
+   % of which y_knau(.le. y_tot) is for the real knautsch,
+   % the remainder is for vertical prolongations.
+   x ym 4 div dup /tmpy x def 5 sqrt mul /tmpx x def 
+   /tmpa x ym tmpy 4 mul sub 2 div def
+   np ym x xm x mv 0 tmpa rl tmpx tmpy rl tmpx -2 mul tmpy 2 mul rl 
+   tmpx tmpy rl 0 tmpa rl st
+   } def
+/separy { % x0 y0 sep lng ang lin - : insert an // in dived y-axis 
+   setline
+   /spang x def 
+   /splng x def
+   /spsep x def
+   2 copy spsep sub gsave offset spang rotate 
+      splng -.5 mul fm 0 np mv splng fm 0 rl st grestore
+   spsep add gsave offset spang rotate 
+      splng -.5 mul fm 0 np mv splng fm 0 rl st grestore
+} def
+
+%% text macros for insertion,..
+
+/abc {abclab setown abcx abcy 3 2 roll textCM} def % usage ((a)) abc
+/abcset { % x y siz abcset - : preset for abc
+   /abclab x def /abcy x def /abcx x def } def
+
+%% text macros for neutron scattering :%
+
+/hbar {
+   showif
+   (h) 1.2 .66 {
+      currentpoint fontheight .11 mul setline np mv
+      fontheight dup .8 mul x .3 mul rl
+      st ()
+      } build
+   } bind def
+/hbarw { hbar () grec (w) endgr } bind def
+/wbar { grec (w) endgr ( / 2) grec (p) endgr } bind def
+/Sqw { showif (S \(q,) grec (w) endgr (\)) showif } bind def
+/SQw { showif (S \(Q,) grec (w) endgr (\)) showif } bind def
+/Sttw { showif (S \(2) grec (q) endgr (,) grec (w) endgr (\)) showif } bind def
+/Xw { grec (c) endgr (''\(q,) grec (w) endgr (\)) showif } bind def
+/Xqw { grec (c) endgr (''\(q,) grec (w) endgr (\)) showif } bind def
+/ueV{ grec (m) endgr (eV) showif} bind def
+/inueV { showif (\() grec (m) endgr (eV\)) showif } bind def
+/inmeVr { showif (\(meV) supsc (-1) endsc (\)) showif } bind def
+/inueVr { showif (\() grec (m) endgr (eV) 
+          supsc (-1) endsc (\)) showif } bind def
+/inGHzr { showif (\(GHz) (-1) sp (\)) showif } def
+
+/Angstr {
+   showif
+   (A) .5 1.23 {
+      currentpoint fontheight .1 mul setline np
+      fontheight .14 mul 0 360 arc st ()
+      } build } bind def
+/Angr { Angstr () supsc (-1) endsc } bind def
+/inAngr { showif (\() Angr (\)) showif } bind def
+/Angrr { Angstr () supsc (-2) endsc } bind def
+/inAngrr { showif (\() Angr (\)) showif } bind def
+/wmin {grec (w) endgr () subsc (min) endsc} def
+/winpi { grec (w) endgr ( / 2) grec (p) endgr } def
+
+
+end % pop WuGdict 
+
+/startTexFig{/psf$SavedState save N userdict
+maxlength 1000 add dict begin /magscale true def normalscale currentpoint TR
+/psf$ury psfts /psf$urx psfts /psf$lly psfts /psf$llx psfts /psf$y psfts
+/psf$x psfts currentpoint /psf$cy X /psf$cx X /psf$sx psf$x psf$urx
+psf$llx sub div N /psf$sy psf$y psf$ury psf$lly sub div N psf$sx psf$sy
+scale psf$cx psf$sx div psf$llx sub psf$cy psf$sy div psf$ury sub TR
+/showpage{}N /erasepage{}N /copypage{}N /p 3 def @MacSetUp} def
+
+%% external switches :
+/fullpage true def % this is *not* in dictionary; superseded by winc.ps
+
+% This is "ewu", the very end of the wups* setup file.

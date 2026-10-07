@@ -1,0 +1,1110 @@
+C------------------------------------------------------------------------------
+C NeXus - Neutron & X-ray Common Data Format
+C
+C Application Program Interface (Fortran 77)
+C
+C Copyright (C) 1997-2002 Freddie Akeroyd, Mark Koennecke
+C
+C This library is free software; you can redistribute it and/or
+C modify it under the terms of the GNU Lesser General Public
+C License as published by the Free Software Foundation; either
+C version 2 of the License, or (at your option) any later version.
+C
+C This library is distributed in the hope that it will be useful,
+C but WITHOUT ANY WARRANTY; without even the implied warranty of
+C MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+C Lesser General Public License for more details.
+C
+C You should have received a copy of the GNU Lesser General Public
+C License along with this library; if not, write to the Free Software
+C Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+C
+C  For further information, see <http://www.nexusformat.org>
+C
+C $Id$
+C------------------------------------------------------------------------------
+
+C------------------------------------------------------------------------------
+C Doxygen comments follow
+C for help, see: http://www.stack.nl/~dimitri/doxygen/docblocks.html#fortranblocks
+C
+!> \mainpage Fortan 77 NeXus API
+!!
+!! The Fortran routines have the same names and argument lists as the
+!! corresponding C routines, which they call using wrappers. Some extra
+!! routines for handling input/output of character data and attributes
+!! have been added. Care must be taken to ensure enough space is allocated
+!! for the input/output operations being performed.
+!!
+!! It is necessary to reverse the order of indices in multidimensional
+!! arrays, compared to an equivalent C program, so that data are stored in
+!! the same order in the NeXus file.
+!!
+!! Any program using the F77 API needs to include the following line near
+!! the top in order to define the required constants (NXHANDLESIZE,
+!! NXLINKSIZE, etc.):
+!!
+!!       include 'NAPIF.INC'
+!!
+!! Use this table to convert from the C data types listed with each routine to the F77 data types:
+!!
+!! ==========================  ================================================
+!! C                           FORTRAN 77
+!! ==========================  ================================================
+!! int a, int* a               INTEGER A
+!! char* a                     CHARACTER*(*) A
+!! NXhandle a, NXhandle* a     INTEGER A(NXHANDLESIZE)
+!! NXstatus                    INTEGER
+!! int[] a                     INTEGER A(*)
+!! void* a                     REAL A(*) or DOUBLE A(*) or INTEGER A(*)
+!! NXlink a, NXlink* a         INTEGER A(NXLINKSIZE)
+!! ==========================  ================================================
+!<
+C------------------------------------------------------------------------------
+
+
+
+!> Return length of a string, ignoring trailing blanks
+!<
+      INTEGER FUNCTION TRUELEN(STRING)
+      CHARACTER*(*) STRING
+      DO TRUELEN=LEN(STRING),1,-1
+          IF (STRING(TRUELEN:TRUELEN) .NE. ' ' .AND.
+     &        STRING(TRUELEN:TRUELEN) .NE. CHAR(0) ) RETURN
+      ENDDO
+      TRUELEN = 0
+      END
+
+!> Convert FORTRAN string STRING into NULL terminated C string ISTRING
+!<
+      SUBROUTINE EXTRACT_STRING(ISTRING, LENMAX, STRING)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT8_T
+      CHARACTER*(*) STRING
+      INTEGER I,ILEN,TRUELEN,LENMAX
+      INTEGER(C_INT8_T) ISTRING(LENMAX)
+      EXTERNAL TRUELEN
+      ILEN = TRUELEN(STRING)
+      IF (ILEN .GE. LENMAX) THEN
+          WRITE(6,9000) LENMAX, ILEN+1
+          RETURN
+      ENDIF
+      DO I=1,ILEN
+          ISTRING(I) = ICHAR(STRING(I:I))
+      ENDDO
+      ISTRING(ILEN+1) = 0
+      RETURN
+ 9000 FORMAT('NeXus(NAPIF/EXTRACT_STRING): String too long -',
+     +       'buffer needs increasing from ', i4,' to at least ',i4)
+      END
+
+!> Convert NULL terminated C string ISTRING to FORTRAN string STRING
+!<
+      SUBROUTINE REPLACE_STRING(STRING, ISTRING)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT8_T
+      INTEGER(C_INT8_T) ISTRING(*)
+      CHARACTER*(*) STRING
+      INTEGER I
+      STRING = ' '
+      DO I=1,LEN(STRING)
+          IF (ISTRING(I) .EQ. 0) RETURN
+          STRING(I:I) = CHAR(ISTRING(I))
+      ENDDO
+      IF (ISTRING(LEN(STRING)+1) .NE. 0) WRITE(6,9010) LEN(STRING)
+      RETURN
+ 9010 FORMAT('NeXus(NAPIF/REPLACE_STRING): String truncated - ',
+     +  'buffer needs to be > ', I4)
+      END
+
+!> Wrapper routines for NXAPI interface
+!<
+      INTEGER FUNCTION NXOPEN(FILENAME, ACCESS_METHOD, FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      CHARACTER*(*) FILENAME
+      INTEGER(C_INT8_T) IFILENAME(256)
+      INTEGER ACCESS_METHOD
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIFOPEN
+      EXTERNAL NXIFOPEN
+      CALL EXTRACT_STRING(IFILENAME, 256, FILENAME)
+      NXOPEN = NXIFOPEN(IFILENAME, ACCESS_METHOD, FILEID)
+      END
+
+      INTEGER FUNCTION NXCLOSE(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIFCLOSE
+      EXTERNAL NXIFCLOSE
+      NXCLOSE = NXIFCLOSE(FILEID)
+      END
+
+      INTEGER FUNCTION NXFLUSH(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIFFLUSH
+      EXTERNAL NXIFFLUSH
+      NXFLUSH = NXIFFLUSH(FILEID)
+      END
+
+      INTEGER FUNCTION NXMAKEGROUP(FILEID, VGROUP, NXCLASS)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIMAKEGROUP
+      CHARACTER*(*) VGROUP, NXCLASS
+      INTEGER(C_INT8_T) IVGROUP(256), INXCLASS(256)
+      EXTERNAL NXIMAKEGROUP
+      CALL EXTRACT_STRING(IVGROUP, 256, VGROUP)
+      CALL EXTRACT_STRING(INXCLASS, 256, NXCLASS)
+      NXMAKEGROUP = NXIMAKEGROUP(FILEID, IVGROUP, INXCLASS)
+      END
+
+      INTEGER FUNCTION NXOPENGROUP(FILEID, VGROUP, NXCLASS)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIOPENGROUP
+      CHARACTER*(*) VGROUP, NXCLASS
+      INTEGER(C_INT8_T) IVGROUP(256), INXCLASS(256)
+      EXTERNAL NXIOPENGROUP
+      CALL EXTRACT_STRING(IVGROUP, 256, VGROUP)
+      CALL EXTRACT_STRING(INXCLASS, 256, NXCLASS)
+      NXOPENGROUP = NXIOPENGROUP(FILEID, IVGROUP, INXCLASS)
+      END
+
+      INTEGER FUNCTION NXOPENPATH(FILEID, PATH)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIOPENPATH
+      CHARACTER*(*) PATH
+      INTEGER(C_INT8_T)  IPATH(256)
+      EXTERNAL NXIOPENPATH
+      CALL EXTRACT_STRING(IPATH, 256, PATH)
+      NXOPENPATH = NXIOPENPATH(FILEID, IPATH)
+      END
+
+      INTEGER FUNCTION NXGETPATH(FILEID, PATH)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIFGETPATH
+      CHARACTER*(*) PATH
+      INTEGER(C_INT8_T) IPATH(1024)
+      INTEGER PLEN
+      EXTERNAL NXIFGETPATH
+      PLEN = 1024
+      NXGETPATH = NXIFGETPATH(FILEID,IPATH,PLEN)
+      CALL REPLACE_STRING(PATH,IPATH)
+      END
+
+      INTEGER FUNCTION NXOPENGROUPPATH(FILEID, PATH)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIOPENGROUPPATH
+      CHARACTER*(*) PATH
+      INTEGER(C_INT8_T) IPATH(256)
+      EXTERNAL NXIOPENGROUPPATH
+      CALL EXTRACT_STRING(IPATH, 256, PATH)
+      NXOPENGROUPPATH = NXIOPENGROUPPATH(FILEID, IPATH)
+      END
+
+      INTEGER FUNCTION NXCLOSEGROUP(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXICLOSEGROUP
+      EXTERNAL NXICLOSEGROUP
+      NXCLOSEGROUP = NXICLOSEGROUP(FILEID)
+      END
+
+C      INTEGER FUNCTION NXMAKEDATA(FILEID, LABEL, DATATYPE, RANK, DIM)
+C      INTEGER(C_INT, target :: FILEID(*), DATATYPE, RANK, DIM(*), NXIFMAKEDATA
+C      CHARACTER*(*) LABEL
+C      INTEGER*1 ILABEL(256)
+C      EXTERNAL NXIFMAKEDATA
+C      CALL EXTRACT_STRING(ILABEL, 256, LABEL)
+C      NXMAKEDATA = NXIFMAKEDATA(C_LOC(FILEID(1)), ILABEL, DATATYPE, RANK, DIM)
+C      END
+
+      INTEGER FUNCTION NXMAKEDATA_S(FILEID, LABEL, DATATYPE, RANK, DIM)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) DATATYPE, RANK, DIM, NXIFMAKEDATA
+      CHARACTER*(*) LABEL
+      INTEGER(C_INT8_T) ILABEL(256)
+      INTEGER(C_INT) DIMARR(1)
+      EXTERNAL NXIFMAKEDATA
+      CALL EXTRACT_STRING(ILABEL, 256, LABEL)
+
+C     Convert scalar DIM to a 1-element DIM array for the C/Fortran-bridge call
+      DIMARR(1) = DIM
+
+      NXMAKEDATA_S = NXIFMAKEDATA(FILEID, ILABEL, DATATYPE,
+     * RANK, DIMARR)
+      END
+
+      INTEGER FUNCTION NXMAKEDATA_A(FILEID, LABEL, DATATYPE, RANK, DIM)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) DATATYPE, RANK, DIM(*), NXIFMAKEDATA
+      CHARACTER*(*) LABEL
+      INTEGER(C_INT8_T) ILABEL(256)
+      EXTERNAL NXIFMAKEDATA
+      CALL EXTRACT_STRING(ILABEL, 256, LABEL)
+
+      NXMAKEDATA_A = NXIFMAKEDATA(FILEID, ILABEL, DATATYPE,
+     * RANK, DIM)
+      END
+
+
+
+      INTEGER FUNCTION NXCOMPMAKEDATA(FILEID, LABEL, DATATYPE, RANK,
+     &                                DIM, COMPRESSION_TYPE, CHUNK)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) DATATYPE, RANK, DIM(*)
+      INTEGER COMPRESSION_TYPE, CHUNK(*)
+      INTEGER NXIFCOMPMAKEDATA
+      CHARACTER*(*) LABEL
+      INTEGER(C_INT8_T) ILABEL(256)
+      EXTERNAL NXIFMAKEDATA
+      CALL EXTRACT_STRING(ILABEL, 256, LABEL)
+      NXCOMPMAKEDATA = NXIFCOMPMAKEDATA(FILEID, ILABEL, DATATYPE,
+     &                      RANK, DIM, COMPRESSION_TYPE, CHUNK)
+      END
+
+      INTEGER FUNCTION NXOPENDATA(FILEID, LABEL)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIOPENDATA
+      CHARACTER*(*) LABEL
+      INTEGER(C_INT8_T) ILABEL(256)
+      EXTERNAL NXIOPENDATA
+      CALL EXTRACT_STRING(ILABEL, 256, LABEL)
+      NXOPENDATA = NXIOPENDATA(FILEID, ILABEL)
+      END
+
+      INTEGER FUNCTION NXSETNUMBERFORMAT(FILEID, ITYPE, FORMAT)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXISETNUMBERFORMAT, ITYPE
+      CHARACTER*(*) FORMAT
+      INTEGER(C_INT8_T) ILABEL(256)
+      EXTERNAL NXISETNUMBERFORMAT
+      CALL EXTRACT_STRING(ILABEL, 256, FORMAT)
+      NXSETNUMBERFORMAT = NXISETNUMBERFORMAT(FILEID,
+     * ITYPE, ILABEL)
+      END
+
+      INTEGER FUNCTION NXCOMPRESS(FILEID, COMPR_TYPE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXIFCOMPRESS, COMPR_TYPE
+      EXTERNAL NXIFCOMPRESS
+      NXCOMPRESS = NXIFCOMPRESS(FILEID, COMPR_TYPE)
+      END
+
+      INTEGER FUNCTION NXCLOSEDATA(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT) :: FILEID(*)
+      INTEGER(C_INT) NXICLOSEDATA
+      EXTERNAL NXICLOSEDATA
+      NXCLOSEDATA = NXICLOSEDATA(FILEID)
+      END
+
+C      INTEGER FUNCTION NXGETDATA(FILEID, DATA)
+C      INCLUDE 'napif_iface.inc'
+C      INTEGER(C_INT, target :: FILEID(*), DATA(*), NXIGETDATA
+C      EXTERNAL NXIGETDATA
+C      NXGETDATA = NXIGETDATA(FILEID, DATA)
+C      END
+
+       INTEGER FUNCTION NXGETDATA_I4(FILEID, DATA) result(status)
+       use nexus_api, only: NXGETDATA_PTR
+       USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT,
+     * C_LOC
+       INTEGER(C_INT), target :: FILEID(*)
+       INTEGER(C_INT), target :: DATA
+       status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA))
+       END
+
+      INTEGER FUNCTION NXGETDATA_NI1(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T,
+     * C_LOC
+      INTEGER(C_INT), target    :: FILEID(*)
+      INTEGER(C_INT8_T), target :: DATA(*)
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXGETDATA_NI2(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT16_T,
+     * C_LOC
+      INTEGER(C_INT), target     :: FILEID(*)
+      INTEGER(C_INT16_T), target :: DATA(*)
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXGETDATA_NI4(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT,
+     * C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT), target :: DATA(*)
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXGETDATA_R4(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT,
+     * C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_FLOAT), target  :: DATA
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA))
+      END
+
+      INTEGER FUNCTION NXGETDATA_NR4(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT,
+     * C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_FLOAT), target  :: DATA(*)
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXGETDATA_R8(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE,
+     * C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_DOUBLE), target :: DATA
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA))
+      END
+
+      INTEGER FUNCTION NXGETDATA_NR8(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE,
+     * C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_DOUBLE), target :: DATA(*)
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+C      INTEGER FUNCTION NXGETDATA_PTR(FILEID, DATA)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_PTR,
+C     * c_float, C_LOC
+C      INTEGER(C_INT), target :: FILEID(*)!, NXIGETDATA
+C      TYPE(C_PTR), value :: DATA
+C      real(c_float), target :: ddata(4000)
+C      !EXTERNAL NXIGETDATA
+C      interface
+C      integer(c_int) function NXIGETDATA(handle, data)
+C     * bind(C, name="nxigetdata_")
+C          use, intrinsic :: iso_c_binding, only: c_int, c_ptr
+C          INTEGER(C_INT) handle(*)       ! if NXhandle is an void* handle
+C          type(c_ptr), value :: data          ! void* passed BY VALUE
+C      end function NXIGETDATA
+C      end interface
+C      print *, 'O1', DATA
+C      !DATA = c_loc(ddata(1))
+C      NXGETDATA_PTR = NXIGETDATA(FILEID, DATA)
+C      !NXGETDATA_PTR = NXIGETDATA(FILEID, c_loc(ddata(1)))
+C      END
+
+      INTEGER FUNCTION NXGETCHARDATA(FILEID, DATA) result(status)
+      use nexus_api, only: NXGETDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      CHARACTER*(*) DATA
+      INTEGER(C_INT) NX_ERROR,NX_IDATLEN
+      PARAMETER(NX_ERROR=0,NX_IDATLEN=1024)
+      INTEGER(C_INT8_T), target :: IDATA(NX_IDATLEN)
+C *** We need to zero IDATA as GETDATA doesn't NULL terminate character data,
+C *** and so we would get "buffer not big enough" messages from REPLACE_STRING
+      DO I=1,NX_IDATLEN
+          IDATA(I) = 0
+      ENDDO
+      status = NXGETDATA_PTR(C_LOC(FILEID(1)), C_LOC(IDATA(1)))
+      !NXGETCHARDATA = NXIGETDATA(FILEID, C_LOC(IDATA))
+      IF (status .NE. NX_ERROR) THEN
+          CALL REPLACE_STRING(DATA, IDATA)
+      ENDIF
+      END
+
+C      INTEGER FUNCTION NXGETSLAB(FILEID, DATA, START, SIZE)
+C      INTEGER(C_INT, target :: FILEID(*), DATA(*), START(*), SIZE(*)
+C      INTEGER NX_MAXRANK, NX_OK
+C      PARAMETER(NX_MAXRANK=32,NX_OK=1)
+C      INTEGER RANK, DIM(NX_MAXRANK), DATATYPE, I
+C      INTEGER CSTART(NX_MAXRANK), CSIZE(NX_MAXRANK)
+C      INTEGER NXIGETSLAB, NXGETINFO
+C      EXTERNAL NXIGETSLAB
+C      NXGETSLAB = NXGETINFO(FILEID, RANK, DIM, DATATYPE)
+C      IF (NXGETSLAB .NE. NX_OK) RETURN
+C      DO I = 1, RANK
+C         CSTART(I) = START(RANK-I+1) - 1
+C         CSIZE(I) = SIZE(RANK-I+1)
+C      ENDDO
+C      NXGETSLAB = NXIGETSLAB(FILEID, DATA, CSTART, CSIZE)
+C      END
+
+      INTEGER FUNCTION NXGETSLAB_NI4(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXGETSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: START(*), SIZE(*)
+      INTEGER(C_INT), target, CONTIGUOUS :: DATA(:,:)
+      status = NXGETSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXGETSLAB_NR4(FILEID, DATA, START, SIZE)
+     *  result(status)
+      use nexus_api, only: NXGETSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: START(*), SIZE(*)
+      REAL(C_FLOAT), target, CONTIGUOUS :: DATA(:,:)
+      status = NXGETSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXGETSLAB_NR8(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXGETSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: START(*), SIZE(*)
+      REAL(C_DOUBLE), target, CONTIGUOUS :: DATA(:,:)
+      status = NXGETSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)),
+     * START, SIZE)
+      END
+
+C      INTEGER FUNCTION NXGETSLAB_PTR(FILEID, DATA, START, SIZE)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_PTR
+C      INTEGER(C_INT), target :: FILEID(*), START(*), SIZE(*)
+C      TYPE(C_PTR) :: DATA
+C      INTEGER(C_INT) NX_MAXRANK,NX_OK
+C      PARAMETER(NX_MAXRANK=32,NX_OK=1)
+C      INTEGER(C_INT) RANK, DIM(NX_MAXRANK), DATATYPE, I
+C      INTEGER(C_INT) CSTART(NX_MAXRANK), CSIZE(NX_MAXRANK)
+C      INTEGER(C_INT) NXIGETSLAB, NXGETINFO
+C      EXTERNAL NXIGETSLAB
+C      NXGETSLAB = NXGETINFO(FILEID, RANK, DIM, DATATYPE)
+C      IF (NXGETSLAB .NE. NX_OK) RETURN
+C      DO I = 1, RANK
+C         CSTART(I) = START(RANK-I+1) - 1
+C         CSIZE(I) = SIZE(RANK-I+1)
+C      ENDDO
+C      NXGETSLAB_PTR = NXIGETSLAB(FILEID, DATA, CSTART, CSIZE)
+C      END
+
+C      INTEGER FUNCTION NXGETATTR(FILEID, NAME, DATA, DATALEN, TYPE)
+C      INCLUDE 'napif_iface.inc'
+C      INTEGER(C_INT, target :: FILEID(*),DATA(*),DATALEN,TYPE
+C      CHARACTER*(*) NAME
+C      INTEGER(FC_INT8_T) INAME(256)
+C      INTEGER NXIGETATTR
+C      EXTERNAL NXIGETATTR
+C      CALL EXTRACT_STRING(INAME, 256, NAME)
+C      NXGETATTR = NXIGETATTR(FILEID, INAME, DATA, DATALEN, TYPE)
+C      END
+
+      INTEGER FUNCTION NXGETATTR_I4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      INTEGER(C_INT), target:: DATA
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_NI1(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      INTEGER(C_INT8_T), target:: DATA(*)
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA(1)), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_NI2(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      INTEGER(C_INT8_T), target:: DATA(*)
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA(1)), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_NI4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      INTEGER(C_INT), target:: DATA(*)
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA(1)), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_R4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      REAL(C_FLOAT), target:: DATA
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_R8(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      REAL(C_DOUBLE), target:: DATA
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_NR4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      REAL(C_FLOAT), target:: DATA(*)
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA(1)), DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETATTR_NR8(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXGETATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT)         :: DATALEN,TYPE
+      REAL(C_DOUBLE), target:: DATA(*)
+      CHARACTER*(*) NAME
+      status = NXGETATTR_PTR(C_LOC(FILEID(1)), NAME,
+     * C_LOC(DATA(1)), DATALEN, TYPE)
+      END
+
+C      INTEGER FUNCTION NXGETATTR_PTR(FILEID, NAME, DATA, DATALEN, TYPE)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_PTR
+C      INTEGER(C_INT), target :: FILEID(*),DATALEN,TYPE
+C      TYPE(C_PTR) :: DATA
+C      CHARACTER*(*) NAME
+C      INTEGER(C_INT8_T) INAME(256)
+C      INTEGER(C_INT) NXIGETATTR
+C      EXTERNAL NXIGETATTR
+C      CALL EXTRACT_STRING(INAME, 256, NAME)
+C      NXGETATTR_PTR = NXIGETATTR(FILEID, INAME, DATA, DATALEN, TYPE)
+C      END
+
+      INTEGER FUNCTION NXGETCHARATTR(FILEID, NAME, DATA,
+     +                                 DATALEN, TYPE) result(status)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT) MAX_DATALEN,NX_ERROR
+      INTEGER(C_INT), target :: FILEID(*), DATALEN, TYPE
+      PARAMETER(MAX_DATALEN=1024,NX_ERROR=0)
+      CHARACTER*(*) NAME, DATA
+      INTEGER(C_INT8_T), target :: IDATA(MAX_DATALEN)
+      INTEGER(C_INT8_T) INAME(256)
+C      INTEGER NXIGETATTR
+      EXTERNAL NXIGETATTR
+      CALL EXTRACT_STRING(INAME, 256, NAME)
+      IF (DATALEN .GE. MAX_DATALEN) THEN
+          WRITE(6,9020) DATALEN, MAX_DATALEN
+          status=NX_ERROR
+          RETURN
+      ENDIF
+      status = NXIGETATTR(FILEID, INAME, C_LOC(IDATA),
+     * DATALEN, TYPE)
+      IF (status .NE. NX_ERROR) THEN
+          CALL REPLACE_STRING(DATA, IDATA)
+      ENDIF
+      RETURN
+ 9020 FORMAT('NXgetattr: asked for attribute size ', I4,
+     +       ' with buffer size only ', I4)
+      END
+
+C      INTEGER FUNCTION NXPUTDATA(FILEID, DATA)
+C      INCLUDE 'napif_iface.inc'
+C      INTEGER(C_INT, target :: FILEID(*), DATA(*)
+C      , NXIPUTDATA
+C      EXTERNAL NXIPUTDATA
+C      NXPUTDATA = NXIPUTDATA(FILEID, DATA)
+C      END
+
+      INTEGER FUNCTION NXPUTDATA_NI1(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT16_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT16_T), target :: DATA(*)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NI2(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT8_T), target :: DATA(*)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NI4(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT), target :: DATA(*)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NMI4(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT), target, CONTIGUOUS :: DATA(:,:)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NR4(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_FLOAT), target :: DATA(*)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NR8(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_DOUBLE), target :: DATA(*)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NMR4(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_FLOAT), target, CONTIGUOUS :: DATA(:,:)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)))
+      END
+
+      INTEGER FUNCTION NXPUTDATA_NMR8(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      REAL(C_DOUBLE), target, CONTIGUOUS :: DATA(:,:)
+      status = NXPUTDATA_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)))
+      END
+
+C      INTEGER FUNCTION NXPUTDATA_PTR(FILEID, DATA) result(status)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_PTR
+C      INTEGER(C_INT), target :: FILEID(*)
+C      TYPE(C_PTR) :: DATA
+C      EXTERNAL NXIPUTDATA
+C      NXPUTDATA_PTR = NXIPUTDATA(FILEID, DATA)
+C      END
+
+      INTEGER FUNCTION NXPUTCHARDATA(FILEID, DATA) result(status)
+      use nexus_api, only: NXPUTDATA_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+C      , NXIPUTDATA
+      CHARACTER*(*) DATA
+      INTEGER(C_INT8_T), target :: IDATA(1024)
+C      EXTERNAL NXIPUTDATA
+      CALL EXTRACT_STRING(IDATA, 1024, DATA)
+      status = NXIPUTDATA(C_LOC(FILEID(1)), C_LOC(IDATA(1)))
+      END
+
+C      INTEGER FUNCTION NXPUTSLAB(FILEID, DATA, START, SIZE)
+C      INTEGER(C_INT, target :: FILEID(*), DATA(*), START(*), SIZE(*)
+C      INTEGER NX_MAXRANK,NX_OK
+C      PARAMETER(NX_MAXRANK=32,NX_OK=1)
+C      INTEGER RANK, DIM(NX_MAXRANK), DATATYPE, I
+C      INTEGER CSTART(NX_MAXRANK), CSIZE(NX_MAXRANK)
+C      INTEGER NXIPUTSLAB, NXGETINFO
+C      EXTERNAL NXIPUTSLAB
+C      NXPUTSLAB = NXGETINFO(FILEID, RANK, DIM, DATATYPE)
+C      IF (NXPUTSLAB .NE. NX_OK) RETURN
+C      DO I = 1, RANK
+C         CSTART(I) = START(RANK-I+1) - 1
+C         CSIZE(I) = SIZE(RANK-I+1)
+C      ENDDO
+C      NXPUTSLAB = NXIPUTSLAB(FILEID, DATA, CSTART, CSIZE)
+C      END
+
+      INTEGER FUNCTION NXPUTSLAB_I4(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXPUTSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) START(*), SIZE(*)
+      INTEGER(C_INT), target :: DATA
+      status = NXPUTSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXPUTSLAB_NI4(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXPUTSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) START(*), SIZE(*)
+      INTEGER(C_INT), target :: DATA(*)
+      status = NXPUTSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXPUTSLAB_R8(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXPUTSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) START(*), SIZE(*)
+      REAL(C_DOUBLE), target :: DATA
+      status = NXPUTSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXPUTSLAB_NR8(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXPUTSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) START(*), SIZE(*)
+      REAL(C_DOUBLE), target :: DATA(*)
+      status = NXPUTSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1)),
+     * START, SIZE)
+      END
+
+      INTEGER FUNCTION NXPUTSLAB_NMR8(FILEID, DATA, START, SIZE)
+     * result(status)
+      use nexus_api, only: NXPUTSLAB_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) START(*), SIZE(*)
+      REAL(C_DOUBLE), target, CONTIGUOUS :: DATA(:,:) !Artem make buffer than copy
+      status = NXPUTSLAB_PTR(C_LOC(FILEID(1)), C_LOC(DATA(1,1)),
+     * START, SIZE)
+      END
+
+C      INTEGER FUNCTION NXPUTSLAB_PTR(FILEID, DATA, START, SIZE)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_PTR
+C      INTEGER(C_INT), target :: FILEID(*), START(*), SIZE(*)
+C      TYPE(C_PTR) :: DATA
+C      INTEGER(C_INT) NX_MAXRANK,NX_OK
+C      PARAMETER(NX_MAXRANK=32,NX_OK=1)
+C      INTEGER(C_INT) RANK, DIM(NX_MAXRANK), DATATYPE, I
+C      INTEGER(C_INT) CSTART(NX_MAXRANK), CSIZE(NX_MAXRANK)
+C      INTEGER(C_INT) NXIPUTSLAB, NXGETINFO
+C      EXTERNAL NXIPUTSLAB
+C      NXPUTSLAB = NXGETINFO(FILEID, RANK, DIM, DATATYPE)
+C      IF (NXPUTSLAB .NE. NX_OK) RETURN
+C      DO I = 1, RANK
+C         CSTART(I) = START(RANK-I+1) - 1
+C         CSIZE(I) = SIZE(RANK-I+1)
+C      ENDDO
+C      NXPUTSLAB_PTR = NXIPUTSLAB(FILEID, DATA, CSTART, CSIZE)
+C      END
+
+C      INTEGER FUNCTION NXPUTATTR(FILEID, NAME, DATA, DATALEN, TYPE)
+C      INCLUDE 'napif_iface.inc'
+C      INTEGER(C_INT, target :: FILEID(*), DATA(*), DATALEN, TYPE
+C      CHARACTER*(*) NAME
+C      INTEGER*1 INAME(256)
+C      INTEGER NXIFPUTATTR
+C      EXTERNAL NXIFPUTATTR
+C      CALL EXTRACT_STRING(INAME, 256, NAME)
+C      NXPUTATTR = NXIFPUTATTR(FILEID, INAME, DATA, DATALEN, TYPE)
+C      END
+
+      INTEGER FUNCTION NXPUTATTR_I1(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXPUTATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      INTEGER(C_INT8_T), target :: DATA
+      CHARACTER*(*) NAME
+      status = NXPUTATTR_PTR(C_LOC(FILEID(1)), NAME, C_LOC(DATA),
+     * DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXPUTATTR_I2(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXPUTATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT16_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      INTEGER(C_INT16_T), target :: DATA
+      CHARACTER*(*) NAME
+      status = NXPUTATTR_PTR(C_LOC(FILEID(1)), NAME, C_LOC(DATA),
+     * DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXPUTATTR_I4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXPUTATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      INTEGER(C_INT), target :: DATA
+      CHARACTER*(*) NAME
+      status = NXPUTATTR_PTR(C_LOC(FILEID(1)), NAME, C_LOC(DATA),
+     * DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXPUTATTR_R4(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXPUTATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_FLOAT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      REAL(C_FLOAT), target :: DATA
+      CHARACTER*(*) NAME
+      status = NXPUTATTR_PTR(C_LOC(FILEID(1)), NAME, C_LOC(DATA),
+     * DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXPUTATTR_R8(FILEID, NAME, DATA, DATALEN, TYPE)
+     * result(status)
+      use nexus_api, only: NXPUTATTR_PTR
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_DOUBLE, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      REAL(C_DOUBLE), target :: DATA
+      CHARACTER*(*) NAME
+      status = NXPUTATTR_PTR(C_LOC(FILEID(1)), NAME, C_LOC(DATA),
+     * DATALEN, TYPE)
+      END
+
+C      INTEGER FUNCTION NXPUTATTR_PTR(FILEID, NAME, DATA, DATALEN, TYPE)
+C      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_PTR
+C      INTEGER(C_INT), target :: FILEID(*), DATALEN, TYPE
+C      TYPE(C_PTR) :: DATA
+C      CHARACTER*(*) NAME
+C      INTEGER(C_INT8_T) INAME(256)
+C      EXTERNAL NXIFPUTATTR
+C      CALL EXTRACT_STRING(INAME, 256, NAME)
+C      NXPUTATTR_PTR = NXIFPUTATTR(FILEID, INAME, DATA,
+C     * DATALEN, TYPE)
+C      END
+
+      INTEGER FUNCTION NXPUTCHARATTR(FILEID, NAME, DATA,
+     +                                 DATALEN, TYPE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATALEN, TYPE
+      CHARACTER*(*) NAME, DATA
+      INTEGER(C_INT8_T) INAME(256)
+      INTEGER(C_INT8_T), target :: IDATA(1024)
+C      INTEGER NXIFPUTATTR
+C      EXTERNAL NXIFPUTATTR
+      CALL EXTRACT_STRING(INAME, 256, NAME)
+      CALL EXTRACT_STRING(IDATA, 1024, DATA)
+      NXPUTCHARATTR = NXIFPUTATTR(C_LOC(FILEID(1)), INAME, C_LOC(IDATA),
+     * DATALEN, TYPE)
+      END
+
+      INTEGER FUNCTION NXGETINFO(FILEID, RANK, DIM, DATATYPE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) RANK, DIM(*), DATATYPE
+      INTEGER I, J, NXIGETINFO
+      EXTERNAL NXIGETINFO
+      NXGETINFO = NXIGETINFO(C_LOC(FILEID(1)), RANK, DIM, DATATYPE)
+C *** Reverse dimension array as C is ROW major, FORTRAN column major
+      DO I = 1, RANK/2
+          J = DIM(I)
+          DIM(I) = DIM(RANK-I+1)
+          DIM(RANK-I+1) = J
+      ENDDO
+      END
+
+      INTEGER FUNCTION NXGETNEXTENTRY(FILEID, NAME, CLASS, DATATYPE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) DATATYPE
+      CHARACTER*(*) NAME, CLASS
+      INTEGER(C_INT8_T) INAME(256), ICLASS(256)
+      INTEGER(C_INT) NXIGETNEXTENTRY
+      EXTERNAL NXIGETNEXTENTRY
+      NXGETNEXTENTRY = NXIGETNEXTENTRY(C_LOC(FILEID(1)), INAME,
+     * ICLASS, DATATYPE)
+      CALL REPLACE_STRING(NAME, INAME)
+      CALL REPLACE_STRING(CLASS, ICLASS)
+      END
+
+      INTEGER FUNCTION NXGETNEXTATTR(FILEID, PNAME, ILENGTH, ITYPE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) ILENGTH, ITYPE, NXIGETNEXTATTR
+      CHARACTER*(*) PNAME
+      INTEGER(C_INT8_T) IPNAME(1024)
+      EXTERNAL NXIGETNEXTATTR
+      NXGETNEXTATTR = NXIGETNEXTATTR(C_LOC(FILEID(1)), IPNAME,
+     * ILENGTH, ITYPE)
+      CALL REPLACE_STRING(PNAME, IPNAME)
+      END
+
+      INTEGER FUNCTION NXGETGROUPID(FILEID, LINK)
+      use nexus_api, only: NXlink
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      type(NXlink) :: LINK(*)
+      INTEGER(C_INT) NXIGETGROUPID
+      EXTERNAL NXIGETGROUPID
+      NXGETGROUPID = NXIGETGROUPID(C_LOC(FILEID(1)), LINK)
+      END
+
+      INTEGER FUNCTION NXGETDATAID(FILEID, LINK)
+      use nexus_api, only: NXlink
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      type(NXlink) :: LINK(*)
+      INTEGER(C_INT) NXIGETDATAID
+      EXTERNAL NXIGETDATAID
+      NXGETDATAID = NXIGETDATAID(C_LOC(FILEID(1)), LINK)
+      END
+
+      INTEGER FUNCTION NXMAKELINK(FILEID, LINK)
+      use nexus_api, only: NXlink
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      type(NXlink) :: LINK(*)
+      INTEGER(C_INT) NXIMAKELINK
+      EXTERNAL NXIMAKELINK
+      NXMAKELINK = NXIMAKELINK(C_LOC(FILEID(1)), LINK)
+      END
+
+      INTEGER FUNCTION NXMAKENAMEDLINK(FILEID, PNAME, LINK)
+      use nexus_api, only: NXlink
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      type(NXlink) :: LINK(*)
+      INTEGER(C_INT) NXIMAKELINK
+      CHARACTER*(*) PNAME
+      INTEGER(C_INT8_T) INAME(256)
+      EXTERNAL NXIMAKENAMEDLINK
+      CALL EXTRACT_STRING(INAME,256,PNAME)
+      NXMAKENAMEDLINK = NXIMAKENAMEDLINK(C_LOC(FILEID(1)), INAME, LINK)
+      END
+
+      INTEGER FUNCTION NXOPENSOURCEGROUP(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXIOPENSOURCEGROUP
+      EXTERNAL NXIOPENSOURCEGROUP
+      NXOPENSOURCEGROUP = NXIOPENSOURCEGROUP(C_LOC(FILEID(1)))
+      END
+
+      LOGICAL FUNCTION NXSAMEID(FILEID, LINK1, LINK2)
+      use nexus_api, only: NXlink
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LONG, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      type(NXlink) :: LINK1(*), LINK2(*)
+      INTEGER(C_INT) NXISAMEID, STATUS
+      EXTERNAL NXISAMEID
+      STATUS = NXISAMEID(C_LOC(FILEID(1)), LINK1, LINK2)
+      IF (STATUS .EQ. 1) THEN
+         NXSAMEID = .TRUE.
+      ELSE
+         NXSAMEID = .FALSE.
+      ENDIF
+      END
+
+      INTEGER FUNCTION NXGETGROUPINFO(FILEID, NUM, NAME, CLASS)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NUM, NXIGETGROUPINFO
+      CHARACTER*(*) NAME, CLASS
+      INTEGER(C_INT8_T) INAME(256), ICLASS(256)
+      EXTERNAL NXIGETGROUPINFO
+      NXGETGROUPINFO = NXIGETGROUPINFO(C_LOC(FILEID(1)), NUM,
+     * INAME, ICLASS)
+      CALL REPLACE_STRING(NAME, INAME)
+      CALL REPLACE_STRING(CLASS, ICLASS)
+      END
+
+      INTEGER FUNCTION NXINITGROUPDIR(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXIINITGROUPDIR
+      EXTERNAL NXIINITGROUPDIR
+      NXINITGROUPDIR = NXIINITGROUPDIR(C_LOC(FILEID(1)))
+      END
+
+      INTEGER FUNCTION NXGETATTRINFO(FILEID, NUM)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NUM, NXIGETATTRINFO
+      EXTERNAL NXIGETATTRINFO
+      NXGETATTRINFO = NXIGETATTRINFO(C_LOC(FILEID(1)), NUM)
+      END
+
+      INTEGER FUNCTION NXINITATTRDIR(FILEID)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXIINITATTRDIR
+      EXTERNAL NXIINITATTRDIR
+      NXINITATTRDIR = NXIINITATTRDIR(C_LOC(FILEID(1)))
+      END
+
+      INTEGER FUNCTION NXISEXTERNALGROUP(FILEID, VGROUP, NXCLASS,NXURL)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXIISEXTERNALGROUP, LENGTH
+      CHARACTER*(*) VGROUP, NXCLASS, NXURL
+      INTEGER(C_INT8_T) IVGROUP(256), INXCLASS(256), INXURL(256)
+      EXTERNAL NXIISEXTERNALGROUP
+      LENGTH = 256
+      CALL EXTRACT_STRING(IVGROUP, 256, VGROUP)
+      CALL EXTRACT_STRING(INXCLASS, 256, NXCLASS)
+      NXISEXTERNALGROUP = NXIISEXTERNALGROUP(C_LOC(FILEID(1)), IVGROUP, INXCLASS,
+     &  INXURL,LENGTH)
+      CALL REPLACE_STRING(NXURL, INXURL)
+      END
+
+      INTEGER FUNCTION NXINQUIREFILE(FILEID, NXFILE)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXIINQUIREFILE, LENGTH
+      CHARACTER*(*) NXFILE
+      INTEGER(C_INT8_T) INXFILE (1024)
+      EXTERNAL NXIINQUIREFILE
+      LENGTH = 1023
+      NXINQUIREFILE = NXIINQUIREFILE(C_LOC(FILEID(1)),INXFILE, 1023)
+      CALL REPLACE_STRING(NXFILE, INXFILE)
+      END
+
+      INTEGER FUNCTION NXLINKEXTERNAL(FILEID, VGROUP, NXCLASS, NXURL)
+      USE, INTRINSIC :: ISO_C_BINDING, ONLY : C_INT, C_INT8_T, C_LOC
+      INTEGER(C_INT), target :: FILEID(*)
+      INTEGER(C_INT) NXILINKEXTERNAL
+      CHARACTER*(*) VGROUP, NXCLASS, NXURL
+      INTEGER(C_INT8_T) IVGROUP(256), INXCLASS(256), INXURL(1024)
+      EXTERNAL NXILINKEXTERNAL
+      CALL EXTRACT_STRING(IVGROUP, 256, VGROUP)
+      CALL EXTRACT_STRING(INXCLASS, 256, NXCLASS)
+      CALL EXTRACT_STRING(INXURL, 1023, NXURL)
+      NXLINKEXTERNAL = NXILINKEXTERNAL(C_LOC(FILEID(1)), IVGROUP,INXCLASS,
+     & INXURL)
+      END

@@ -1,0 +1,133 @@
+i00.f:
+        ERROR: i81.f: I couldn’t find any implementation of GETPARR() or GETDAT() for RRaw_IRSIn
+        ERROR: LiStackIO: Don't undestand how stack LiStackIO works JLMem, NJLMem was local varibles. Make them global, add initialization in start of programm.
+        add   83-84: INTEGER JLMem(MLM,MF), NJLMem(MLM), i, j; common /JLMEMORY/ JLMem, NJLMem;
+        add   90-97: JLMem=0 NJLMem=0
+        add to LiGetDef(): INTEGER nF, nFB, nFA; REAL*8 FMem; COMMON / OLM / FMem(Mmem), nFA(0:MB*MF), nFB(0:MF), nF; nF was undetermined
+        add to RRT_In_Foc(){CALL Compose3()}: trim(DirRaw) for convenience
+i01.f 
+        add 289-290: ELSE jpar = 0; K3K = 0; !Artem: Otherwise, the values may be random
+i10.f:
+	WARNING: Write (NU, '(a),err=91') -> Write (NU, '(a)',err=91)
+	replace format3= '(3(2x,g16.8))' -> format3= '(3(2x,g24.16))' !Artem: increase precision
+i30.f:
+        replace NAG 2x: M01DAF -> M01DAF_local
+        replace NAG 3x: M01EAF -> M01EAF_local
+        replace NAG 1x: M01ZAF -> M01ZAF_local
+        replace NAG 1x: D01GAF -> D01GAF_local
+i40.f:
+        replace :       MC6=6*MC -> MC10=10*MC+50
+        replace NAG 1x: E01BAF -> E01BAF_local
+        replace NAG 1x: E02BBF -> E02BBF_local
+        add     : SetGrid () : INTEGER, save::iModX, iCorr, K1sel, nC1, nK1, K2K(MK), j1in !Data persistence between entry points wasn’t guaranteed
+i41.f:
+        replace NAG 1x: M01DEF -> M01DEF_local
+        replace NAG 1x: M01ZAF -> M01ZAF_local
+i60.f:
+        replace NAG   : E04FCF -> lmdif
+        replace NAG   : E04YCF -> E04YCF_local
+        Add a covariance-matrix correction for the D(Y)-weighted least-squares algorithm:
+            IF (qFiErY) THEN
+	         call E04YCF_weighed_local(job, nCFit, nFitP, Delta, Fjac, CoVar, ipvt, wa1, ifail)
+      	    ELSE
+        	 call E04YCF_local(job, nCFit, nFitP, Delta, Fjac, CoVar, ipvt, wa1, ifail)
+        replace 771: ifail = 1 -> ifail = 0        
+        add     580: REAL*8 diag(MFP), qtf(MFP), wa1(MFP), wa2(MFP), wa3(MFP), wa4(MC)
+        add     582: REAL*8 ftol, xtol, gtol, epsfcn, factor
+        add     583: INTEGER ipvt(MFP), mode, info
+        add 776-782: ifail = 0; ftol = 0.d0; gtol = 0.d0; epsfcn = 0.d0; mode = 1; factor = 100.d0; info = 0;
+        add 791-792: Sum = ENORM(nCFit, Delta); Sum = Sum*Sum;
+        add     835: CALL CALCJAC_C(CuFitFunction_MP, nCFit, nFitP, FitPar, Fjac)
+        improvement 824,828: g9.2 -> g16.7 increase output precision
+i66.f:
+        replace NAG 4x: S15AEF -> ERF
+        replace NAG 7x: S17AEF -> dbesi0
+        replace NAG 5x: S17AFF -> dbesi1
+        replace NAG 1x: S17DEF -> dbesi
+        replace       : jidnnt -> NINT
+        Looks like ERROR: 2473: RFNU = ERF(FNU); RFNU1 = ERF (FNU); FNU1 didn't use
+i70.f:
+        add     651: INTEGER count, rate, maxc
+        add     652: REAL rseed
+        add     655: real, external :: rand
+        replace NAG 1x: G05CCF -> rand
+        replace NAG 1x: G05CBF -> rand
+        replace NAG 4x: g05caf -> rand
+i71.f:
+        add     651: INTEGER count, rate, maxc
+        add     652: REAL rseed
+        add     655: real, external :: rand
+        replace NAG 2x: C06FAF -> rfftf
+        replace NAG 1x: C06FBF -> cfftf
+i75.f:
+        replace NAG 2x:  C06FCF -> cfftf
+        replace NAG 1x:  C06GCF -> rfftf
+i88.f:
+	WARNING: CALL rOlfP (j, 'FP', 'm', FPath(0), Fehler) -> CALL rOlfP (j, 'FP', 'm', FPath(1), Fehler)
+i80_focus.f:
+	ERROR: Read (*,'(a\)') Filefans -> Read (*,'(A)') Filefans
+	ERROR: Read (*,'(a\)') Filebt2  -> Read (*,'(A)') Filebt2
+	ERROR: Read (*,'(a\)') FilePSI  -> Read (*,'(A)') FilePSI
+	ERROR: SUBROUTINE RRT_InSub add: CHARACTER*80  LisK
+	ERROR: IF (qOutE.eq. .false.) THEN -> IF (qOutE .eqv. .false.) THEN
+	ERROR: SUBROUTINE RRT_In_Hfbso add:  CHARACTER*80   Title, File, LongTit
+	ERROR: SUBROUTINE RRT_In_BT2 add:  CHARACTER*40   Filebt2, Listbt2, Bt2ext, FilePSI, ListFans
+	ERROR: SUBROUTINE RRT_In_Fcs add:  CHARACTER*(*) LongTit, Fehler, DirRaw
+	ERROR: SUBROUTINE RRT_In_Foc add:  CHARACTER*(*) LongTit, Fehler, DirRaw
+	ERROR: IF(NXGETDATA(FILEID,titel) .NE. NX_OK) THEN -> IF(NXGETCHARDATA(FILEID,titel) .NE. NX_OK) THEN
+	ERROR: IF(NXGETDATA(FILEID,StartTime).NE. NX_OK) THEN -> IF(NXGETCHARDATA(FILEID,StartTime).NE. NX_OK) THEN
+        ERROR: SUBROUTINE GetData add:     CHARACTER exp*10, date*18, Titlea*80
+        ERROR: IF (qAskD('output S(2th,w)',qiz)) THEN -> IF (qAskD('output S(2th,w)',merge(1, 0, qiz))) THEN
+        ERROR: qMon = qAskD ('Normalization to monitor', qMon) -> qMon = qAskD ('Normalization to monitor', merge(1, 0, qMon))
+        ERROR: CALL rOlfP (j, 'FP', 'm', FPath, Fehler) -> CALL rOlfP (j, 'FP', 'm', FPath(1), Fehler)
+        ERROR: CALL OlfPutSpe (jout+1, 1, 1, 0, nE, XE,rMon,D,Fehler) -> CALL OlfPutSpe (jout+1, 1, 1, 0.0d0, nE, XE,rMon,D,Fehler)
+        ERROR: CALL OlfPutSpe (jout+1,1,1,10,nE, Z, rMin,D1,Fehler) -> CALL OlfPutSpe (jout+1,1,1,10.0d0,nE, Z, rMin,D1,Fehler)
+        ERROR: rMonD=rAskDMu('Base Number of Monitor to normalize on', rMonD,1,rMon*rPrf) -> rMonD=rAskDMu('Base Number of Monitor to normalize on', rMonD
+,1.0d0,rMon*rPrf)
+        ERROR: CALL OlfPutSpe (jout, 1, 1, 1, nE, rQX , Y, D, Fehler) -> CALL OlfPutSpe (jout, 1, 1, 1.0d0, nE, rQX , Y, D, Fehler)
+        ERROR: CALL OlfPutSpe (jout, 1, 1, 1, nE , X , Y, D, Fehler) -> CALL OlfPutSpe (jout, 1, 1, 1.0d0, nE , X , Y, D, Fehler)
+        INTEGER       FILEID(NXHANDLESIZE), STATUS, iBank, iyear -> INTEGER       FILEID(NXHANDLESIZE), STATUS, iBank, iyear
+        replace      2x: jidnnt -> NINT
+        replace: t_o_f(aaa) = t_o_f(aaa) + (t_o_f(2)-t_o_f(1))/2.0 -> t_o_f(aaa) = t_o_f(aaa) + Cwidth*0.5 
+        remove: IF(K.eq.330) THEN Y(i)=0.0; D(i)=0.0;
+        replace: Y(i)=REAL(counts(i+(nC*(K-1)))) -> Y(i)=REAL(counts(i+((nC+1)*(K-1))))
+
+
+i94.f
+	WARNING:  Write (nPRT,'(1x,12e10.3))') ->  Write (nPRT,'(1x,12e10.3)')
+	WARNING:  Print '(a,i9))' -> Print '(a,i9)'
+	WARNING:  Print '(a,i9,a,f5.2,a,f6.4))' -> Print '(a,i9,a,f5.2,a,f6.4)'
+	WARNING:  Print '(a,i9,a,f5.2,a))' -> Print '(a,i9,a,f5.2,a)'
+	WARNING:  Write (nPRT, '(a,2i3,3f9.4))') -> Write (nPRT, '(a,2i3,3f9.4)')
+	WARNING:  Write (nPRT, '(a,3f9.4))') -> Write (nPRT, '(a,3f9.4)')
+	ERROR:    * 1, TarH/2, TarR4, 0d0, x, y, 0d0) ->  * 1, TarH/2, TarR4, 0d0, x, y, 0d0, Fehler)
+	ERROR:    * 2, TarH/2, TarR4+TarD4, TarR4, x, y, 0d0) -> * 2, TarH/2, TarR4+TarD4, TarR4, x, y, 0d0, Fehler)
+	replace NAG 1x: G05CCF -> rand
+        replace NAG 1x: G05CBF -> rand
+        replace NAG 6x: G05DAF -> rand
+        replace NAG 7x: G05CAF -> rand
+        replace NAG 1x: M01DAF -> M01DAF_local
+        replace NAG 2x: M01EAF -> M01EAF_local
+        replace NAG 1x: M01EBF -> M01EBF_local
+        
+        
+l3.f
+	ERROR:    Task(MLT) = '\i >' - > Task(MLT:) = '\i >'
+	          CHARACTER*80     Task -> CHARACTER*80     Task(MLT); CHARACTER*80 -> CHARACTER*83
+	          COMMON /  ML  /  InUnit, qSave, Task(MLT) -> COMMON /  ML  /  InUnit, qSave, Task
+	          
+i0x11.f
+	ERROR:    CALL Time (s) replaced DATE_AND_TIME(DateCH, TimeCH, ZoneCH, VALUES)
+i_dif.f:
+	add MLM=8: Move MLM from a local parameter in i00.f (LiStackIO()) to a global definition.
+dgeco.f
+        ERROR: ipvt(1), a(lda,1),z(1) -> ipvt(n), a(lda,n),z(n)
+dgefa.f
+        ERROR: ipvt(1), a(lda,1) -> ipvt(n), a(lda,n)
+dgedi.f
+        ERROR: ipvt(1), a(lda,1),work(1) -> ipvt(n), a(lda,n),work(n)
+
+NeXus (NAPI) Fortran interface helpers:        
+	a_napif_module.f
+	napi.h.in
+	napif_iface.inc
